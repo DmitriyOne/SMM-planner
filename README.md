@@ -37,6 +37,18 @@ docker exec -it nest_backend sh
 npx prisma migrate dev --name "init"
 ```
 
+## Заполнить Prisma
+Чтобы заполнить базу данных первыми данными запусти:
+
+```sh
+docker exec -it nest_backend sh
+```
+
+```sh
+npx prisma db seed
+```
+
+
 ## Работа с базой данных PostgreSQL
 
 ### Получение списка всех таблиц в схеме public
