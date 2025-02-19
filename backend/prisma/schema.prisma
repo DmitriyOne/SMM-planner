@@ -20,4 +20,6 @@ model Post {
   image       String?
   isPublish   Boolean  @default(false)
   isApproved  Boolean? @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
