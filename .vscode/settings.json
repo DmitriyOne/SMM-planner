@@ -1,0 +1,17 @@
+{
+  "material-icon-theme.activeIconPack": "nest",
+  "material-icon-theme.files.associations": {
+    "backend": "nestjs",
+    "frontend": "react"
+  },
+  "explorer.compactFolders": false,
+  "cSpell.words": [
+    "autoincrement",
+    "healthcheck",
+    "isready",
+    "pgdata"
+  ],
+  // "[prisma]": {
+  //   "editor.defaultFormatter": "Prisma.prisma"
+  // },
+}
