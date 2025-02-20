@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['prettier', '@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -23,11 +23,11 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/semi': ['warn', 'never'],
-    '@typescript-eslint/object-curly-spacing': ["warn", "always"],
-    '@typescript-eslint/space-before-blocks': ["warn", "always"],
-    '@typescript-eslint/quotes': ["warn", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
-    '@typescript-eslint/comma-dangle': ["warn", "always-multiline"],
-    '@typescript-eslint/comma-spacing': ["warn", { "before": false, "after": true }],
-    '@typescript-eslint/key-spacing': ["warn", { "afterColon": true }]
+    '@typescript-eslint/object-curly-spacing': ['warn', 'always'],
+    '@typescript-eslint/space-before-blocks': ['warn', 'always'],
+    '@typescript-eslint/quotes': ['warn', 'single', { 'avoidEscape': true, 'allowTemplateLiterals': true }],
+    '@typescript-eslint/comma-dangle': ['warn', 'always-multiline'],
+    '@typescript-eslint/comma-spacing': ['warn', { 'before': false, 'after': true }],
+    '@typescript-eslint/key-spacing': ['warn', { 'afterColon': true }],
   },
 };
