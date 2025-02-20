@@ -8,10 +8,6 @@ import { FindPostsDto } from './dto/find-posts.dto'
 export class PostsService {
   constructor(private prismaService: PrismaService) {}
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post'
-  }
-
   findAll(findPostsDto: FindPostsDto) {
     if (!findPostsDto || Object.keys(findPostsDto).length === 0) {
       return this.prismaService.post.findMany()
@@ -32,7 +28,11 @@ export class PostsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} post`
+    return this.prismaService.post.findUnique({ where: { id } })
+  }
+
+  create(createPostDto: CreatePostDto) {
+    return 'This action adds a new post'
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {

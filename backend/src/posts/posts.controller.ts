@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common'
+import { Controller, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
@@ -18,22 +18,23 @@ export class PostsController {
     return this.postsService.findAll(findPostsDto)
   }
 
+  @HttpCode(200)
+  @Post(PREFIX.ID)
+  findOne(@Param('id') id: string) {
+    return this.postsService.findOne(+id)
+  }
+
   @Post('/create')
   create(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id)
-  }
-
-  @Patch(':id')
+  @Patch(PREFIX.ID)
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postsService.update(+id, updatePostDto)
   }
 
-  @Delete(':id')
+  @Delete(PREFIX.ID)
   remove(@Param('id') id: string) {
     return this.postsService.remove(+id)
   }
