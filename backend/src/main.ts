@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { PREFIX } from './constants/prefix.constant'
-import { Logger } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 async function bootstrap() {
@@ -9,6 +9,8 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap')
 
   app.enableShutdownHooks()
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
 
   app.setGlobalPrefix(PREFIX.getGlobal())
 
