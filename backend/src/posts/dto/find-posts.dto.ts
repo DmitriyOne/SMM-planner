@@ -5,10 +5,10 @@ export class FindPostsDto {
   @IsBoolean()
   @IsOptional()
   @ApiProperty({ required: false, default: false })
-  isPublish?: boolean = false
+  isPublish?: boolean
 
   @IsBoolean()
   @IsOptional()
   @ApiProperty({ required: false, default: false })
-  isApproved?: boolean = false
+  isApproved?: boolean
 }

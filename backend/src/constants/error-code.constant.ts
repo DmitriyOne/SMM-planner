@@ -1,0 +1,1 @@
+export const PRISMA_ERROR_CODE_UNIQUE = 'P2002'
