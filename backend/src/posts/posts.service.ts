@@ -27,12 +27,12 @@ export class PostsService {
     })
   }
 
-  findOne(id: number) {
-    return this.prismaService.post.findUnique({ where: { id } })
+  create(createPostDto: CreatePostDto) {
+    return this.prismaService.post.create({ data: createPostDto })
   }
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post'
+  findOne(id: number) {
+    return this.prismaService.post.findUnique({ where: { id } })
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {

@@ -18,15 +18,15 @@ export class PostsController {
     return this.postsService.findAll(findPostsDto)
   }
 
+  @Post(PREFIX.CREATE)
+  create(@Body() createPostDto: CreatePostDto) {
+    return this.postsService.create(createPostDto)
+  }
+
   @HttpCode(200)
   @Post(PREFIX.ID)
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(+id)
-  }
-
-  @Post('/create')
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto)
   }
 
   @Patch(PREFIX.ID)

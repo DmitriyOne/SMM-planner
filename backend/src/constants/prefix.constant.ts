@@ -3,6 +3,7 @@ export const PREFIX = {
   VERSION: 'v1',
   POSTS: 'posts',
   ID: ':id',
+  CREATE: 'create',
   SWAGGER: 'swagger',
   getGlobal() {
     return `${this.BASE_GLOBAL}/${this.VERSION}`
