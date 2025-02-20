@@ -17,14 +17,16 @@ export class UsersController {
   @HttpCode(200)
   @Post()
   @ApiOkResponse({ type: UserEntity, isArray: true })
-  findAll() {
-    return this.usersService.findAll()
+  async findAll() {
+    const allUsers = await this.usersService.findAll()
+    return allUsers.map((user) => new UserEntity(user))
   }
 
   @Post(PREFIX.CREATE)
   @ApiOkResponse({ type: CreateUserDto })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto)
+  async create(@Body() createUserDto: CreateUserDto) {
+    const newUser = await this.usersService.create(createUserDto)
+    return new UserEntity(newUser)
   }
 
   @Patch(PREFIX.ID)
@@ -36,7 +38,7 @@ export class UsersController {
       throw new NotFoundException(USER_NOT_FOUND_BY_ID_MSG(id))
     }
 
-    return updatedUser
+    return new UserEntity(updatedUser)
   }
 
   @HttpCode(200)
@@ -49,7 +51,7 @@ export class UsersController {
       throw new NotFoundException(USER_NOT_FOUND_BY_ID_MSG(id))
     }
 
-    return user
+    return new UserEntity(user)
   }
 
   @Delete(PREFIX.ID)
