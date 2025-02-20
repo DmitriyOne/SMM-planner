@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { Post } from '@prisma/client'
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator'
 
-type TCreatePost = Omit<Post, 'id' | 'createdAt' | 'updatedAt'>
+type TCreatePost = Omit<Post, 'id' | 'createdAt' | 'updatedAt' | 'authorId'>
 
 export class CreatePostDto implements TCreatePost {
   @IsString()

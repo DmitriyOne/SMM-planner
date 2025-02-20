@@ -1,1 +1,2 @@
 export const PRISMA_ERROR_CODE_UNIQUE = 'P2002'
+export const PRISMA_ERROR_CODE_UUID = 'P2023'
