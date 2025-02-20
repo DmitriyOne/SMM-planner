@@ -43,6 +43,6 @@ export class PostsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} post`
+    return this.prismaService.post.delete({ where: { id } })
   }
 }

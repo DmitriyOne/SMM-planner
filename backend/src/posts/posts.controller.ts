@@ -35,7 +35,9 @@ export class PostsController {
   }
 
   @Delete(PREFIX.ID)
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id)
+  async remove(@Param('id') id: string) {
+    const deletedPost = await this.postsService.remove(+id)
+
+    return `Post ${deletedPost.id} was deleted`
   }
 }
