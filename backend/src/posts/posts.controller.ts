@@ -1,20 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  HttpCode,
-} from '@nestjs/common';
-import { PostsService } from './posts.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { PREFIX } from 'src/constants/prefix.constant';
-import { FindPostsDto } from './dto/find-posts.dto';
-import { ApiOkResponse } from '@nestjs/swagger';
-import { PostEntity } from './entities/post.entity';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common'
+import { PostsService } from './posts.service'
+import { CreatePostDto } from './dto/create-post.dto'
+import { UpdatePostDto } from './dto/update-post.dto'
+import { PREFIX } from 'src/constants/prefix.constant'
+import { FindPostsDto } from './dto/find-posts.dto'
+import { ApiOkResponse } from '@nestjs/swagger'
+import { PostEntity } from './entities/post.entity'
 
 @Controller(PREFIX.POSTS)
 export class PostsController {
@@ -24,26 +15,26 @@ export class PostsController {
   @ApiOkResponse({ type: PostEntity, isArray: true })
   @Post()
   findAll(@Body() findPostsDto: FindPostsDto) {
-    return this.postsService.findAll(findPostsDto);
+    return this.postsService.findAll(findPostsDto)
   }
 
   @Post('/create')
   create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+    return this.postsService.create(createPostDto)
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+    return this.postsService.findOne(+id)
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
+    return this.postsService.update(+id, updatePostDto)
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+    return this.postsService.remove(+id)
   }
 }

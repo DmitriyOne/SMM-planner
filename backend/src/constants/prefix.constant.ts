@@ -4,6 +4,6 @@ export const PREFIX = {
   POSTS: 'posts',
   SWAGGER: 'swagger',
   getGlobal() {
-    return `${this.BASE_GLOBAL}/${this.VERSION}`;
+    return `${this.BASE_GLOBAL}/${this.VERSION}`
   },
-};
+}

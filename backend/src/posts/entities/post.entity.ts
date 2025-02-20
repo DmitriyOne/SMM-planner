@@ -1,28 +1,28 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Post } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger'
+import { Post } from '@prisma/client'
 
 export class PostEntity implements Post {
   @ApiProperty()
-  id: number;
+  id: number
 
   @ApiProperty()
-  title: string;
+  title: string
 
   @ApiProperty()
-  description: string;
+  description: string
 
   @ApiProperty({ required: false, nullable: true })
-  image: string;
+  image: string
 
   @ApiProperty()
-  isPublish: boolean;
+  isPublish: boolean
 
   @ApiProperty({ required: false, nullable: true })
-  isApproved: boolean;
+  isApproved: boolean
 
   @ApiProperty()
-  createdAt: Date;
+  createdAt: Date
 
   @ApiProperty()
-  updatedAt: Date;
+  updatedAt: Date
 }
