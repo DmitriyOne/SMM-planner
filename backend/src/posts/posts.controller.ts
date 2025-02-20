@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common'
+import { Controller, Post, Body, Patch, Param, Delete, HttpCode, ParseIntPipe } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
@@ -30,20 +30,20 @@ export class PostsController {
   @HttpCode(200)
   @Post(PREFIX.ID)
   @ApiOkResponse({ type: PostEntity })
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id)
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.postsService.findOne(id)
   }
 
   @Patch(PREFIX.ID)
   @ApiOkResponse({ type: PostEntity })
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto)
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatePostDto: UpdatePostDto) {
+    return this.postsService.update(id, updatePostDto)
   }
 
   @Delete(PREFIX.ID)
   @ApiOkResponse({ type: DeletePostResponseDto })
-  async remove(@Param('id') id: string): Promise<DeletePostResponseDto> {
-    const deletedPost = await this.postsService.remove(+id)
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<DeletePostResponseDto> {
+    const deletedPost = await this.postsService.remove(id)
 
     return { message: `Post ${deletedPost.id} was deleted` }
   }
