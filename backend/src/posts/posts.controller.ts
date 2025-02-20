@@ -6,24 +6,30 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PREFIX } from 'src/constants/prefix.constant';
+import { FindPostsDto } from './dto/find-posts.dto';
+import { ApiOkResponse } from '@nestjs/swagger';
+import { PostEntity } from './entities/post.entity';
 
 @Controller(PREFIX.POSTS)
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @HttpCode(200)
+  @ApiOkResponse({ type: PostEntity, isArray: true })
   @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  findAll(@Body() findPostsDto: FindPostsDto) {
+    return this.postsService.findAll(findPostsDto);
   }
 
-  @Get()
-  findAll() {
-    return this.postsService.findAll();
+  @Post('/create')
+  create(@Body() createPostDto: CreatePostDto) {
+    return this.postsService.create(createPostDto);
   }
 
   @Get(':id')

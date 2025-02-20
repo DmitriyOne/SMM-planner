@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { FindPostsDto } from './dto/find-posts.dto';
 
 @Injectable()
 export class PostsService {
@@ -11,8 +12,25 @@ export class PostsService {
     return 'This action adds a new post';
   }
 
-  findAll() {
-    return `This action returns all posts`;
+  findAll(findPostsDto: FindPostsDto) {
+    if (!findPostsDto || Object.keys(findPostsDto).length === 0) {
+      return this.prismaService.post.findMany();
+    }
+
+    return this.prismaService.post.findMany({
+      where: {
+        AND: [
+          findPostsDto.isPublish !== null &&
+          findPostsDto.isPublish !== undefined
+            ? { isPublish: findPostsDto.isPublish }
+            : {},
+          findPostsDto.isApproved !== null &&
+          findPostsDto.isApproved !== undefined
+            ? { isApproved: findPostsDto.isApproved }
+            : {},
+        ],
+      },
+    });
   }
 
   findOne(id: number) {
