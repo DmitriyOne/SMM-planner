@@ -21,5 +21,13 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/semi': ['warn', 'never'],
+    '@typescript-eslint/object-curly-spacing': ["warn", "always"],
+    '@typescript-eslint/space-before-blocks': ["warn", "always"],
+    '@typescript-eslint/quotes': ["warn", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    '@typescript-eslint/comma-dangle': ["warn", "always-multiline"],
+    '@typescript-eslint/comma-spacing': ["warn", { "before": false, "after": true }],
+    '@typescript-eslint/key-spacing': ["warn", { "afterColon": true }]
   },
 };
