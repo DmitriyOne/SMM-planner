@@ -25,4 +25,7 @@ export class PostEntity implements Post {
 
   @ApiProperty()
   updatedAt: Date
+
+  @ApiProperty({ required: false, nullable: true })
+  authorId: string
 }
