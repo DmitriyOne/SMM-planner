@@ -1,7 +1,7 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core'
+import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { PREFIX } from './constants/prefix.constant'
-import { Logger, ValidationPipe } from '@nestjs/common'
+import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter'
 
@@ -12,6 +12,7 @@ async function bootstrap() {
   app.enableShutdownHooks()
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
 
   app.setGlobalPrefix(PREFIX.getGlobal())
 

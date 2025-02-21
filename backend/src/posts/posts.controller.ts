@@ -18,14 +18,16 @@ export class PostsController {
   @HttpCode(200)
   @Post()
   @ApiOkResponse({ type: PostEntity, isArray: true })
-  findAll(@Body() findPostsDto: FindPostsDto) {
-    return this.postsService.findAll(findPostsDto)
+  async findAll(@Body() findPostsDto: FindPostsDto) {
+    const allPosts = await this.postsService.findAll(findPostsDto)
+    return allPosts.map((post) => new PostEntity(post))
   }
 
   @Post(PREFIX.CREATE)
   @ApiOkResponse({ type: CreatePostDto })
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto)
+  async create(@Body() createPostDto: CreatePostDto) {
+    const newPost = await this.postsService.create(createPostDto)
+    return new PostEntity(newPost)
   }
 
   @HttpCode(200)
@@ -38,7 +40,7 @@ export class PostsController {
       throw new NotFoundException(POST_NOT_FOUND_BY_ID_MSG(id))
     }
 
-    return post
+    return new PostEntity(post)
   }
 
   @Patch(PREFIX.ID)
@@ -50,7 +52,7 @@ export class PostsController {
       throw new NotFoundException(POST_NOT_FOUND_BY_ID_MSG(id))
     }
 
-    return updatedPost
+    return new PostEntity(updatedPost)
   }
 
   @Delete(PREFIX.ID)
