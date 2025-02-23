@@ -16,7 +16,7 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @HttpCode(200)
-  @Post()
+  @Post(PREFIX.ALL)
   @ApiOkResponse({ type: PostEntity, isArray: true })
   async findAll(@Body() findPostsDto: FindPostsDto) {
     const allPosts = await this.postsService.findAll(findPostsDto)

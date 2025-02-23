@@ -15,7 +15,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @HttpCode(200)
-  @Post()
+  @Post(PREFIX.ALL)
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async findAll() {
     const allUsers = await this.usersService.findAll()

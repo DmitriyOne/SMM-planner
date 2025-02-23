@@ -2,6 +2,7 @@ export const PREFIX = {
   BASE_GLOBAL: 'api',
   VERSION: 'v1',
   POSTS: 'posts',
+  ALL: 'all',
   ID: ':id',
   CREATE: 'create',
   SWAGGER: 'swagger',
