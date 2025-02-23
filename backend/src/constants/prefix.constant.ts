@@ -6,6 +6,8 @@ export const PREFIX = {
   CREATE: 'create',
   SWAGGER: 'swagger',
   USERS: 'users',
+  AUTH: 'auth',
+  LOGIN: 'login',
   getGlobal() {
     return `${this.BASE_GLOBAL}/${this.VERSION}`
   },

@@ -4,9 +4,21 @@ import { AppService } from './app.service'
 import { PrismaModule } from './prisma/prisma.module'
 import { PostsModule } from './posts/posts.module'
 import { UsersModule } from './users/users.module'
+import { AuthModule } from './auth/auth.module'
+import { JwtModule } from '@nestjs/jwt'
 
 @Module({
-  imports: [PrismaModule, PostsModule, UsersModule],
+  imports: [
+    PrismaModule,
+    PostsModule,
+    UsersModule,
+    AuthModule,
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
