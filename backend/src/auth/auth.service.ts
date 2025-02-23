@@ -3,6 +3,7 @@ import { UsersService } from 'src/users/users.service'
 import { AuthLoginDto } from './dto/login.dto'
 import { AuthEntity } from './entities/auth.entity'
 import { JwtService } from '@nestjs/jwt'
+import { IJwtPayload } from 'src/common/interfaces/jwt.interface'
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password')
     }
 
-    const payload = { sub: user.id, email: user.email }
+    const payload: IJwtPayload = { sub: user.id, email: user.email }
 
     return {
       accessToken: await this.jwtService.signAsync(payload),
