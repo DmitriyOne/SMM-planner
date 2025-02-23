@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Delete, HttpCode, NotFoundException } from '@nestjs/common'
+import { Controller, Post, Body, Patch, Param, Delete, HttpCode, NotFoundException, Get } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -15,7 +15,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @HttpCode(200)
-  @Post(PREFIX.ALL)
+  @Get(PREFIX.ALL)
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async findAll() {
     const allUsers = await this.usersService.findAll()
@@ -42,7 +42,7 @@ export class UsersController {
   }
 
   @HttpCode(200)
-  @Post(PREFIX.ID)
+  @Get(PREFIX.ID)
   @ApiOkResponse({ type: UserEntity })
   async findOne(@Param('id') id: string) {
     const user = await this.usersService.findOne(id)
