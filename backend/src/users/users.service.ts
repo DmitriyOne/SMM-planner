@@ -11,8 +11,8 @@ export class UsersService {
     return this.prismaService.user.findMany()
   }
 
-  findOne(id: string) {
-    return this.prismaService.user.findUnique({ where: { id } })
+  findOne(email: string) {
+    return this.prismaService.user.findUnique({ where: { email } })
   }
 
   create(createUserDto: CreateUserDto) {
