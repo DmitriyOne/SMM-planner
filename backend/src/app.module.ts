@@ -8,9 +8,21 @@ import { AuthModule } from './auth/auth.module'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard'
 import { RolesAuthGuard } from './auth/guard/roles-auth.guard'
+import { ConfigModule } from '@nestjs/config'
+import { validateConfig } from './common/configs/validate.config'
 
 @Module({
-  imports: [PrismaModule, PostsModule, UsersModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+      validate: validateConfig,
+    }),
+    PrismaModule,
+    PostsModule,
+    UsersModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

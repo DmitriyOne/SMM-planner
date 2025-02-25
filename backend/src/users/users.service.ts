@@ -3,10 +3,15 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
+import { ConfigService } from '@nestjs/config'
+import { EnvConfig } from 'src/common/configs/env-schema.config'
 
 @Injectable()
 export class UsersService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private configService: ConfigService<EnvConfig>,
+  ) {}
 
   findAll() {
     return this.prismaService.user.findMany()
@@ -39,7 +44,7 @@ export class UsersService {
   }
 
   async hashPassword(password: string): Promise<string> {
-    const salt = parseInt(process.env.SALT_ROUNDS ?? '10', 10)
+    const salt = this.configService.get<number>('SALT_ROUNDS')
     return bcrypt.hash(password, salt)
   }
 
