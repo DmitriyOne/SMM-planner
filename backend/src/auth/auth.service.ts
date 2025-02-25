@@ -22,7 +22,7 @@ export class AuthService {
       throw new UnauthorizedException(AUTH_NOT_FOUND_BY_EMAIL_MSG(email))
     }
 
-    const isPasswordValid = user.password === password
+    const isPasswordValid = await this.userService.comparePassword(password, user.password)
 
     if (!isPasswordValid) {
       throw new UnauthorizedException(AUTH_INVALID_PASSWORD_MSG)
@@ -34,4 +34,5 @@ export class AuthService {
       accessToken: await this.jwtService.signAsync(payload),
     }
   }
+  
 }
