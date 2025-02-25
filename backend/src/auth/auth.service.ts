@@ -4,6 +4,7 @@ import { AuthLoginDto } from './dto/login.dto'
 import { AuthEntity } from './entities/auth.entity'
 import { JwtService } from '@nestjs/jwt'
 import { IJwtPayload } from 'src/common/interfaces/jwt.interface'
+import { AUTH_INVALID_PASSWORD_MSG, AUTH_NOT_FOUND_BY_EMAIL_MSG } from 'src/constants/auth.constant'
 
 @Injectable()
 export class AuthService {
@@ -18,13 +19,13 @@ export class AuthService {
     const user = await this.userService.findOne(email)
 
     if (!user) {
-      throw new UnauthorizedException(`No user found for email: ${authLoginDto.email}`)
+      throw new UnauthorizedException(AUTH_NOT_FOUND_BY_EMAIL_MSG(email))
     }
 
     const isPasswordValid = user.password === password
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password')
+      throw new UnauthorizedException(AUTH_INVALID_PASSWORD_MSG)
     }
 
     const payload: IJwtPayload = { sub: user.id, email: user.email }
