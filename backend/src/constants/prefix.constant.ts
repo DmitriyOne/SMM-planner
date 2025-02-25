@@ -10,6 +10,7 @@ export const PREFIX = {
   AUTH: 'auth',
   LOGIN: 'login',
   REGISTER: 'register',
+  UPDATE_ROLE: ':id/role',
   getGlobal() {
     return `${this.BASE_GLOBAL}/${this.VERSION}`
   },

@@ -1,15 +1,20 @@
 import { Controller, Post, Body, Patch, Param, Delete, HttpCode, NotFoundException, Get } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
+import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
 import { PREFIX } from 'src/constants/prefix.constant'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { DeleteUserResponseDto } from './dto/delete-user-response.dto.ts'
-import { USER_DELETED_SUCCESS_MSG, USER_NOT_FOUND_BY_ID_MSG } from 'src/constants/user.constant'
+import {
+  USER_DELETED_SUCCESS_MSG,
+  USER_NOT_FOUND_BY_ID_MSG,
+  USER_UPDATE_ROLE_SUCCESS_MSG,
+} from 'src/constants/user.constant'
 import { UserEntity } from './entities/user.entity'
 import { Roles } from 'src/common/decorators/roles.decorator'
 import { ERole } from '@prisma/client'
+import { UpdateUserResponseDto } from './dto/update-user-response.dto'
 
 @Controller(PREFIX.USERS)
 @ApiTags(capitalizeFirstLetter(PREFIX.USERS))
@@ -72,5 +77,22 @@ export class UsersController {
     }
 
     return { message: USER_DELETED_SUCCESS_MSG(id) }
+  }
+
+  @Patch(PREFIX.UPDATE_ROLE)
+  @Roles(ERole.admin)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: UpdateUserResponseDto })
+  async updateUserRole(
+    @Param('id') id: string,
+    @Body() updateRoleDto: UpdateUserRoleDto,
+  ): Promise<UpdateUserResponseDto> {
+    const user = await this.usersService.update(id, updateRoleDto)
+
+    if (!user) {
+      throw new NotFoundException(USER_NOT_FOUND_BY_ID_MSG(id))
+    }
+
+    return { message: USER_UPDATE_ROLE_SUCCESS_MSG(user.name, user.role) }
   }
 }

@@ -31,8 +31,7 @@ export class AuthService {
       name,
       email,
       password,
-      // TODO: add role
-      role: 'editor',
+      role: 'reader',
     })
 
     const payload: IJwtPayload = { sub: newUser.id, email: newUser.email }
