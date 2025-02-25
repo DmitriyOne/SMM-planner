@@ -4,10 +4,17 @@ import { PREFIX } from './constants/prefix.constant'
 import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter'
+import {
+  MAIN_APPLICATION_RUNNING_MSG,
+  MAIN_LOGGER_NAME,
+  MAIN_SERVER_RUNNING_MSG,
+  MAIN_SWAGGER_TITLE,
+  MAIN_SWAGGER_VERSION,
+} from './constants/main.constant'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-  const logger = new Logger('Bootstrap')
+  const logger = new Logger(MAIN_LOGGER_NAME)
 
   app.enableShutdownHooks()
 
@@ -19,15 +26,20 @@ async function bootstrap() {
   const { httpAdapter } = app.get(HttpAdapterHost)
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter))
 
-  const config = new DocumentBuilder().setTitle('SMM-planner').setVersion('1.0').build()
-
+  const config = new DocumentBuilder()
+    .setTitle(MAIN_SWAGGER_TITLE)
+    .setVersion(MAIN_SWAGGER_VERSION)
+    .addBearerAuth()
+    .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup(PREFIX.SWAGGER, app, document)
 
   const port = process.env.PORT ?? 5001
   await app.listen(port)
+  logger.log(MAIN_SERVER_RUNNING_MSG(port))
 
-  logger.log(`Server is running on port: ${port}`)
+  const url = await app.getUrl()
+  logger.log(MAIN_APPLICATION_RUNNING_MSG(url))
 }
 
 bootstrap()
