@@ -81,8 +81,46 @@ async function main() {
     },
   })
 
+  const tag1 = await prisma.tag.upsert({
+    where: { title: 'Frontend' },
+    update: {
+      authorId: user1.id,
+      postId: post1.id,
+    },
+    create: {
+      title: 'Frontend',
+      authorId: user1.id,
+      postId: post1.id,
+    },
+  })
+  const tag2 = await prisma.tag.upsert({
+    where: { title: 'Backend' },
+    update: {
+      authorId: user2.id,
+      postId: post2.id,
+    },
+    create: {
+      title: 'Backend',
+      authorId: user2.id,
+      postId: post2.id,
+    },
+  })
+  const tag3 = await prisma.tag.upsert({
+    where: { title: 'General' },
+    update: {
+      authorId: user1.id,
+      postId: post1.id,
+    },
+    create: {
+      title: 'General',
+      authorId: user1.id,
+      postId: post1.id,
+    },
+  })
+
   console.log({ user1, user2 })
   console.log({ post1, post2, post3 })
+  console.log({ tag1, tag2, tag3 })
 }
 
 main()
