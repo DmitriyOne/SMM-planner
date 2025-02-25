@@ -11,6 +11,8 @@ import {
   MAIN_SWAGGER_TITLE,
   MAIN_SWAGGER_VERSION,
 } from './constants/main.constant'
+import { ConfigService } from '@nestjs/config'
+import { EnvConfig } from './common/configs/env-schema.config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -34,7 +36,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup(PREFIX.SWAGGER, app, document)
 
-  const port = process.env.PORT ?? 5001
+  const configService = app.get(ConfigService<EnvConfig>)
+
+  const port = configService.get<number>('PORT')
   await app.listen(port)
   logger.log(MAIN_SERVER_RUNNING_MSG(port))
 
