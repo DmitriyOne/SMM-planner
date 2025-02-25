@@ -1,14 +1,26 @@
-import { Controller, Post, Body, Patch, Param, Delete, HttpCode, ParseIntPipe, NotFoundException } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  ParseIntPipe,
+  NotFoundException,
+  Get,
+} from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { PREFIX } from 'src/constants/prefix.constant'
 import { FindPostsDto } from './dto/find-posts.dto'
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { PostEntity } from './entities/post.entity'
 import { DeletePostResponseDto } from './dto/delete-post-response.dto.ts'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { POST_DELETED_SUCCESS_MSG, POST_NOT_FOUND_BY_ID_MSG } from 'src/constants/post.constant'
+import { IsPublic } from 'src/common/decorators/is-public.decorator'
 
 @Controller(PREFIX.POSTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.POSTS))
@@ -17,6 +29,7 @@ export class PostsController {
 
   @HttpCode(200)
   @Post(PREFIX.ALL)
+  @IsPublic()
   @ApiOkResponse({ type: PostEntity, isArray: true })
   async findAll(@Body() findPostsDto: FindPostsDto) {
     const allPosts = await this.postsService.findAll(findPostsDto)
@@ -24,6 +37,7 @@ export class PostsController {
   }
 
   @Post(PREFIX.CREATE)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: CreatePostDto })
   async create(@Body() createPostDto: CreatePostDto) {
     const newPost = await this.postsService.create(createPostDto)
@@ -31,7 +45,8 @@ export class PostsController {
   }
 
   @HttpCode(200)
-  @Post(PREFIX.ID)
+  @Get(PREFIX.ID)
+  @IsPublic()
   @ApiOkResponse({ type: PostEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const post = await this.postsService.findOne(id)
@@ -44,6 +59,7 @@ export class PostsController {
   }
 
   @Patch(PREFIX.ID)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: PostEntity })
   async update(@Param('id', ParseIntPipe) id: number, @Body() updatePostDto: UpdatePostDto) {
     const updatedPost = await this.postsService.update(id, updatePostDto)
@@ -56,6 +72,7 @@ export class PostsController {
   }
 
   @Delete(PREFIX.ID)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: DeletePostResponseDto })
   async remove(@Param('id', ParseIntPipe) id: number): Promise<DeletePostResponseDto> {
     const deletedPost = await this.postsService.remove(id)
