@@ -8,6 +8,8 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { DeleteUserResponseDto } from './dto/delete-user-response.dto.ts'
 import { USER_DELETED_SUCCESS_MSG, USER_NOT_FOUND_BY_ID_MSG } from 'src/constants/user.constant'
 import { UserEntity } from './entities/user.entity'
+import { Roles } from 'src/common/decorators/roles.decorator'
+import { ERole } from '@prisma/client'
 
 @Controller(PREFIX.USERS)
 @ApiTags(capitalizeFirstLetter(PREFIX.USERS))
@@ -16,6 +18,7 @@ export class UsersController {
 
   @HttpCode(200)
   @Get(PREFIX.ALL)
+  @Roles(ERole.admin)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async findAll() {
