@@ -42,7 +42,10 @@ export class PostsService {
           tags: {
             connectOrCreate: tags.map((tag) => ({
               where: { title: tag.title },
-              create: { title: tag.title },
+              create: {
+                title: tag.title,
+                ...(authorId && { authorId }),
+              },
             })),
           },
         }),
