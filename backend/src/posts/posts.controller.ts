@@ -19,8 +19,13 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { PostEntity } from './entities/post.entity'
 import { DeletePostResponseDto } from './dto/delete-post-response.dto.ts'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
-import { POST_DELETED_SUCCESS_MSG, POST_NOT_FOUND_BY_ID_MSG } from 'src/constants/post.constant'
+import {
+  POST_DELETED_SUCCESS_MSG,
+  POST_NOT_FOUND_BY_ID_MSG,
+  POST_UPDATE_SUCCESS_MSG,
+} from 'src/constants/post.constant'
 import { IsPublic } from 'src/common/decorators/is-public.decorator'
+import { UpdatePostResponseDto } from './dto/update-post-response.dto'
 
 @Controller(PREFIX.POSTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.POSTS))
@@ -38,7 +43,7 @@ export class PostsController {
 
   @Post(PREFIX.CREATE)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: CreatePostDto })
+  @ApiOkResponse({ type: PostEntity })
   async create(@Body() createPostDto: CreatePostDto) {
     const newPost = await this.postsService.create(createPostDto)
     return new PostEntity(newPost)
@@ -60,26 +65,31 @@ export class PostsController {
 
   @Patch(PREFIX.ID)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: PostEntity })
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updatePostDto: UpdatePostDto) {
+  @ApiOkResponse({ type: UpdatePostResponseDto })
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePostDto: UpdatePostDto,
+  ): Promise<UpdatePostResponseDto> {
     const updatedPost = await this.postsService.update(id, updatePostDto)
 
     if (!updatedPost) {
       throw new NotFoundException(POST_NOT_FOUND_BY_ID_MSG(id))
     }
 
-    return new PostEntity(updatedPost)
+    return { message: POST_UPDATE_SUCCESS_MSG(id) }
   }
 
   @Delete(PREFIX.ID)
   @ApiBearerAuth()
   @ApiOkResponse({ type: DeletePostResponseDto })
   async remove(@Param('id', ParseIntPipe) id: number): Promise<DeletePostResponseDto> {
-    const deletedPost = await this.postsService.remove(id)
+    const deletedPost = await this.postsService.findOne(id)
 
     if (!deletedPost) {
       throw new NotFoundException(POST_NOT_FOUND_BY_ID_MSG(id))
     }
+
+    await this.postsService.remove(id)
 
     return { message: POST_DELETED_SUCCESS_MSG(id) }
   }

@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Post } from '@prisma/client'
+import { postsSeedData, tagsSeedData, usersSeedData } from 'prisma/seed'
+import { TagEntity } from 'src/tags/entities/tag.entity'
 import { UserEntity } from 'src/users/entities/user.entity'
 
 export class PostEntity implements Post {
@@ -11,33 +13,36 @@ export class PostEntity implements Post {
     }
   }
 
-  @ApiProperty()
+  @ApiProperty({ default: '1' })
   id: number
 
-  @ApiProperty()
+  @ApiProperty({ default: postsSeedData[0].title })
   title: string
 
-  @ApiProperty()
+  @ApiProperty({ default: postsSeedData[0].description })
   description: string
 
-  @ApiProperty({ required: false, nullable: true })
+  @ApiProperty({ required: false, nullable: true, default: postsSeedData[0].image })
   image: string
 
-  @ApiProperty()
+  @ApiProperty({ default: false })
   isPublish: boolean
 
-  @ApiProperty({ required: false, nullable: true })
+  @ApiProperty({ required: false, nullable: true, default: false })
   isApproved: boolean
 
-  @ApiProperty()
+  @ApiProperty({ default: new Date() })
   createdAt: Date
 
-  @ApiProperty()
+  @ApiProperty({ default: new Date() })
   updatedAt: Date
 
-  @ApiProperty({ required: false, nullable: true })
+  @ApiProperty({ required: false, nullable: true, default: 'b480db78-d9c2-47bf-ber8-3be8ae3qd16n' })
   authorId: string
 
-  @ApiProperty({ required: false, type: UserEntity })
+  @ApiProperty({ required: false, type: UserEntity, nullable: true, default: usersSeedData[0] })
   author?: UserEntity
+
+  @ApiProperty({ required: false, type: [TagEntity], nullable: true, default: tagsSeedData })
+  tags?: TagEntity[]
 }
