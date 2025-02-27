@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { ERole, User } from '@prisma/client'
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator'
+import { User } from '@prisma/client'
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator'
 
-type TCreateUser = Pick<User, 'name' | 'email' | 'password' | 'role'>
+type TCreateUser = Pick<User, 'name' | 'email' | 'password'>
 
 export class CreateUserDto implements TCreateUser {
   @IsString()
@@ -21,9 +21,4 @@ export class CreateUserDto implements TCreateUser {
   @MinLength(6)
   @ApiProperty()
   password: string
-
-  @IsEnum(ERole)
-  @IsNotEmpty()
-  @ApiProperty()
-  role: ERole
 }
