@@ -11,6 +11,7 @@ export const PREFIX = {
   LOGIN: 'login',
   REGISTER: 'register',
   UPDATE_ROLE: ':id/role',
+  TAGS: 'tags',
   getGlobal() {
     return `${this.BASE_GLOBAL}/${this.VERSION}`
   },
