@@ -8,15 +8,29 @@ export class TagsService {
   constructor(private prismaService: PrismaService) {}
 
   findAll() {
-    return this.prismaService.tag.findMany()
+    return this.prismaService.tag.findMany({ include: { posts: true, author: true } })
   }
 
-  findOne(id: number) {
-    return this.prismaService.tag.findUnique({ where: { id } })
+  findOneById(id: number) {
+    return this.prismaService.tag.findUnique({ where: { id }, include: { posts: true, author: true } })
+  }
+
+  findOneByTitle(title: string) {
+    return this.prismaService.tag.findUnique({ where: { title } })
+  }
+
+  findManyByTitle(title: string) {
+    return this.prismaService.tag.findMany({ where: { title: title } })
   }
 
   create(createTagDto: CreateTagDto) {
-    return this.prismaService.tag.create({ data: createTagDto })
+    const { authorId, ...createTag } = createTagDto
+    return this.prismaService.tag.create({
+      data: {
+        ...createTag,
+        ...(authorId && { author: { connect: { id: authorId } } }),
+      },
+    })
   }
 
   update(id: number, updateTagDto: UpdateTagDto) {
