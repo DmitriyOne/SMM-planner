@@ -2,7 +2,11 @@ import { ArgumentsHost, Catch, HttpStatus } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
 import { Prisma } from '@prisma/client'
 import { Response } from 'express'
-import { PRISMA_ERROR_CODE_UNIQUE, PRISMA_ERROR_CODE_UUID } from 'src/constants/error-code.constant'
+import {
+  PRISMA_ERROR_CODE_RECORD_NOT_FOUND,
+  PRISMA_ERROR_CODE_UNIQUE,
+  PRISMA_ERROR_CODE_UUID,
+} from 'src/constants/error-code.constant'
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
@@ -15,18 +19,20 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
 
     switch (exception.code) {
       case PRISMA_ERROR_CODE_UNIQUE:
-        const statusUnique = HttpStatus.CONFLICT
-        response.status(statusUnique).json({
-          statusCode: statusUnique,
+      case PRISMA_ERROR_CODE_UUID:
+        const statusConflict = HttpStatus.CONFLICT
+        response.status(statusConflict).json({
+          statusCode: statusConflict,
           message,
         })
         break
-      case PRISMA_ERROR_CODE_UUID:
-        const statusUuid = HttpStatus.CONFLICT
-        response.status(statusUuid).json({
-          statusCode: statusUuid,
+      case PRISMA_ERROR_CODE_RECORD_NOT_FOUND:
+        const statusNotFound = HttpStatus.NOT_FOUND
+        response.status(statusNotFound).json({
+          statusCode: statusNotFound,
           message,
         })
+        break
       default:
         super.catch(exception, host)
         break
