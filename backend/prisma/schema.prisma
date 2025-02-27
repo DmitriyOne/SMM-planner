@@ -18,7 +18,7 @@ model Post {
   updatedAt   DateTime @updatedAt
   authorId    String?  @db.Uuid
   author      User?    @relation(fields: [authorId], references: [id])
-  tags        Tag[]
+  tags        Tag[]    @relation("PostTags")
 }
 
 model User {
@@ -46,6 +46,5 @@ model Tag {
   updatedAt DateTime @updatedAt
   authorId  String?  @db.Uuid
   author    User?    @relation(fields: [authorId], references: [id])
-  postId    Int?
-  post      Post?    @relation(fields: [postId], references: [id])
+  posts     Post[]   @relation("PostTags")
 }
