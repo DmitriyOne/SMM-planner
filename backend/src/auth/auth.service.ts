@@ -21,7 +21,7 @@ export class AuthService {
   async register(authRegisterDto: AuthRegisterDto): Promise<AuthEntity> {
     const { name, email, password } = authRegisterDto
 
-    const existingUser = await this.userService.findOne(email)
+    const existingUser = await this.userService.findOneByEmail(email)
 
     if (existingUser) {
       throw new UnauthorizedException(AUTH_EMAIL_EXISTS_MSG(email))
@@ -43,7 +43,7 @@ export class AuthService {
   async login(authLoginDto: AuthLoginDto): Promise<AuthEntity> {
     const { email, password } = authLoginDto
 
-    const user = await this.userService.findOne(email)
+    const user = await this.userService.findOneByEmail(email)
 
     if (!user) {
       throw new UnauthorizedException(AUTH_NOT_FOUND_BY_EMAIL_MSG(email))
