@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: IJwtPayload): Promise<UserEntity | null> {
-    const currentUser = await this.usersService.findOne(payload.email)
+    const currentUser = await this.usersService.findOneByEmail(payload.email)
     const userWithoutPassword = plainToClass(UserEntity, currentUser)
     return userWithoutPassword
   }

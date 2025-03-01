@@ -2,7 +2,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException } f
 import { AuthService } from './auth.service'
 import { PREFIX } from 'src/constants/prefix.constant'
 import { AuthLoginDto } from './dto/login.dto'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { AuthEntity } from './entities/auth.entity'
 import { IsPublic } from 'src/common/decorators/is-public.decorator'
@@ -17,6 +17,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post(PREFIX.REGISTER)
   @IsPublic()
+  @ApiOkResponse({ type: AuthEntity })
   async register(@Body() authRegisterDto: AuthRegisterDto): Promise<AuthEntity> {
     const token = await this.authService.register(authRegisterDto)
 
@@ -30,6 +31,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post(PREFIX.LOGIN)
   @IsPublic()
+  @ApiOkResponse({ type: AuthEntity })
   async login(@Body() authLoginDto: AuthLoginDto): Promise<AuthEntity> {
     const token = await this.authService.login(authLoginDto)
 
