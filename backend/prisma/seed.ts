@@ -1,6 +1,6 @@
 import { PrismaClient, User } from '@prisma/client'
 import * as bcrypt from 'bcrypt'
-import { postsMock, usersMock, saltMock, tagsMock } from 'mocks'
+import { postsMock, usersMock, saltMock, tagsMock, commentsMock } from '../mocks'
 
 const prisma = new PrismaClient()
 
@@ -138,9 +138,47 @@ async function main() {
     },
   })
 
+  const comment1 = await prisma.comment.upsert({
+    where: { id: commentsMock[0].id },
+    update: {
+      authorId: user1.id,
+      postId: post1.id,
+    },
+    create: {
+      content: commentsMock[0].content,
+      authorId: user1.id,
+      postId: post1.id,
+    },
+  })
+  const comment2 = await prisma.comment.upsert({
+    where: { id: commentsMock[1].id },
+    update: {
+      authorId: user1.id,
+      postId: post1.id,
+    },
+    create: {
+      content: commentsMock[1].content,
+      authorId: user1.id,
+      postId: post1.id,
+    },
+  })
+  const comment3 = await prisma.comment.upsert({
+    where: { id: commentsMock[2].id },
+    update: {
+      authorId: user2.id,
+      postId: post2.id,
+    },
+    create: {
+      content: commentsMock[2].content,
+      authorId: user2.id,
+      postId: post2.id,
+    },
+  })
+
   console.log({ user1, user2 })
   console.log({ post1, post2, post3 })
   console.log({ tag1, tag2, tag3 })
+  console.log({ comment1, comment2, comment3 })
 }
 
 main()

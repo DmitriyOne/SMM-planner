@@ -8,29 +8,31 @@ datasource db {
 }
 
 model Post {
-  id          Int      @id @default(autoincrement())
-  title       String   @unique
+  id          Int       @id @default(autoincrement())
+  title       String    @unique
   description String
   image       String?
-  isPublish   Boolean  @default(false)
-  isApproved  Boolean? @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  authorId    String?  @db.Uuid
-  author      User?    @relation(fields: [authorId], references: [id])
-  tags        Tag[]    @relation("PostTags")
+  isPublish   Boolean   @default(false)
+  isApproved  Boolean?  @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  authorId    String?   @db.Uuid
+  author      User?     @relation(fields: [authorId], references: [id])
+  tags        Tag[]     @relation("PostTags")
+  comments    Comment[]
 }
 
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
+  id        String    @id @default(uuid()) @db.Uuid
   name      String?
-  email     String   @unique
+  email     String    @unique
   password  String
   role      ERole
   posts     Post[]
   tags      Tag[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 enum ERole {
@@ -47,4 +49,15 @@ model Tag {
   authorId  String?  @db.Uuid
   author    User?    @relation(fields: [authorId], references: [id])
   posts     Post[]   @relation("PostTags")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  authorId  String   @db.Uuid
+  author    User     @relation(fields: [authorId], references: [id])
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
