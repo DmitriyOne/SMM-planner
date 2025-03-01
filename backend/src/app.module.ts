@@ -10,7 +10,8 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard'
 import { RolesAuthGuard } from './auth/guard/roles-auth.guard'
 import { ConfigModule } from '@nestjs/config'
 import { validateConfig } from './common/configs/validate.config'
-import { TagsModule } from './tags/tags.module';
+import { TagsModule } from './tags/tags.module'
+import { CommentsModule } from './comments/comments.module'
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { TagsModule } from './tags/tags.module';
     UsersModule,
     AuthModule,
     TagsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [
