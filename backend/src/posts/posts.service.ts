@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common'
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { FindPostsDto } from './dto/find-posts.dto'
 import { isValidArray } from 'src/utils/array.utils'
+import { PostEntity } from './entities/post.entity'
+import { POST_ALREADY_EXISTS_MSG, POST_NOT_FOUND_BY_ID_MSG } from 'src/constants/post.constant'
 
 @Injectable()
 export class PostsService {
@@ -61,6 +63,10 @@ export class PostsService {
     })
   }
 
+  findOneByTitle(title: string) {
+    return this.prismaService.post.findUnique({ where: { title } })
+  }
+
   update(id: number, updatePostDto: UpdatePostDto) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { tags, authorId, ...updatePost } = updatePostDto
@@ -83,5 +89,19 @@ export class PostsService {
 
   remove(id: number) {
     return this.prismaService.post.delete({ where: { id } })
+  }
+
+  async validatePostExists(id: number): Promise<PostEntity> {
+    const post = await this.findOne(id)
+    if (!post) throw new NotFoundException(POST_NOT_FOUND_BY_ID_MSG(id))
+    return post
+  }
+
+  async validateUniqueTitle(newTitle: string): Promise<void> {
+    if (!newTitle) return
+    const existingPost = await this.findOneByTitle(newTitle)
+    if (existingPost && existingPost.title === newTitle) {
+      throw new ConflictException(POST_ALREADY_EXISTS_MSG(newTitle))
+    }
   }
 }

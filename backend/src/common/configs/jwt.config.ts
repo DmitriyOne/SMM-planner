@@ -6,6 +6,7 @@ export const getJWTOptions = async (configService: ConfigService<EnvConfig>): Pr
   return {
     global: true,
     secret: configService.get<string>('JWT_SECRET'),
-    signOptions: { expiresIn: '1d' },
+    // TODO: change expiresIn to 1d
+    signOptions: { expiresIn: '7d' },
   }
 }

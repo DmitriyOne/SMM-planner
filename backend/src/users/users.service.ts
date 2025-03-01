@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
@@ -6,6 +6,10 @@ import { ConfigService } from '@nestjs/config'
 import { EnvConfig } from 'src/common/configs/env-schema.config'
 import { ERole } from '@prisma/client'
 import { AuthRegisterDto } from 'src/auth/dto/register.dto'
+import { USER_HAS_THIS_ROLE_MSG, USER_NOT_FOUND_BY_ID_MSG } from 'src/constants/user.constant'
+import { UserEntity } from './entities/user.entity'
+import { toUpperCaseString } from 'src/utils/string.utils'
+import { AUTH_EMAIL_ALREADY_EXISTS_MSG } from 'src/constants/auth.constant'
 
 @Injectable()
 export class UsersService {
@@ -64,5 +68,27 @@ export class UsersService {
 
   async comparePassword(plainPassword: string, hashPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, hashPassword)
+  }
+
+  async validateUserIdExists(id: string) {
+    const user = await this.findOneById(id)
+    if (!user) {
+      throw new NotFoundException(USER_NOT_FOUND_BY_ID_MSG(id))
+    }
+    return user
+  }
+
+  async validateUserEmailExists(email: string) {
+    const user = await this.findOneByEmail(email)
+    if (user) {
+      throw new UnauthorizedException(AUTH_EMAIL_ALREADY_EXISTS_MSG(email))
+    }
+    return user
+  }
+
+  validateRole(user: UserEntity, newRole: string): void {
+    if (user.role === newRole) {
+      throw new ConflictException(USER_HAS_THIS_ROLE_MSG(user.name, toUpperCaseString(newRole)))
+    }
   }
 }
