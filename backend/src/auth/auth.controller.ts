@@ -8,6 +8,7 @@ import { AuthEntity } from './entities/auth.entity'
 import { IsPublic } from 'src/common/decorators/is-public.decorator'
 import { AUTH_FAILED_MSG } from 'src/constants/auth.constant'
 import { AuthRegisterDto } from './dto/register.dto'
+import { Throttle } from '@nestjs/throttler'
 
 @Controller(PREFIX.AUTH)
 @ApiTags(capitalizeFirstLetter(PREFIX.AUTH))
@@ -16,6 +17,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post(PREFIX.REGISTER)
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @IsPublic()
   @ApiOkResponse({ type: AuthEntity })
   async register(@Body() authRegisterDto: AuthRegisterDto): Promise<AuthEntity> {
@@ -30,6 +32,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post(PREFIX.LOGIN)
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @IsPublic()
   @ApiOkResponse({ type: AuthEntity })
   async login(@Body() authLoginDto: AuthLoginDto): Promise<AuthEntity> {
