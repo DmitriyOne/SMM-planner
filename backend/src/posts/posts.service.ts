@@ -33,8 +33,8 @@ export class PostsService {
     })
   }
 
-  create(createPostDto: CreatePostDto) {
-    const { tags, authorId, ...createPost } = createPostDto
+  create(createPostDto: CreatePostDto, authorId: string) {
+    const { tags, ...createPost } = createPostDto
 
     return this.prismaService.post.create({
       data: {
@@ -68,8 +68,7 @@ export class PostsService {
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { tags, authorId, ...updatePost } = updatePostDto
+    const { tags, ...updatePost } = updatePostDto
 
     return this.prismaService.post.update({
       where: { id },

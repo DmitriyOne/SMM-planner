@@ -4,7 +4,7 @@ import { Type } from 'class-transformer'
 import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
 import { CreateTagDto } from 'src/tags/dto/create-tag.dto'
 
-type TCreatePost = Omit<Post, 'id' | 'createdAt' | 'updatedAt'>
+type TCreatePost = Omit<Post, 'id' | 'createdAt' | 'updatedAt' | 'authorId'>
 
 export class CreatePostDto implements TCreatePost {
   @IsString()
@@ -38,11 +38,6 @@ export class CreatePostDto implements TCreatePost {
   @IsOptional()
   @ApiProperty({ default: false })
   isApproved: boolean
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty({ required: false, format: 'uuid', default: 'b480db78-d9c2-47bf-ber8-3be8ae3qd16n' })
-  authorId: string | null
 
   @IsArray()
   @ValidateNested({ each: true })

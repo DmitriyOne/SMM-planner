@@ -11,6 +11,8 @@ import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { POST_DELETED_SUCCESS_MSG, POST_UPDATE_SUCCESS_MSG } from 'src/constants/post.constant'
 import { IsPublic } from 'src/common/decorators/is-public.decorator'
 import { UpdatePostResponseDto } from './dto/update-post-response.dto'
+import { CurrentUser } from 'src/common/decorators/current-user.decorator'
+import { UserEntity } from 'src/users/entities/user.entity'
 
 @Controller(PREFIX.POSTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.POSTS))
@@ -29,9 +31,9 @@ export class PostsController {
   @Post(PREFIX.CREATE)
   @ApiBearerAuth()
   @ApiOkResponse({ type: PostEntity })
-  async create(@Body() createPostDto: CreatePostDto) {
+  async create(@Body() createPostDto: CreatePostDto, @CurrentUser() user: UserEntity) {
     await this.postsService.validateUniqueTitle(createPostDto.title)
-    const newPost = await this.postsService.create(createPostDto)
+    const newPost = await this.postsService.create(createPostDto, user.id)
     return new PostEntity(newPost)
   }
 

@@ -21,11 +21,10 @@ export class TagsService {
     return this.prismaService.tag.findUnique({ where: { title } })
   }
 
-  create(createTagDto: CreateTagDto) {
-    const { authorId, ...createTag } = createTagDto
+  create(createTagDto: CreateTagDto, authorId: string) {
     return this.prismaService.tag.create({
       data: {
-        ...createTag,
+        ...createTagDto,
         ...(authorId && { author: { connect: { id: authorId } } }),
       },
     })
