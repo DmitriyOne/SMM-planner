@@ -9,6 +9,8 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { DeleteTagResponseDto } from './dto/delete-tag-response.dto.ts'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { UpdateTagResponseDto } from './dto/update-tag-response.dto'
+import { CurrentUser } from 'src/common/decorators/current-user.decorator'
+import { UserEntity } from 'src/users/entities/user.entity'
 
 @Controller(PREFIX.TAGS)
 @ApiTags(capitalizeFirstLetter(PREFIX.TAGS))
@@ -33,9 +35,9 @@ export class TagsController {
   @Post(PREFIX.CREATE)
   @ApiBearerAuth()
   @ApiOkResponse({ type: CreateTagDto })
-  async create(@Body() createTagDto: CreateTagDto) {
+  async create(@Body() createTagDto: CreateTagDto, @CurrentUser() user: UserEntity) {
     await this.tagsService.validateUniqueTitle(createTagDto.title)
-    return this.tagsService.create(createTagDto)
+    return this.tagsService.create(createTagDto, user.id)
   }
 
   @Patch(PREFIX.ID)
