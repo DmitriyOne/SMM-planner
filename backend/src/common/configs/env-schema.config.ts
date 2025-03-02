@@ -13,6 +13,8 @@ export const envSchema = z.object({
   PORT: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default(NODE_ENV_DEFAULT_PORT).transform(Number),
   JWT_SECRET: z.string().min(NODE_ENV_JWT_SECRET_MIN_LENGTH, NODE_ENV_JWT_SECRET_MAX_LENGTH_ERROR_MSG),
   SALT_ROUNDS: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default(NODE_ENV_DEFAULT_SALT_ROUNDS).transform(Number),
+  THROTTLE_TTL: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default('60000').transform(Number),
+  THROTTLE_LIMIT: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default('20').transform(Number),
 })
 
 export type EnvConfig = z.infer<typeof envSchema>

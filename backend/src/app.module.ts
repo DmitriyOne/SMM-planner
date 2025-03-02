@@ -12,6 +12,8 @@ import { ConfigModule } from '@nestjs/config'
 import { validateConfig } from './common/configs/validate.config'
 import { TagsModule } from './tags/tags.module'
 import { CommentsModule } from './comments/comments.module'
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
+import { ThrottlerConfigService } from './common/configs/throttler.config'
 
 @Module({
   imports: [
@@ -19,6 +21,10 @@ import { CommentsModule } from './comments/comments.module'
       cache: true,
       isGlobal: true,
       validate: validateConfig,
+    }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: ThrottlerConfigService,
     }),
     PrismaModule,
     PostsModule,
@@ -30,6 +36,10 @@ import { CommentsModule } from './comments/comments.module'
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
