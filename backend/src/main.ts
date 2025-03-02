@@ -13,12 +13,14 @@ import {
 } from './constants/main.constant'
 import { ConfigService } from '@nestjs/config'
 import { EnvConfig } from './common/configs/env-schema.config'
+import helmet from 'helmet'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   const logger = new Logger(MAIN_LOGGER_NAME)
 
   app.enableShutdownHooks()
+  app.use(helmet({ hidePoweredBy: true }))
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
