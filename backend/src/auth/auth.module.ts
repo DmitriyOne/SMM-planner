@@ -7,7 +7,6 @@ import { PassportModule } from '@nestjs/passport'
 import { JwtStrategy } from './strategy/jwt.strategy'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { getJWTOptions } from 'src/common/configs/jwt.config'
-import { BasicStrategy } from './strategy/basic.strategy'
 
 @Module({
   imports: [
@@ -20,6 +19,6 @@ import { BasicStrategy } from './strategy/basic.strategy'
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, BasicStrategy, JwtStrategy],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

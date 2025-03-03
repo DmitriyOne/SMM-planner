@@ -14,7 +14,6 @@ import { TagsModule } from './tags/tags.module'
 import { CommentsModule } from './comments/comments.module'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ThrottlerConfigService } from './common/configs/throttler.config'
-import { BasicAuthGuard } from './auth/guard/basic-auth.guard'
 
 @Module({
   imports: [
@@ -40,10 +39,6 @@ import { BasicAuthGuard } from './auth/guard/basic-auth.guard'
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: BasicAuthGuard,
     },
     {
       provide: APP_GUARD,

@@ -15,8 +15,6 @@ export const envSchema = z.object({
   SALT_ROUNDS: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default(NODE_ENV_DEFAULT_SALT_ROUNDS).transform(Number),
   THROTTLE_TTL: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default('60000').transform(Number),
   THROTTLE_LIMIT: z.string().regex(NODE_ENV_ONLY_DIGITS_REGEX).default('20').transform(Number),
-  BASIC_USERNAME: z.string().transform(String),
-  BASIC_PASSWORD: z.string().transform(String),
 })
 
 export type EnvConfig = z.infer<typeof envSchema>
