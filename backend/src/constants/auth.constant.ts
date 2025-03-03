@@ -10,6 +10,3 @@ export const AUTH_PASSWORD_NOT_TWO_UPPERCASE_LETTERS_MSG = 'Password must contai
 export const AUTH_PASSWORD_NOT_TWO_DIGITS_MSG = 'Password must contain at least two digits'
 export const AUTH_FAKE_JWT_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30'
-export const AUTH_BASE_INVALID_MSG = 'Invalid credentials'
-export const AUTH_BASE_WWW_HEADER_NAME = 'WWW-Authenticate'
-export const AUTH_BASE_WWW_HEADER_VALUE = 'Basic realm="My Application"'
