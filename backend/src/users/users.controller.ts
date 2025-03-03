@@ -14,6 +14,8 @@ import { UserEntity } from './entities/user.entity'
 import { Roles } from 'src/common/decorators/roles.decorator'
 import { ERole } from '@prisma/client'
 import { UpdateUserResponseDto, UpdateUserRoleResponseDto } from './dto/update-user-response.dto'
+import { CurrentUser } from 'src/common/decorators/current-user.decorator'
+import { checkOwnership } from 'src/utils/authorization.utils'
 
 @Controller(PREFIX.USERS)
 @ApiTags(capitalizeFirstLetter(PREFIX.USERS))
@@ -32,8 +34,13 @@ export class UsersController {
   @Patch(PREFIX.ID)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UpdateUserResponseDto })
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<UpdateUserResponseDto> {
-    await this.usersService.validateUserIdExists(id)
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @CurrentUser() currentUser: UserEntity,
+  ): Promise<UpdateUserResponseDto> {
+    const user = await this.usersService.validateUserIdExists(id)
+    checkOwnership(user.id, currentUser.id, 'user')
     const updatedUser = await this.usersService.update(id, updateUserDto)
     return { message: USER_UPDATED_SUCCESS_MSG(updatedUser.name) }
   }
@@ -50,8 +57,9 @@ export class UsersController {
   @Delete(PREFIX.ID)
   @ApiBearerAuth()
   @ApiOkResponse({ type: DeleteUserResponseDto })
-  async remove(@Param('id') id: string): Promise<DeleteUserResponseDto> {
-    await this.usersService.validateUserIdExists(id)
+  async remove(@Param('id') id: string, @CurrentUser() currentUser: UserEntity): Promise<DeleteUserResponseDto> {
+    const user = await this.usersService.validateUserIdExists(id)
+    checkOwnership(user.id, currentUser.id, 'user')
     await this.usersService.remove(id)
     return { message: USER_DELETED_SUCCESS_MSG(id) }
   }

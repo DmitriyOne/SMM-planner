@@ -11,6 +11,8 @@ import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { UpdateTagResponseDto } from './dto/update-tag-response.dto'
 import { CurrentUser } from 'src/common/decorators/current-user.decorator'
 import { UserEntity } from 'src/users/entities/user.entity'
+import { Roles } from 'src/common/decorators/roles.decorator'
+import { checkOwnership } from 'src/utils/authorization.utils'
 
 @Controller(PREFIX.TAGS)
 @ApiTags(capitalizeFirstLetter(PREFIX.TAGS))
@@ -33,21 +35,25 @@ export class TagsController {
   }
 
   @Post(PREFIX.CREATE)
+  @Roles('admin', 'editor')
   @ApiBearerAuth()
   @ApiOkResponse({ type: CreateTagDto })
-  async create(@Body() createTagDto: CreateTagDto, @CurrentUser() user: UserEntity) {
+  async create(@Body() createTagDto: CreateTagDto, @CurrentUser() currentUser: UserEntity) {
     await this.tagsService.validateUniqueTitle(createTagDto.title)
-    return this.tagsService.create(createTagDto, user.id)
+    return this.tagsService.create(createTagDto, currentUser.id)
   }
 
   @Patch(PREFIX.ID)
+  @Roles('admin', 'editor')
   @ApiBearerAuth()
   @ApiOkResponse({ type: UpdateTagResponseDto })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateTagDto: UpdateTagDto,
+    @CurrentUser() currentUser: UserEntity,
   ): Promise<UpdateTagResponseDto> {
-    await this.tagsService.validateTagExists(id)
+    const tag = await this.tagsService.validateTagExists(id)
+    checkOwnership(tag.authorId, currentUser.id, 'tag')
     await this.tagsService.validateUniqueTitle(updateTagDto.title)
     await this.tagsService.update(id, updateTagDto)
 
@@ -55,10 +61,15 @@ export class TagsController {
   }
 
   @Delete(PREFIX.ID)
+  @Roles('admin', 'editor')
   @ApiBearerAuth()
   @ApiOkResponse({ type: DeleteTagResponseDto })
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<DeleteTagResponseDto> {
-    await this.tagsService.validateTagExists(id)
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() currentUser: UserEntity,
+  ): Promise<DeleteTagResponseDto> {
+    const tag = await this.tagsService.validateTagExists(id)
+    checkOwnership(tag.authorId, currentUser.id, 'tag')
     await this.tagsService.remove(id)
     return { message: TAG_REMOVED_SUCCESS_MSG(id) }
   }
