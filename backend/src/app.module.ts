@@ -13,7 +13,7 @@ import { TagsModule } from './tags/tags.module'
 import { CommentsModule } from './comments/comments.module'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ThrottlerConfigService } from './common/configs/throttler.config'
-import { DualAuthGuard } from './auth/guard/dual-auth.guard'
+import { JwtAuthGuard } from './auth/guard/jwt-auth.guard'
 
 @Module({
   imports: [
@@ -42,7 +42,7 @@ import { DualAuthGuard } from './auth/guard/dual-auth.guard'
     },
     {
       provide: APP_GUARD,
-      useClass: DualAuthGuard,
+      useClass: JwtAuthGuard,
     },
     {
       provide: APP_GUARD,
