@@ -11,7 +11,5 @@
     "isready",
     "pgdata"
   ],
-  // "[prisma]": {
-  //   "editor.defaultFormatter": "Prisma.prisma"
-  // },
+  "git.enabled": false,
 }
