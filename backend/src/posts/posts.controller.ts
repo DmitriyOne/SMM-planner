@@ -13,6 +13,8 @@ import { IsPublic } from 'src/common/decorators/is-public.decorator'
 import { UpdatePostResponseDto } from './dto/update-post-response.dto'
 import { CurrentUser } from 'src/common/decorators/current-user.decorator'
 import { UserEntity } from 'src/users/entities/user.entity'
+import { Roles } from 'src/common/decorators/roles.decorator'
+import { checkOwnership } from 'src/utils/authorization.utils'
 
 @Controller(PREFIX.POSTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.POSTS))
@@ -29,11 +31,12 @@ export class PostsController {
   }
 
   @Post(PREFIX.CREATE)
+  @Roles('admin', 'editor')
   @ApiBearerAuth()
   @ApiOkResponse({ type: PostEntity })
-  async create(@Body() createPostDto: CreatePostDto, @CurrentUser() user: UserEntity) {
+  async create(@Body() createPostDto: CreatePostDto, @CurrentUser() currentUser: UserEntity) {
     await this.postsService.validateUniqueTitle(createPostDto.title)
-    const newPost = await this.postsService.create(createPostDto, user.id)
+    const newPost = await this.postsService.create(createPostDto, currentUser.id)
     return new PostEntity(newPost)
   }
 
@@ -47,13 +50,16 @@ export class PostsController {
   }
 
   @Patch(PREFIX.ID)
+  @Roles('admin', 'editor')
   @ApiBearerAuth()
   @ApiOkResponse({ type: UpdatePostResponseDto })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updatePostDto: UpdatePostDto,
+    @CurrentUser() currentUser: UserEntity,
   ): Promise<UpdatePostResponseDto> {
-    await this.postsService.validatePostExists(id)
+    const post = await this.postsService.validatePostExists(id)
+    checkOwnership(post.authorId, currentUser.id, 'post')
     await this.postsService.validateUniqueTitle(updatePostDto.title)
     await this.postsService.update(id, updatePostDto)
 
@@ -61,10 +67,15 @@ export class PostsController {
   }
 
   @Delete(PREFIX.ID)
+  @Roles('admin', 'editor')
   @ApiBearerAuth()
   @ApiOkResponse({ type: DeletePostResponseDto })
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<DeletePostResponseDto> {
-    await this.postsService.validatePostExists(id)
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() currentUser: UserEntity,
+  ): Promise<DeletePostResponseDto> {
+    const post = await this.postsService.validatePostExists(id)
+    checkOwnership(post.authorId, currentUser.id, 'post')
     await this.postsService.remove(id)
     return { message: POST_DELETED_SUCCESS_MSG(id) }
   }

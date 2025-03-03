@@ -10,3 +10,5 @@ export const AUTH_PASSWORD_NOT_TWO_UPPERCASE_LETTERS_MSG = 'Password must contai
 export const AUTH_PASSWORD_NOT_TWO_DIGITS_MSG = 'Password must contain at least two digits'
 export const AUTH_FAKE_JWT_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30'
+export const AUTH_CANNOT_MODIFY_MSG = (entityName: string) => `You are not authorized to modify this ${entityName}`
+export const AUTH_NOT_HAVE_RIGHTS_MSG = 'You do not have sufficient rights to access this resource'
