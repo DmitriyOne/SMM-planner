@@ -12,6 +12,7 @@ import { COMMENT_REMOVED_SUCCESS_MSG, COMMENT_UPDATED_SUCCESS_MSG } from 'src/co
 import { CurrentUser } from 'src/common/decorators/current-user.decorator'
 import { UserEntity } from 'src/users/entities/user.entity'
 import { PostsService } from 'src/posts/posts.service'
+import { checkOwnership } from 'src/utils/authorization.utils'
 
 @Controller(PREFIX.COMMENTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.COMMENTS))
@@ -36,10 +37,10 @@ export class CommentsController {
   async create(
     @Param('postId', ParseIntPipe) postId: number,
     @Body() createCommentDto: CreateCommentDto,
-    @CurrentUser() user: UserEntity,
+    @CurrentUser() currentUser: UserEntity,
   ) {
     await this.postsService.validatePostExists(postId)
-    return this.commentsService.create(createCommentDto, postId, user.id)
+    return this.commentsService.create(createCommentDto, postId, currentUser.id)
   }
 
   @Patch(`${PREFIX.POST_ID}/${PREFIX.ID}`)
@@ -49,10 +50,10 @@ export class CommentsController {
     @Param('postId', ParseIntPipe) postId: number,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCommentDto: UpdateCommentDto,
-    @CurrentUser() user: UserEntity,
+    @CurrentUser() currentUser: UserEntity,
   ): Promise<UpdateCommentResponseDto> {
-    await this.postsService.validatePostExists(postId)
-    await this.commentsService.validateCurrentUserCommentExists(user.id, postId, id)
+    const tag = await this.postsService.validatePostExists(postId)
+    checkOwnership(tag.authorId, currentUser.id, 'comment')
     await this.commentsService.update(id, updateCommentDto)
     return { message: COMMENT_UPDATED_SUCCESS_MSG(id) }
   }
@@ -63,10 +64,10 @@ export class CommentsController {
   async remove(
     @Param('postId', ParseIntPipe) postId: number,
     @Param('id', ParseIntPipe) id: number,
-    @CurrentUser() user: UserEntity,
+    @CurrentUser() currentUser: UserEntity,
   ): Promise<DeleteCommentResponseDto> {
-    await this.postsService.validatePostExists(postId)
-    await this.commentsService.validateCurrentUserCommentExists(user.id, postId, id)
+    const tag = await this.postsService.validatePostExists(postId)
+    checkOwnership(tag.authorId, currentUser.id, 'comment')
     await this.commentsService.remove(id)
     return { message: COMMENT_REMOVED_SUCCESS_MSG(id) }
   }
