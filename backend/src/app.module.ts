@@ -5,7 +5,7 @@ import { PrismaModule } from './prisma/prisma.module'
 import { PostsModule } from './posts/posts.module'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
-import { APP_GUARD } from '@nestjs/core'
+import { APP_FILTER, APP_GUARD } from '@nestjs/core'
 import { RolesAuthGuard } from './auth/guard/roles-auth.guard'
 import { ConfigModule } from '@nestjs/config'
 import { validateConfig } from './common/configs/validate.config'
@@ -14,9 +14,11 @@ import { CommentsModule } from './comments/comments.module'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ThrottlerConfigService } from './common/configs/throttler.config'
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard'
+import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup'
 
 @Module({
   imports: [
+    SentryModule.forRoot(),
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,
@@ -36,6 +38,10 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard'
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_FILTER,
+      useClass: SentryGlobalFilter,
+    },
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

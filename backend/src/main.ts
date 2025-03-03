@@ -1,3 +1,5 @@
+import './instrument'
+
 import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { PREFIX } from './constants/prefix.constant'

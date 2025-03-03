@@ -7,10 +7,11 @@ import {
   PRISMA_ERROR_CODE_UNIQUE,
   PRISMA_ERROR_CODE_UUID,
 } from 'src/constants/error-code.constant'
-
+import * as Sentry from '@sentry/nestjs'
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
   catch(exception: Prisma.PrismaClientKnownRequestError, host: ArgumentsHost) {
+    Sentry.captureException(exception)
     console.error(exception.message)
 
     const ctx = host.switchToHttp()
