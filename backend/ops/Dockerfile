@@ -8,7 +8,7 @@ RUN apk update && apk add postgresql-client && npm install
 
 COPY . .
 
-EXPOSE 5001
+EXPOSE 4000
 
 ENV NODE_ENV=development
 
