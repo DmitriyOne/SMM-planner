@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Tag } from '@prisma/client'
 import { postsMock, usersMock, tagsMock } from 'mocks'
-import { PostEntity } from 'src/posts/entities/post.entity'
-import { UserEntity } from 'src/users/entities/user.entity'
+import { PostEntity } from '../../posts/entities/post.entity'
+import { UserEntity } from '../../users/entities/user.entity'
 
 export class TagEntity implements Tag {
   @ApiProperty({ nullable: false, default: 1 })

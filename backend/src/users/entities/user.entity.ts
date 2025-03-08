@@ -2,8 +2,8 @@ import { ApiProperty } from '@nestjs/swagger'
 import { ERole, User } from '@prisma/client'
 import { Exclude } from 'class-transformer'
 import { postsMock, usersMock, tagsMock } from 'mocks'
-import { PostEntity } from 'src/posts/entities/post.entity'
-import { TagEntity } from 'src/tags/entities/tag.entity'
+import { PostEntity } from '../../posts/entities/post.entity'
+import { TagEntity } from '../../tags/entities/tag.entity'
 
 export class UserEntity implements User {
   constructor(partial: Partial<UserEntity>) {

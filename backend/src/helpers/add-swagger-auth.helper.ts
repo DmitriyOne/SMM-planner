@@ -1,5 +1,5 @@
 import { OpenAPIObject } from '@nestjs/swagger'
-import { ENDPOINT_PUBLIC } from 'src/constants/endpoint.constant'
+import { ENDPOINT_PUBLIC } from '../constants/endpoint.constant'
 
 export const addSwaggerAuthToPrivateEndpoints = (document: OpenAPIObject) => {
   Object.keys(document.paths).forEach((path) => {

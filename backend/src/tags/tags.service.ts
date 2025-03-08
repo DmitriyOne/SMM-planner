@@ -1,8 +1,8 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { CreateTagDto } from './dto/create-tag.dto'
 import { UpdateTagDto } from './dto/update-tag.dto'
-import { PrismaService } from 'src/prisma/prisma.service'
-import { TAG_ALREADY_EXISTS_MSG, TAG_NOT_FOUND_BY_ID_MSG } from 'src/constants/tag.constant'
+import { PrismaService } from '../prisma/prisma.service'
+import { TAG_ALREADY_EXISTS_MSG, TAG_NOT_FOUND_BY_ID_MSG } from '../constants/tag.constant'
 import { TagEntity } from './entities/tag.entity'
 
 @Injectable()

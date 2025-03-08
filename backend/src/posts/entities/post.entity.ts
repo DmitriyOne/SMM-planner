@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Post } from '@prisma/client'
 import { postsMock, usersMock, tagsMock } from 'mocks'
-import { TagEntity } from 'src/tags/entities/tag.entity'
-import { UserEntity } from 'src/users/entities/user.entity'
+import { TagEntity } from '../../tags/entities/tag.entity'
+import { UserEntity } from '../../users/entities/user.entity'
 
 export class PostEntity implements Post {
   constructor({ author, ...data }: Partial<PostEntity>) {

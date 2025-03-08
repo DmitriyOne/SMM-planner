@@ -9,7 +9,7 @@ import {
   AUTH_PASSWORD_NOT_TWO_UPPERCASE_LETTERS_MSG,
   AUTH_PASSWORD_TWO_DIGITS_REGEX,
   AUTH_PASSWORD_TWO_UPPERCASE_LETTERS_REGEX,
-} from 'src/constants/auth.constant'
+} from '../../constants/auth.constant'
 
 type TRegisterUser = Pick<User, 'name' | 'email' | 'password'>
 

@@ -6,7 +6,7 @@ import {
   PRISMA_ERROR_CODE_RECORD_NOT_FOUND,
   PRISMA_ERROR_CODE_UNIQUE,
   PRISMA_ERROR_CODE_UUID,
-} from 'src/constants/error-code.constant'
+} from '../constants/error-code.constant'
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {

@@ -1,15 +1,15 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaService } from '../prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 import { ConfigService } from '@nestjs/config'
-import { EnvConfig } from 'src/common/configs/env-schema.config'
+import { EnvConfig } from '../common/configs/env-schema.config'
 import { ERole } from '@prisma/client'
-import { AuthRegisterDto } from 'src/auth/dto/register.dto'
-import { USER_HAS_THIS_ROLE_MSG, USER_NOT_FOUND_BY_ID_MSG } from 'src/constants/user.constant'
+import { AuthRegisterDto } from '../auth/dto/register.dto'
+import { USER_HAS_THIS_ROLE_MSG, USER_NOT_FOUND_BY_ID_MSG } from '../constants/user.constant'
 import { UserEntity } from './entities/user.entity'
-import { toUpperCaseString } from 'src/utils/string.utils'
-import { AUTH_EMAIL_ALREADY_EXISTS_MSG } from 'src/constants/auth.constant'
+import { toUpperCaseString } from '../utils/string.utils'
+import { AUTH_EMAIL_ALREADY_EXISTS_MSG } from '../constants/auth.constant'
 
 @Injectable()
 export class UsersService {

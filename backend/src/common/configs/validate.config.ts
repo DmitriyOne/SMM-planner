@@ -1,4 +1,4 @@
-import { VALIDATE_ENV_ERROR_MSG } from 'src/constants/validate.constant'
+import { VALIDATE_ENV_ERROR_MSG } from '../../constants/validate.constant'
 import { EnvConfig, envSchema } from './env-schema.config'
 
 export const validateConfig = (config: Record<string, unknown>): EnvConfig => {

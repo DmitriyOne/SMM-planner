@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { Post } from '@prisma/client'
 import { Type } from 'class-transformer'
 import { IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
-import { CreateTagDto } from 'src/tags/dto/create-tag.dto'
+import { CreateTagDto } from '../../tags/dto/create-tag.dto'
 
 type TCreatePost = Omit<Post, 'id' | 'createdAt' | 'updatedAt' | 'authorId'>
 

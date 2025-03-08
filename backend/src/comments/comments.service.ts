@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { CreateCommentDto } from './dto/create-comment.dto'
 import { UpdateCommentDto } from './dto/update-comment.dto'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaService } from '../prisma/prisma.service'
 import { CommentEntity } from './entities/comment.entity'
-import { COMMENT_NOT_FOUND_BY_ID_MSG } from 'src/constants/comment.constant'
+import { COMMENT_NOT_FOUND_BY_ID_MSG } from '../constants/comment.constant'
 
 @Injectable()
 export class CommentsService {
