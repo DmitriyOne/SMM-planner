@@ -1,22 +1,22 @@
 import { Controller, Body, Patch, Param, Delete, HttpCode, Get } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
-import { PREFIX } from 'src/constants/prefix.constant'
-import { capitalizeFirstLetter, toUpperCaseString } from 'src/utils/string.utils'
+import { PREFIX } from '../constants/prefix.constant'
+import { capitalizeFirstLetter, toUpperCaseString } from '../utils/string.utils'
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { DeleteUserResponseDto } from './dto/delete-user-response.dto.ts'
 import {
   USER_DELETED_SUCCESS_MSG,
   USER_UPDATE_ROLE_SUCCESS_MSG,
   USER_UPDATED_SUCCESS_MSG,
-} from 'src/constants/user.constant'
+} from '../constants/user.constant'
 import { UserEntity } from './entities/user.entity'
-import { Roles } from 'src/common/decorators/roles.decorator'
+import { Roles } from '../common/decorators/roles.decorator'
 import { ERole } from '@prisma/client'
 import { UpdateUserResponseDto, UpdateUserRoleResponseDto } from './dto/update-user-response.dto'
-import { CurrentUser } from 'src/common/decorators/current-user.decorator'
-import { checkOwnership } from 'src/utils/authorization.utils'
-import { WHO_CAN_ACCESS_THIS_ENDPOINT } from 'src/constants/endpoint.constant'
+import { CurrentUser } from '../common/decorators/current-user.decorator'
+import { checkOwnership } from '../utils/authorization.utils'
+import { WHO_CAN_ACCESS_THIS_ENDPOINT } from '../constants/endpoint.constant'
 
 @Controller(PREFIX.USERS)
 @ApiTags(capitalizeFirstLetter(PREFIX.USERS))

@@ -1,11 +1,11 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { PrismaService } from '../prisma/prisma.service'
 import { FindPostsDto } from './dto/find-posts.dto'
-import { isValidArray } from 'src/utils/array.utils'
+import { isValidArray } from '../utils/array.utils'
 import { PostEntity } from './entities/post.entity'
-import { POST_ALREADY_EXISTS_MSG, POST_NOT_FOUND_BY_ID_MSG } from 'src/constants/post.constant'
+import { POST_ALREADY_EXISTS_MSG, POST_NOT_FOUND_BY_ID_MSG } from '../constants/post.constant'
 
 @Injectable()
 export class PostsService {

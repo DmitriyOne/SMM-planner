@@ -1,11 +1,11 @@
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { Injectable } from '@nestjs/common'
-import { IJwtPayload } from 'src/common/interfaces/jwt.interface'
-import { UsersService } from 'src/users/users.service'
-import { UserEntity } from 'src/users/entities/user.entity'
+import { IJwtPayload } from '../../common/interfaces/jwt.interface'
+import { UsersService } from '../../users/users.service'
+import { UserEntity } from '../../users/entities/user.entity'
 import { plainToClass } from 'class-transformer'
-import { EnvConfig } from 'src/common/configs/env-schema.config'
+import { EnvConfig } from '../../common/configs/env-schema.config'
 import { ConfigService } from '@nestjs/config'
 
 @Injectable()

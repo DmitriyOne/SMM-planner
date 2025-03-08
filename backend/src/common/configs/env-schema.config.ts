@@ -6,7 +6,7 @@ import {
   NODE_ENV_JWT_SECRET_MAX_LENGTH_ERROR_MSG,
   NODE_ENV_JWT_SECRET_MIN_LENGTH,
   NODE_ENV_ONLY_DIGITS_REGEX,
-} from 'src/constants/node-env.constant'
+} from '../../constants/node-env.constant'
 
 export const envSchema = z.object({
   NODE_ENV: z.nativeEnum(ENodeEnv).default(ENodeEnv.development),

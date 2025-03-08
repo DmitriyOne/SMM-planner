@@ -1,7 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger'
 import { ERole, User } from '@prisma/client'
 import { IsEnum, IsNotEmpty } from 'class-validator'
-import { AuthRegisterDto } from 'src/auth/dto/register.dto'
+import { AuthRegisterDto } from '../../auth/dto/register.dto'
 
 export class UpdateUserDto extends PartialType(AuthRegisterDto) {}
 

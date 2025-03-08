@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { UsersService } from 'src/users/users.service'
+import { UsersService } from '../users/users.service'
 import { AuthLoginDto } from './dto/login.dto'
 import { AuthEntity } from './entities/auth.entity'
 import { JwtService } from '@nestjs/jwt'
-import { IJwtPayload } from 'src/common/interfaces/jwt.interface'
-import { AUTH_INVALID_PASSWORD_MSG, AUTH_NOT_FOUND_BY_EMAIL_MSG } from 'src/constants/auth.constant'
+import { IJwtPayload } from '../common/interfaces/jwt.interface'
+import { AUTH_INVALID_PASSWORD_MSG, AUTH_NOT_FOUND_BY_EMAIL_MSG } from '../constants/auth.constant'
 import { AuthRegisterDto } from './dto/register.dto'
 
 @Injectable()
