@@ -5,7 +5,7 @@ import { UpdateTagDto } from './dto/update-tag.dto'
 import { PREFIX } from 'src/constants/prefix.constant'
 import { TAG_REMOVED_SUCCESS_MSG, TAG_UPDATED_SUCCESS_MSG } from 'src/constants/tag.constant'
 import { TagEntity } from './entities/tag.entity'
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { DeleteTagResponseDto } from './dto/delete-tag-response.dto.ts'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
 import { UpdateTagResponseDto } from './dto/update-tag-response.dto'
@@ -13,6 +13,7 @@ import { CurrentUser } from 'src/common/decorators/current-user.decorator'
 import { UserEntity } from 'src/users/entities/user.entity'
 import { Roles } from 'src/common/decorators/roles.decorator'
 import { checkOwnership } from 'src/utils/authorization.utils'
+import { WHO_CAN_ACCESS_THIS_ENDPOINT } from 'src/constants/endpoint.constant'
 
 @Controller(PREFIX.TAGS)
 @ApiTags(capitalizeFirstLetter(PREFIX.TAGS))
@@ -36,6 +37,7 @@ export class TagsController {
 
   @Post(PREFIX.CREATE)
   @Roles('admin', 'editor')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: CreateTagDto })
   async create(@Body() createTagDto: CreateTagDto, @CurrentUser() currentUser: UserEntity) {
@@ -46,6 +48,7 @@ export class TagsController {
   @Patch(PREFIX.ID)
   @Roles('admin', 'editor')
   @ApiBearerAuth()
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
   @ApiOkResponse({ type: UpdateTagResponseDto })
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -63,6 +66,7 @@ export class TagsController {
   @Delete(PREFIX.ID)
   @Roles('admin', 'editor')
   @ApiBearerAuth()
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
   @ApiOkResponse({ type: DeleteTagResponseDto })
   async remove(
     @Param('id', ParseIntPipe) id: number,

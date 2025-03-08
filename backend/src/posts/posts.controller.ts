@@ -4,7 +4,7 @@ import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
 import { PREFIX } from 'src/constants/prefix.constant'
 import { FindPostsDto } from './dto/find-posts.dto'
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { PostEntity } from './entities/post.entity'
 import { DeletePostResponseDto } from './dto/delete-post-response.dto.ts'
 import { capitalizeFirstLetter } from 'src/utils/string.utils'
@@ -15,6 +15,7 @@ import { CurrentUser } from 'src/common/decorators/current-user.decorator'
 import { UserEntity } from 'src/users/entities/user.entity'
 import { Roles } from 'src/common/decorators/roles.decorator'
 import { checkOwnership } from 'src/utils/authorization.utils'
+import { WHO_CAN_ACCESS_THIS_ENDPOINT } from 'src/constants/endpoint.constant'
 
 @Controller(PREFIX.POSTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.POSTS))
@@ -33,6 +34,7 @@ export class PostsController {
   @Post(PREFIX.CREATE)
   @Roles('admin', 'editor')
   @ApiBearerAuth()
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
   @ApiOkResponse({ type: PostEntity })
   async create(@Body() createPostDto: CreatePostDto, @CurrentUser() currentUser: UserEntity) {
     await this.postsService.validateUniqueTitle(createPostDto.title)
@@ -51,6 +53,7 @@ export class PostsController {
 
   @Patch(PREFIX.ID)
   @Roles('admin', 'editor')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: UpdatePostResponseDto })
   async update(
@@ -68,6 +71,7 @@ export class PostsController {
 
   @Delete(PREFIX.ID)
   @Roles('admin', 'editor')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: DeletePostResponseDto })
   async remove(

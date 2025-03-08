@@ -1,3 +1,4 @@
+import { ERole } from '@prisma/client'
 import { METHOD_PUBLIC } from './method.constant'
 import { PREFIX } from './prefix.constant'
 
@@ -28,3 +29,5 @@ export const ENDPOINT_PUBLIC = {
     method: METHOD_PUBLIC.GET,
   },
 }
+
+export const WHO_CAN_ACCESS_THIS_ENDPOINT = (...roles: [ERole, ...ERole[]]) => `(${roles.join(', ')})`
