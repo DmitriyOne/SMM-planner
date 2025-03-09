@@ -1,58 +1,70 @@
 # Проект: SMM Planner
 
 ## Запуск контейнеров
-Для запуска всех Docker-контейнеров с пересборкой используйте команду:
 
-```sh
-docker compose up --build -d
+Для запуска всех Docker-контейнеров используйте команду:
+
+```bash
+docker-compose -f docker-compose.dev.yml up --build -d
 ```
 
 ## Проверка запущенных контейнеров
+
 Убедитесь, что все контейнеры работают:
 
-```sh
+```bash
 docker ps
 ```
 
-Вы должны увидеть 3 запущенных контейнера:
+Вы должны увидеть 2 запущенных контейнера:
 - `next_frontend` (Next.js)
 - `nest_backend` (NestJS)
-- `postgres_database` (PostgreSQL)
 
 ## Порты сервисов
-| Сервис    | Порт  |
-|-----------|-------|
-| Database (PostgreSQL) | `5432` |
-| Backend (NestJS) | `5001` |
-| Frontend (Next.js) | `3000` |
+
+| Сервис                  | Порт  |
+|-------------------------|-------|
+| Backend (NestJS)        | `4000` |
+| Frontend (Next.js)      | `3000` |
 
 ## Запуск миграций Prisma
+
 Чтобы применить миграции базы данных, выполните эти команды:
 
-```sh
-docker exec -it nest_backend sh
+1. Зайдите в контейнер с бэкендом:
+
+   ```bash
+   docker exec -it nest_backend sh
+   ```
+
+2. Примените миграции:
+
+   ```bash
+   npx prisma migrate dev --name "init"
+   ```
+
+## Заполнение базы данных примерами
+
+Чтобы заполнить базу данных тестовыми данными, выполните эти шаги:
+
+1. Зайдите в контейнер с бэкендом:
+
+   ```bash
+   docker exec -it nest_backend sh
+   ```
+
+2. Запустите скрипт заполнения базы данных:
+
+   ```bash
+   npx prisma db seed
+   ```
+   
+## Подключение к Prisma Studio
+
+Чтобы подключиться к Prisma Studio, выполните следующую команду:
+
+```bash
+npx prisma studio
 ```
 
-```sh
-npx prisma migrate dev --name "init"
-```
-
-## Работа с базой данных PostgreSQL
-
-### Получение списка всех таблиц в схеме public
-
-Этот запрос вернет список всех таблиц в схеме `public`. Если ваши таблицы находятся в другой схеме, замените `'public'` на нужную схему:
-
-```sql
-SELECT table_name
-FROM information_schema.tables
-WHERE table_schema = 'public';
-```
-
-### Выбор данных из таблицы
-
-Чтобы выбрать все данные из таблицы, например, `Post`, используйте следующий запрос:
-
-```sql
-SELECT * FROM "Post";
-```
+Это откроет Prisma Studio в браузере по адресу [http://localhost:5555](http://localhost:5555).

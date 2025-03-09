@@ -1,0 +1,5 @@
+export * from './posts.mock'
+export * from './users.mock'
+export * from './tags.mock'
+export * from './salt.mock'
+export * from './comments.mock'

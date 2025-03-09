@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./ops/Dockerfile.dev
+    container_name: nest_backend
+    restart: always
+    env_file:
+      - ./backend/.env.development
+    ports:
+      - "4000:4000"
+      - "5555:5555"
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./ops/Dockerfile
+    container_name: next_frontend
+    restart: always
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
