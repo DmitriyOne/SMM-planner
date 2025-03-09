@@ -14,12 +14,13 @@ import { CommentsModule } from './comments/comments.module'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ThrottlerConfigService } from './common/configs/throttler.config'
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard'
+import { getEnvFilePath } from './utils/env.utils'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       cache: true,
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      envFilePath: getEnvFilePath(),
       isGlobal: true,
       validate: validateConfig,
     }),
