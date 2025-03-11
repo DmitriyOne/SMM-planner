@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
   Get,
   HttpStatus,
-  UseGuards,
 } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
@@ -27,19 +26,16 @@ import { CurrentUser } from '../common/decorators/current-user.decorator'
 import { UserEntity } from '../users/entities/user.entity'
 import { Roles } from '../common/decorators/roles.decorator'
 import { checkOwnership } from '../utils/authorization.utils'
-import { PRIVATE_ENDPOINT_WITH_BASIC_AUTH, WHO_CAN_ACCESS_THIS_ENDPOINT } from '../constants/endpoint.constant'
-import { BasicAuthGuard } from '../auth/guard/basic-auth.guard'
+import { WHO_CAN_ACCESS_THIS_ENDPOINT } from '../constants/endpoint.constant'
 
 @Controller(PREFIX.POSTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.POSTS))
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @UseGuards(BasicAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post(PREFIX.ALL)
   @IsPublic()
-  @ApiOperation({ summary: PRIVATE_ENDPOINT_WITH_BASIC_AUTH })
   @ApiOkResponse({ type: PostEntity, isArray: true })
   async findAll(@Body() findPostsDto: FindPostsDto) {
     const allPosts = await this.postsService.findAll(findPostsDto)
@@ -57,11 +53,9 @@ export class PostsController {
     return new PostEntity(newPost)
   }
 
-  @UseGuards(BasicAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Get(PREFIX.ID)
   @IsPublic()
-  @ApiOperation({ summary: PRIVATE_ENDPOINT_WITH_BASIC_AUTH })
   @ApiOkResponse({ type: PostEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const post = await this.postsService.validatePostExists(id)
