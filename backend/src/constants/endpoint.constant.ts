@@ -30,4 +30,6 @@ export const ENDPOINT_PUBLIC = {
   },
 }
 
-export const WHO_CAN_ACCESS_THIS_ENDPOINT = (...roles: [ERole, ...ERole[]]) => `(${roles.join(', ')})`
+export const WHO_CAN_ACCESS_THIS_ENDPOINT = (...roles: [ERole, ...ERole[]]) => `- can use only: ${roles.join(', ')}`
+
+export const PRIVATE_ENDPOINT_WITH_BASIC_AUTH = '- with basic auth (only prod)'
