@@ -12,8 +12,3 @@ export const AUTH_FAKE_JWT_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30'
 export const AUTH_CANNOT_MODIFY_MSG = (entityName: string) => `You are not authorized to modify this ${entityName}`
 export const AUTH_NOT_HAVE_RIGHTS_MSG = 'You do not have sufficient rights to access this resource'
-export const AUTH_BASE_INVALID_MSG = 'Invalid credentials'
-export const AUTH_BASE_WWW_HEADER_NAME = 'WWW-Authenticate'
-export const AUTH_BASE_WWW_HEADER_VALUE = 'Basic realm="My Application"'
-export const AUTH_BASE_INVALID_DATA = (username: string, password: string) =>
-  `Invalid basic auth attempt: username="${username}" & password="${password}"`
