@@ -10,11 +10,11 @@ export class TagsService {
   constructor(private prismaService: PrismaService) {}
 
   findAll() {
-    return this.prismaService.tag.findMany({ include: { posts: true, author: true } })
+    return this.prismaService.tag.findMany({ include: { posts: true } })
   }
 
   findOneById(id: number) {
-    return this.prismaService.tag.findUnique({ where: { id }, include: { posts: true, author: true } })
+    return this.prismaService.tag.findUnique({ where: { id }, include: { posts: true } })
   }
 
   findOneByTitle(title: string) {
