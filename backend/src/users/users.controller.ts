@@ -15,7 +15,7 @@ import { Roles } from '../common/decorators/roles.decorator'
 import { ERole } from '@prisma/client'
 import { UpdateUserResponseDto, UpdateUserRoleResponseDto } from './dto/update-user-response.dto'
 import { CurrentUser } from '../common/decorators/current-user.decorator'
-import { checkOwnership } from '../utils/authorization.utils'
+import { checkOwnerAndUserRole, checkOwnership } from '../utils/authorization.utils'
 import { WHO_CAN_ACCESS_THIS_ENDPOINT } from '../constants/endpoint.constant'
 
 @Controller(PREFIX.USERS)
@@ -25,6 +25,8 @@ export class UsersController {
 
   @HttpCode(200)
   @Get(PREFIX.ALL)
+  @Roles('admin')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async findAll() {
@@ -50,8 +52,10 @@ export class UsersController {
   @Get(PREFIX.ID)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
-  async findOneById(@Param('id') id: string) {
+  async findOneById(@Param('id') id: string, @CurrentUser() currentUser: UserEntity) {
     const user = await this.usersService.validateUserIdExists(id)
+    checkOwnerAndUserRole(user.id, currentUser.id, 'user', currentUser.role)
+
     return new UserEntity(user)
   }
 
