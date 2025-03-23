@@ -1,10 +1,10 @@
 'use client'
 
-import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-async function getPost() {
-  const res = await fetch('https://smm-planner.onrender.com/api/v1/posts/1', {
+async function getPost(id: string) {
+  const res = await fetch(`https://smm-planner.onrender.com/api/v1/posts/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -15,27 +15,25 @@ async function getPost() {
 
 
 export default function Page() {
+  const params = useParams<{ id: string }>()
+  
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getPost().then((post) => {
+    getPost(params.id).then((post) => {
       setPost(post)
     }).catch((error) => {
       setError(error)
     })
-  }, [])
+  }, [params])
 
 
   return (
     <div>
-      Post #1
-
-      <div>
-        <Link href={"/"}>
-          Go to home
-        </Link>
-      </div>
+      <h1 style={{ marginBottom: "20px", fontSize: "22px" }}> 
+        Post #{params.id}
+      </h1>
 
       {!post && !error
         ? <div>Loading...</div>
