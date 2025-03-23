@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 async function getPost() {
   const res = await fetch('https://smm-planner.onrender.com/api/v1/posts/1', {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
