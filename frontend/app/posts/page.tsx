@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"
 
 type TTag = {
   id: number
@@ -10,7 +10,7 @@ type TTag = {
 }
 
 type TPost = {
-  id: number,
+  id: number
   title: string
   description: string
   image: string
@@ -22,40 +22,41 @@ type TPost = {
   tags: TTag[]
 }
 
- async function getPosts(): Promise<TPost[]> {
-  const res = await fetch('https://smm-planner.onrender.com/api/v1/posts/all', {
-    method: 'POST',
+async function getPosts(): Promise<TPost[]> {
+  const res = await fetch("https://smm-planner.onrender.com/api/v1/posts/all", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-  });
+  })
   return res.json()
 }
 
 export default async function Page() {
   const posts = await getPosts()
- 
+
   return (
     <div>
-      <h1 style={{ marginBottom: "20px", fontSize: "22px" }}> 
-        All posts 
-      </h1>
+      <h1 style={{ marginBottom: "20px", fontSize: "22px" }}>All posts</h1>
 
       <ul style={{ listStyle: "none" }}>
         {posts.map((post) => (
           <li key={post.id} style={{ marginBottom: "20px" }}>
-            <span>{post.id}{" "}</span>
-            <Link href={`/posts/${post.id}`} style={{ textDecoration: "underline" }}>
+            <span>{post.id} </span>
+            <Link
+              href={`/posts/${post.id}`}
+              style={{ textDecoration: "underline" }}
+            >
               {post.title}
             </Link>
             <p>{post.description}</p>
             <div>Created - {new Date(post.createdAt).toDateString()}</div>
             <div>Updated - {new Date(post.updatedAt).toDateString()}</div>
-            <div>{post.isPublish ? 'Published' : 'Not published'}</div>
-            <div>{post.isApproved ? 'Approved' : 'Not approved'}</div>
+            <div>{post.isPublish ? "Published" : "Not published"}</div>
+            <div>{post.isApproved ? "Approved" : "Not approved"}</div>
             <div>
               Tags:
-              {post.tags?.map((tag) => tag.title).join(', ')}
+              {post.tags?.map((tag) => tag.title).join(", ")}
             </div>
           </li>
         ))}
