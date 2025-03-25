@@ -15,3 +15,13 @@ export const HttpMessage = {
 } as const
 
 export type HttpMessage = (typeof HttpMessage)[keyof typeof HttpMessage]
+
+export const HttpMethod = {
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  DELETE: "DELETE",
+  PATCH: "PATCH",
+} as const
+
+export type HttpMethod = (typeof HttpMethod)[keyof typeof HttpMethod]
