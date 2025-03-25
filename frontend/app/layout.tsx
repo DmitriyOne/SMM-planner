@@ -2,8 +2,12 @@ import { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { JSX, ReactNode } from "react"
 
-import "./globals.css"
+import { AntdRegistry } from "@ant-design/nextjs-registry"
+import "@ant-design/v5-patch-for-react-19"
+
 import { Header } from "@/06_shared/ui"
+
+import "./globals.css"
 
 export type TMainLayoutProps = Readonly<{
   children: ReactNode
@@ -30,8 +34,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <main style={{ padding: "20px" }}>{children}</main>
+        <AntdRegistry>
+          <Header />
+          <main style={{ padding: "20px" }}>{children}</main>
+        </AntdRegistry>
       </body>
     </html>
   )
