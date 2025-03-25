@@ -41,8 +41,11 @@ export default async function Page() {
 
       <ul style={{ listStyle: "none" }}>
         {posts.map((post) => (
-          <li key={post.id} style={{ marginBottom: "20px" }}>
-            <span>{post.id} </span>
+          <li
+            key={post.id}
+            style={{ marginBottom: "20px" }}
+          >
+            <span>{post.id}</span>
             <Link
               href={`/posts/${post.id}`}
               style={{ textDecoration: "underline" }}

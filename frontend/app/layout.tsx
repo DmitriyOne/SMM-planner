@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { JSX, ReactNode } from "react"
 
 import "./globals.css"
-import { Header } from "../src/06_shared/ui"
+import { Header } from "@/06_shared/ui"
 
 export type TMainLayoutProps = Readonly<{
   children: ReactNode
