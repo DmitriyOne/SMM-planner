@@ -1,0 +1,53 @@
+const GLOBAL_PREFIXES = {
+  BASE: "/api",
+  VERSION: "/v1",
+  AUTH: "/auth",
+  USERS: "/users",
+  POSTS: "/posts",
+  TAGS: "/tags",
+  COMMENTS: "/comments",
+}
+
+const BASE_GLOBAL_PREFIX = GLOBAL_PREFIXES.BASE + GLOBAL_PREFIXES.VERSION
+
+export const ENDPOINTS = {
+  LOGIN: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.AUTH}/login`,
+  REGISTER: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.AUTH}/register`,
+
+  POSTS_ALL: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/all`,
+  POSTS_CREATE: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/create`,
+  POST_BY_ID: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
+  POST_UPDATE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
+  POST_DELETE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
+
+  USER: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/all`,
+  USER_BY_ID: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_UPDATE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_DELETE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_UPDATE_ROLE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}/role`,
+
+  TAGS: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/all`,
+  TAG_CREATE: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/create`,
+  TAG_BY_ID: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
+  TAG_UPDATE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
+  TAG_DELETE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
+
+  COMMENTS: (postId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/all`,
+  COMMENT_CREATE: (postId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/create`,
+  COMMENT_UPDATE: (postId: string, commentId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/${commentId}`,
+  COMMENT_DELETE: (postId: string, commentId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/${commentId}`,
+}
