@@ -12,5 +12,8 @@
     "isready",
     "pgdata"
   ],
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "always",
+    "source.fixAll.eslint": "always"
+  },
 }
