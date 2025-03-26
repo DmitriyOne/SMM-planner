@@ -23,7 +23,7 @@ export const ENDPOINTS = {
   POST_DELETE: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
 
-  USER: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/all`,
+  USER_ALL: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/all`,
   USER_BY_ID: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
   USER_UPDATE: (id: string) =>
@@ -33,7 +33,7 @@ export const ENDPOINTS = {
   USER_UPDATE_ROLE: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}/role`,
 
-  TAGS: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/all`,
+  TAGS_ALL: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/all`,
   TAG_CREATE: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/create`,
   TAG_BY_ID: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
@@ -42,7 +42,7 @@ export const ENDPOINTS = {
   TAG_DELETE: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
 
-  COMMENTS: (postId: string) =>
+  COMMENTS_ALL: (postId: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/all`,
   COMMENT_CREATE: (postId: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/create`,
