@@ -5,9 +5,10 @@ import { JSX, ReactNode } from "react"
 import { AntdRegistry } from "@ant-design/nextjs-registry"
 import "@ant-design/v5-patch-for-react-19"
 
-import { Header } from "@/06_shared/ui"
+import { Header } from "@/03_widgets/header/ui"
 
 import "./globals.css"
+import "react-loading-skeleton/dist/skeleton.css"
 
 export type TMainLayoutProps = Readonly<{
   children: ReactNode

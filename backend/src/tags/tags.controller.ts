@@ -14,6 +14,7 @@ import { UserEntity } from '../users/entities/user.entity'
 import { Roles } from '../common/decorators/roles.decorator'
 import { checkOwnership } from '../utils/authorization.utils'
 import { WHO_CAN_ACCESS_THIS_ENDPOINT } from '../constants/endpoint.constant'
+import { IsPublic } from 'src/common/decorators/is-public.decorator'
 
 @Controller(PREFIX.TAGS)
 @ApiTags(capitalizeFirstLetter(PREFIX.TAGS))
@@ -21,7 +22,7 @@ export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
 
   @Get(PREFIX.ALL)
-  @ApiBearerAuth()
+  @IsPublic()
   @ApiOkResponse({ type: TagEntity, isArray: true })
   findAll() {
     return this.tagsService.findAll()

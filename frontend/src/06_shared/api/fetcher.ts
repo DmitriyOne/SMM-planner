@@ -1,11 +1,7 @@
 import { getBaseUrl } from "./base-url"
 import { HeadersValue, Headers } from "./headers"
 import { HttpMethod } from "./http"
-
-type TFetcherOptions = Omit<RequestInit, "body" | "headers" | "method"> & {
-  body?: Record<string, any> | string | null
-  token?: string
-}
+import { TFetcherOptions } from "./types"
 
 export async function fetcher<T>(
   endpoint: string,
