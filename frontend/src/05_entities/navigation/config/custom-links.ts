@@ -1,3 +1,4 @@
+import { paths } from "@/06_shared/config/routing"
 import { THeaderItem } from "../model"
 
 export const customLinks = (
@@ -6,22 +7,22 @@ export const customLinks = (
 ): THeaderItem[] => [
   {
     title: "All posts",
-    href: "/posts",
+    href: paths.feed,
     condition: true,
   },
   {
     title: "Sing up",
-    href: "/register",
+    href: paths.register,
     condition: !authenticated,
   },
   {
     title: "Sing in",
-    href: "/login",
+    href: paths.login,
     condition: !authenticated,
   },
   {
     title: username ?? "Profile",
-    href: "/profile",
+    href: paths.profile,
     condition: authenticated,
   },
   {
