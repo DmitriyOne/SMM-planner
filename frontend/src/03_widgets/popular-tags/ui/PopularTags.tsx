@@ -2,10 +2,10 @@ import { FC, Suspense } from "react"
 import Title from "antd/es/typography/Title"
 import classNames from "classnames"
 
+import { SkeletonTags, TagsAsync } from "@/05_entities/tags/ui"
 import { getTags } from "@/05_entities/tags/api"
 
 import styles from "./popular-tags.module.scss"
-import { SkeletonTags, Tags } from "@/05_entities/tags/ui"
 
 type TProps = {
   title?: string
@@ -28,7 +28,7 @@ export const PopularTags: FC<TProps> = ({
       </Title>
 
       <Suspense fallback={<SkeletonTags />}>
-        <Tags getTags={getTags()} />
+        <TagsAsync getTags={getTags()} />
       </Suspense>
     </div>
   )

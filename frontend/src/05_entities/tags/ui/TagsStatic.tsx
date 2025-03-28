@@ -1,22 +1,19 @@
-import { FC, use } from "react"
+import { FC } from "react"
+import classNames from "classnames"
 import { isValidArray } from "@/06_shared/model/utils"
-import { DataNoFound } from "@/06_shared/ui"
 import { TTag } from "@/06_shared/ui/tag/model/types"
 import { Tag } from "@/06_shared/ui/tag/ui"
 
 import styles from "./tags.module.scss"
-import classNames from "classnames"
 
 type TProps = {
-  getTags: Promise<TTag[]>
+  tags: TTag[]
   componentClassName?: string
 }
 
-export const Tags: FC<TProps> = ({ getTags, componentClassName }) => {
-  const tags = use(getTags)
-
+export const TagsStatic: FC<TProps> = ({ tags, componentClassName }) => {
   if (!isValidArray(tags)) {
-    return <DataNoFound title='Tags' />
+    return <></>
   }
 
   const componentClass = classNames(styles.component, componentClassName)
