@@ -12,7 +12,7 @@ export const Menu = () => {
 
   const authorized = !!currentUser
 
-  const menuLinks = customLinks(authorized, currentUser.username)
+  const menuLinks = customLinks(authorized, currentUser?.username)
 
   return (
     <ul className={styles.component}>
