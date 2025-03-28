@@ -1,6 +1,5 @@
 import { Card } from "antd"
-import { SkeletonTags, Tags } from "@/05_entities/tags/ui"
-import { getTags } from "@/05_entities/tags/api"
+import { SkeletonTags, TagsStatic } from "@/05_entities/tags/ui"
 import { FC, Suspense } from "react"
 import { PostAuthor } from "@/05_entities/post-author/ui"
 import { CollapsibleText } from "@/06_shared/ui/collapsible-text"
@@ -18,6 +17,10 @@ type TProps = {
 }
 
 export const PostCard: FC<TProps> = ({ post }) => {
+  if (!post) {
+    return <></>
+  }
+
   const postHref = paths.post_read(post.id.toString())
 
   return (
@@ -27,7 +30,6 @@ export const PostCard: FC<TProps> = ({ post }) => {
       extra={<ReadMore href={postHref} />}
       styles={CARD_STYLES}
     >
-      {/* TODO: get tags for current post */}
       <Suspense
         fallback={
           <SkeletonTags
@@ -36,9 +38,9 @@ export const PostCard: FC<TProps> = ({ post }) => {
           />
         }
       >
-        <Tags
+        <TagsStatic
           componentClassName={styles.tags}
-          getTags={getTags()}
+          tags={post.tags}
         />
       </Suspense>
 
