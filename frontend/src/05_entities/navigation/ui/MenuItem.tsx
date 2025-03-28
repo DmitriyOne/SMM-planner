@@ -17,7 +17,7 @@ export const MenuItem: FC<TProps> = ({ username, ...item }) => {
     return <></>
   }
 
-  const avatarBgColor = "#2f54eb"
+  const avatarBgColor = "#4096ff"
 
   const handleClick = () => {
     if (item.href.includes("logout")) {
