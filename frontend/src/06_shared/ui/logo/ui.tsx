@@ -1,7 +1,18 @@
+"use client"
+
+import { usePathname } from "next/navigation"
+
 import { ActiveLink } from "../active-link"
 
-// TODO: add logo icon
+import { LogoSVG } from "./logo-svg"
+
+import { paths } from "@/06_shared/config/routing"
 
 export const Logo = () => {
-  return <ActiveLink href='/'>Logo</ActiveLink>
+  const pathname = usePathname()
+  return (
+    <ActiveLink href='/'>
+      <LogoSVG isCurrentPath={pathname === paths.feed} />
+    </ActiveLink>
+  )
 }

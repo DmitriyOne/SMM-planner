@@ -6,11 +6,6 @@ export const customLinks = (
   username: string | null,
 ): THeaderItem[] => [
   {
-    title: "All posts",
-    href: paths.feed,
-    condition: true,
-  },
-  {
     title: "Sing up",
     href: paths.register,
     condition: !authenticated,

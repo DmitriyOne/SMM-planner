@@ -1,19 +1,16 @@
 import { Menu } from "@/05_entities/navigation/ui"
 import { Logo } from "@/06_shared/ui"
 
+import styles from "./header.module.scss"
+import { Container } from "@/06_shared/ui/container"
+
 export const Header = () => {
   return (
-    <nav style={{ padding: "20px 20px 0 20px" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+    <header className={styles.component}>
+      <Container className={styles.wrapper}>
         <Logo />
         <Menu />
-      </div>
-    </nav>
+      </Container>
+    </header>
   )
 }

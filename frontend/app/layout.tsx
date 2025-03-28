@@ -5,7 +5,7 @@ import { JSX, ReactNode } from "react"
 import { AntdRegistry } from "@ant-design/nextjs-registry"
 import "@ant-design/v5-patch-for-react-19"
 
-import { Header } from "@/03_widgets/header/ui"
+import { MainLayout } from "@/01_app/layout"
 
 import "./globals.css"
 import "react-loading-skeleton/dist/skeleton.css"
@@ -36,8 +36,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AntdRegistry>
-          <Header />
-          <main style={{ padding: "20px" }}>{children}</main>
+          <MainLayout>{children}</MainLayout>
         </AntdRegistry>
       </body>
     </html>
