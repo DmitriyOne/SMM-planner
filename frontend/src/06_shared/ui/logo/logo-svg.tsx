@@ -12,9 +12,8 @@ export const LogoSVG = ({ isCurrentPath }: { isCurrentPath: boolean }) => {
         ry='10'
         width='70'
         height='40'
-        fill='currentColor'
+        fill='#0958d9'
       />
-
       <text
         x='50%'
         y='50%'

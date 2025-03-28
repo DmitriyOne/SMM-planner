@@ -4,7 +4,7 @@ import classNames from "classnames"
 
 type TProps = PropsWithChildren & {
   className?: string
-  size?: "sm" | "md" | "lg"
+  size?: "sm" | "md" | "lg" | "full"
 }
 
 export const Container: FC<TProps> = ({ className, size = "lg", children }) => {
