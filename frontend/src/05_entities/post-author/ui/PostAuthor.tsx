@@ -25,7 +25,7 @@ export const PostAuthor: FC<TProps> = ({
 
   return (
     <div className={componentClass}>
-      By <span className={nameClass}>{name}</span> at{" "}
+      by <span className={nameClass}>{name}</span> at{" "}
       <span className={dateClass}>{dateString}</span>
     </div>
   )
