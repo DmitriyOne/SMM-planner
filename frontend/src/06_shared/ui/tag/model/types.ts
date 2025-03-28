@@ -1,3 +1,4 @@
+import { TPost } from "@/05_entities/post-card/model"
 import { TDateFields } from "@/06_shared/api/types/date-fields"
 
 export type TTag = {
@@ -6,5 +7,5 @@ export type TTag = {
   authorId: string
   // TODO: do you need need author and posts?
   author: any
-  posts: any
+  posts: TPost[]
 } & TDateFields

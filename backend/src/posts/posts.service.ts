@@ -14,7 +14,7 @@ export class PostsService {
   findAll(findPostsDto: FindPostsDto) {
     if (!findPostsDto || Object.keys(findPostsDto).length === 0) {
       return this.prismaService.post.findMany({
-        include: { tags: true },
+        include: { tags: true, author: true },
       })
     }
 
@@ -29,7 +29,7 @@ export class PostsService {
             : {},
         ],
       },
-      include: { tags: true },
+      include: { tags: true, author: true },
     })
   }
 
@@ -59,7 +59,7 @@ export class PostsService {
   findOne(id: number) {
     return this.prismaService.post.findUnique({
       where: { id },
-      include: { tags: true },
+      include: { tags: true, author: true },
     })
   }
 

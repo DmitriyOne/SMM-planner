@@ -1,4 +1,4 @@
 export type TDateFields = {
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string // For example "2025-03-28T09:54:39.846Z"
+  updatedAt: string
 }

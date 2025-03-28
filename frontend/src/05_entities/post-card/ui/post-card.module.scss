@@ -1,0 +1,16 @@
+.component {
+  margin-bottom: 16px !important;
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+.tags {
+  margin-bottom: 10px;
+}
+
+.author {
+  margin-top: 10px;
+  text-align: end;
+}
