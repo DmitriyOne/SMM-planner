@@ -44,10 +44,9 @@ export const PostCard: FC<TProps> = ({ post }) => {
 
       <CollapsibleText text={post.description} />
 
-      {/* TODO: get author data */}
       <PostAuthor
-        name='John Doe'
-        createdAt='2022-01-01T00:00:00.000Z'
+        name={post.author?.name}
+        createdAt={post.author?.createdAt}
         componentClassName={styles.author}
       />
     </Card>
