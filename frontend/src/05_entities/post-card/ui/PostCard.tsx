@@ -6,11 +6,11 @@ import { CollapsibleText } from "@/06_shared/ui/collapsible-text"
 
 import { ReadMore } from "@/06_shared/ui/read-more"
 
-import { TPost } from "../model"
 import { CARD_STYLES } from "../config"
 
 import styles from "./post-card.module.scss"
 import { paths } from "@/06_shared/config/routing"
+import { TPost } from "@/05_entities/post/model"
 
 type TProps = {
   post: TPost
