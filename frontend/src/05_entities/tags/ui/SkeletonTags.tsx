@@ -28,7 +28,7 @@ export const SkeletonTags: FC<TProps> = ({
         />
       ))}
 
-      <Tag className={styles.hide}>Hide</Tag>
+      <Tag componentClassName={styles.hide}>Hide</Tag>
     </div>
   )
 }
