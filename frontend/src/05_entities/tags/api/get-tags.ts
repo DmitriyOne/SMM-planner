@@ -3,7 +3,6 @@ import { delay } from "@/06_shared/model/utils"
 import { TTag } from "@/06_shared/ui/tag/model/types"
 
 export const getTags = async (): Promise<TTag[]> => {
-  // TODO: remove delay
   await delay(2000)
   return fetcher<TTag[]>(ENDPOINTS.TAGS_ALL)
 }
