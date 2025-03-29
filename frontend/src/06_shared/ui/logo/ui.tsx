@@ -11,8 +11,8 @@ import { paths } from "@/06_shared/config/routing"
 export const Logo = () => {
   const pathname = usePathname()
   return (
-    <ActiveLink href='/'>
-      <LogoSVG isCurrentPath={pathname === paths.feed} />
+    <ActiveLink href={paths.home}>
+      <LogoSVG isCurrentPath={pathname === paths.home} />
     </ActiveLink>
   )
 }
