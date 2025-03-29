@@ -11,6 +11,7 @@ import { CARD_STYLES } from "../config"
 import styles from "./post-card.module.scss"
 import { paths } from "@/06_shared/config/routing"
 import { TPost } from "@/05_entities/post/model"
+import { PostDate } from "@/05_entities/post-date/ui"
 
 type TProps = {
   post: TPost
@@ -47,9 +48,12 @@ export const PostCard: FC<TProps> = ({ post }) => {
       <CollapsibleText text={post.description} />
 
       <PostAuthor
-        name={post.author?.name}
-        createdAt={post.author?.createdAt}
         componentClassName={styles.author}
+        name={post.author?.name}
+      />
+      <PostDate
+        className={styles.date}
+        date={post.createdAt}
       />
     </Card>
   )
