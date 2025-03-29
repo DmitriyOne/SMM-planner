@@ -17,7 +17,7 @@ type TProps = {
   post: TPost
 }
 
-export const PostView: FC<TProps> = ({ post }) => {
+export const PostViewWidget: FC<TProps> = ({ post }) => {
   const gallery: TImage[] = [
     {
       src: post.image,

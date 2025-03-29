@@ -1,4 +1,4 @@
-import { PostRead } from "@/02_pages/post-read"
+import { PostReadPage } from "@/02_pages/post-read"
 import { getPosts } from "@/03_widgets/post-card-list/api"
 import { getPost } from "@/05_entities/post/api"
 
@@ -25,5 +25,5 @@ export default async function Page({ params }: TParams) {
   const { id } = await params
   const post = await getPost(id)
 
-  return <PostRead post={post} />
+  return <PostReadPage post={post} />
 }
