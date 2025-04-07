@@ -1,0 +1,20 @@
+.component {
+  display: flex;
+}
+
+.input {
+  font-size: 12px !important;
+  padding: 0 8px !important;
+  border-radius: 4px !important;
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important
+}
+
+.button {
+  font-size: 12px !important;
+  height: auto !important;
+  padding: 2px 5px !important;
+  border-radius: 4px !important;
+  border-start-start-radius: 0 !important;
+  border-end-start-radius: 0 !important;
+}
