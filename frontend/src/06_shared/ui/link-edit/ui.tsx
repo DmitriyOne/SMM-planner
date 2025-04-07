@@ -2,7 +2,7 @@ import classNames from "classnames"
 import Link from "next/link"
 import { FC } from "react"
 
-import styles from "./link-edit.module.scss"
+import styles from "./styles.module.scss"
 
 type TProps = {
   redirectPath: string
