@@ -2,17 +2,18 @@ import { Tag as AntdTag } from "antd"
 import { FC, PropsWithChildren } from "react"
 import classNames from "classnames"
 
-import { getRandomColor } from "../lib"
-
 import styles from "./tag.module.scss"
 
-type TProps = PropsWithChildren & {
+type TProps = {
   componentClassName?: string
-  children: string
-}
+} & PropsWithChildren
 
-export const Tag: FC<TProps> = ({ componentClassName, children }) => {
-  const tagColor = getRandomColor() ?? "default"
+export const Tag: FC<TProps> = ({
+  componentClassName,
+  children,
+}) => {
+  // TODO: add getRandomColor
+  const tagColor = "default"
 
   const componentClass = classNames(styles.component, componentClassName)
 
