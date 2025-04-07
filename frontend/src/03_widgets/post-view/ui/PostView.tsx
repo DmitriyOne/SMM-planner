@@ -7,13 +7,14 @@ import { TImage } from "@/06_shared/model/types"
 
 import { PostTitle } from "@/05_entities/post-title/ui"
 import { PostDescription } from "@/05_entities/post-description/ui"
-import { TagsStatic } from "@/05_entities/tags/ui"
 import { PostStatus } from "@/05_entities/post-status/ui"
 import { PostDate } from "@/05_entities/post-date/ui"
 import { PostAuthor } from "@/05_entities/post-author/ui"
 import { DeletePost } from "@/04_features/delete-post/ui"
 import { LinkEdit } from "@/06_shared/ui/link-edit/ui"
 import { paths } from "@/06_shared/config/routing"
+
+import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
 
 import styles from "./post-view.module.scss"
 
@@ -45,7 +46,7 @@ export const PostViewWidget: FC<TProps> = ({ post }) => {
           className={styles.colRight}
         >
           <TagsStatic
-            componentClassName={styles.tags}
+            className={styles.tags}
             tags={post.tags}
           />
           <PostTitle title={post.title} />
