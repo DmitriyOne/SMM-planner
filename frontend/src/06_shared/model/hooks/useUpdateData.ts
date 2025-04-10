@@ -25,7 +25,7 @@ export const useUpdateData = () => {
   }: THandleApiCallOptions) => {
     startLoading()
     try {
-      await delay(50000)
+      await delay(2000)
       const { message } = await apiFunction()
       onSuccessCallback?.()
       antMessage.success(successMessage || message)
