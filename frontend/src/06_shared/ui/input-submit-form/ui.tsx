@@ -6,19 +6,17 @@ import styles from "./styles.module.scss"
 
 type TProps = {
   className?: string
+  inputId: string
   inputClassName?: string
   buttonClassName?: string
-  value?: string
-  onChange?: (value: string) => void
-  onSubmit?: () => void
+  onSubmit?: (formData: FormData) => void
 }
 
 export const InputSubmitForm: FC<TProps> = ({
   className,
+  inputId,
   inputClassName,
   buttonClassName,
-  value,
-  onChange,
   onSubmit,
 }) => {
   const componentClassName = classNames(styles.component, className)
@@ -26,20 +24,23 @@ export const InputSubmitForm: FC<TProps> = ({
   const buttonClass = classNames(styles.button, buttonClassName)
 
   return (
-    <div className={componentClassName}>
+    <form
+      action={onSubmit}
+      className={componentClassName}
+    >
       <Input
+        id={inputId}
+        name={inputId}
         className={inputClass}
         placeholder='Tech...'
-        value={value}
-        onChange={(e) => onChange?.(e.target.value)}
       />
       <Button
         className={buttonClass}
         type='primary'
-        onClick={onSubmit}
+        htmlType='submit'
       >
         Submit
       </Button>
-    </div>
+    </form>
   )
 }
