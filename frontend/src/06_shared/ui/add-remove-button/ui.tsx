@@ -4,7 +4,6 @@ import classNames from "classnames"
 
 import styles from "./styles.module.scss"
 import { EIconType } from "@/06_shared/config/enums"
-import { TTag } from "../tag/model/types"
 
 type TProps = {
   type: EIconType
