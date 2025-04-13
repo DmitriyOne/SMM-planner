@@ -8,10 +8,7 @@ type TProps = {
   componentClassName?: string
 } & PropsWithChildren
 
-export const Tag: FC<TProps> = ({
-  componentClassName,
-  children,
-}) => {
+export const Tag: FC<TProps> = ({ componentClassName, children }) => {
   // TODO: add getRandomColor
   const tagColor = "default"
 
