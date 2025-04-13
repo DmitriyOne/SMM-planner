@@ -1,10 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import Skeleton from "react-loading-skeleton"
 
-import styles from "./skeleton-tags.module.scss"
-import { Tag } from "@/06_shared/ui/tag/ui"
 import { FC } from "react"
 import classNames from "classnames"
+
+import styles from "./skeleton-tags.module.scss"
 
 type TProps = {
   amount?: number
@@ -27,8 +27,6 @@ export const SkeletonTags: FC<TProps> = ({
           style={{ marginRight: "8px" }}
         />
       ))}
-
-      <Tag componentClassName={styles.hide}>Hide</Tag>
     </div>
   )
 }
