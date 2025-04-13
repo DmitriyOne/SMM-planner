@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-export const useLoading = () => {
-  const [isLoading, setIsLoading] = useState(false)
+export const useLoading = (defaultValue = false) => {
+  const [isLoading, setIsLoading] = useState(defaultValue)
 
   const startLoading = () => setIsLoading(true)
   const stopLoading = () => setIsLoading(false)
