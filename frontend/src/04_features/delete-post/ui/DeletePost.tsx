@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import styles from "./delete-post.module.scss"
 import classNames from "classnames"
 import { message } from "antd"
-import { deletePost } from "../api"
 import { delay } from "@/06_shared/model/utils"
 import { useLoading, useModal } from "@/06_shared/model/hooks"
 import { ConfirmModal } from "@/05_entities/confirm-modal/ui"
@@ -18,7 +17,7 @@ type TProps = {
   className?: string
 }
 
-export const DeletePost: FC<TProps> = ({ postId, className }) => {
+export const DeletePost: FC<TProps> = ({ className }) => {
   const router = useRouter()
   const { isShowModal, handleModalOpen, handleModalClose } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()

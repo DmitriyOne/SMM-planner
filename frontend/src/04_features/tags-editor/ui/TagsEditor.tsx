@@ -71,6 +71,7 @@ export const TagsEditor: FC<TProps> = ({
               <TagCreate
                 onClick={() => {
                   setIsCreatingNewTag(true)
+                  // eslint-disable-next-line no-console
                   console.log("Create tag")
                 }}
               />
