@@ -14,6 +14,7 @@ import { PostAuthor } from "@/05_entities/post-author/ui"
 import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
 
 import { PostReadControl } from "@/03_widgets/post-read-control/ui"
+import { Breadcrumbs } from "@/03_widgets/breadcrumbs/ui"
 
 import styles from "./post-read.module.scss"
 
@@ -35,6 +36,10 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
 
   return (
     <Container className={styles.component}>
+      <Breadcrumbs
+        type='post_read'
+        params={{ postId: post.id.toString() }}
+      />
       <Row wrap={false}>
         <Col
           flex='400px'
