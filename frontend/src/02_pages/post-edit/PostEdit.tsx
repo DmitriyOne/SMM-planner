@@ -14,6 +14,7 @@ import { PostStatusControl } from "@/03_widgets/post-status-control/ui"
 import { TagsPanelEditable } from "@/03_widgets/tags-panel-editable/ui"
 
 import { PostGalleryEditable } from "@/03_widgets/post-gallery-editable/ui"
+import { Breadcrumbs } from "@/03_widgets/breadcrumbs/ui"
 
 import styles from "./post-edit.module.scss"
 
@@ -36,6 +37,10 @@ export const PostEditPage: FC<TProps> = ({ post }) => {
 
   return (
     <Container className={styles.component}>
+      <Breadcrumbs
+        type='post_edit'
+        params={{ postId: post.id.toString() }}
+      />
       <Row wrap={false}>
         <Col
           flex='400px'
