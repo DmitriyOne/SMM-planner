@@ -10,11 +10,10 @@ import { PostDescription } from "@/05_entities/post-description/ui"
 import { PostStatus } from "@/05_entities/post-status/ui"
 import { PostDate } from "@/05_entities/post-date/ui"
 import { PostAuthor } from "@/05_entities/post-author/ui"
-import { DeletePost } from "@/04_features/delete-post/ui"
-import { LinkEdit } from "@/06_shared/ui/link-edit/ui"
-import { paths } from "@/06_shared/config/routing"
 
 import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
+
+import { PostReadControl } from "@/03_widgets/post-read-control/ui"
 
 import styles from "./post-read.module.scss"
 
@@ -33,8 +32,6 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
       alt: post.title,
     },
   ]
-
-  const postIdString = post.id.toString()
 
   return (
     <Container className={styles.component}>
@@ -79,17 +76,7 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
             title='Updated at:'
             date={post.updatedAt}
           />
-
-          <div className={styles.bottomButtons}>
-            <DeletePost
-              className={styles.delete}
-              postId={postIdString}
-            />
-            <LinkEdit
-              className={styles.edit}
-              redirectPath={paths.post_edit(postIdString)}
-            />
-          </div>
+          <PostReadControl post={post} />
         </Col>
       </Row>
     </Container>
