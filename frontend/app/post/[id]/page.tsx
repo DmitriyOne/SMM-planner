@@ -5,14 +5,8 @@ import { getPost } from "@/05_entities/post/api"
 type TParams = { params: Promise<{ id: string }> }
 
 export async function generateStaticParams() {
-  try {
-    const posts = await getPosts({})
-    console.log("POSTS FOR STATIC PARAMS:", posts)
-    return posts.map((post) => ({ id: String(post.id) }))
-  } catch (err) {
-    console.error("generateStaticParams failed:", err)
-    return []
-  }
+  const posts = await getPosts({})
+  return posts.map((post) => ({ id: String(post.id) }))
 }
 
 export async function generateMetadata({ params }: TParams) {
