@@ -1,3 +1,4 @@
+import { isFormData, prepareRequestBody } from "../model/utils"
 import { getBaseUrl } from "./base-url"
 import { HeadersValue, Headers } from "./headers"
 import { HttpMethod } from "./http"
@@ -7,12 +8,17 @@ export async function fetcher<T>(
   endpoint: string,
   method: HttpMethod = "GET",
   { body, token, ...options }: TFetcherOptions = {},
+  isPublic = false,
 ): Promise<T> {
-  const url = `${getBaseUrl()}${endpoint}`
+  const url = isPublic ? endpoint : `${getBaseUrl()}${endpoint}`
+  const isForm = isFormData(body)
+  const bodyRequest = prepareRequestBody(body)
 
   try {
     const headers: HeadersInit = {
-      [Headers.CONTENT_TYPE]: HeadersValue.CONTENT_TYPE_JSON,
+      ...(!isForm && {
+        [Headers.CONTENT_TYPE]: HeadersValue.CONTENT_TYPE_JSON,
+      }),
       ...(token && {
         [Headers.AUTHORIZATION]: `${HeadersValue.AUTHORIZATION_BEARER} ${token}`,
       }),
@@ -21,7 +27,7 @@ export async function fetcher<T>(
     const response = await fetch(url, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : null,
+      body: bodyRequest,
       ...options,
     })
 

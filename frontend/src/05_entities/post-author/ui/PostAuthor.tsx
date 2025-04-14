@@ -1,32 +1,35 @@
 import { TUser } from "@/05_entities/user/model"
-import styles from "./post-author.module.scss"
+import Text from "antd/es/typography/Text"
 import { FC } from "react"
-import { formatIsoToDatetime } from "@/06_shared/model/utils"
 import classNames from "classnames"
 
+import styles from "./post-author.module.scss"
+
 type TProps = {
+  title?: string
   componentClassName?: string
   nameClassName?: string
-  dateClassName?: string
-} & Pick<TUser, "name" | "createdAt">
+  size?: "small" | "default"
+} & Pick<TUser, "name">
 
 export const PostAuthor: FC<TProps> = ({
+  title = "by",
   name,
-  createdAt,
   componentClassName,
   nameClassName,
-  dateClassName,
+  size = "default",
 }) => {
-  const dateString = formatIsoToDatetime(createdAt)
-
-  const componentClass = classNames(styles.component, componentClassName)
+  const componentClass = classNames(componentClassName, {
+    [styles[size]]: size,
+  })
   const nameClass = classNames(styles.username, nameClassName)
-  const dateClass = classNames(styles.date, dateClassName)
 
   return (
-    <div className={componentClass}>
-      by <span className={nameClass}>{name}</span> at{" "}
-      <span className={dateClass}>{dateString}</span>
-    </div>
+    <Text
+      type='secondary'
+      className={componentClass}
+    >
+      {title} <span className={nameClass}>{name}</span>
+    </Text>
   )
 }

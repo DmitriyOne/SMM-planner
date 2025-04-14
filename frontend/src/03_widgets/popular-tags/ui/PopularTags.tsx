@@ -2,7 +2,8 @@ import { FC, Suspense } from "react"
 import Title from "antd/es/typography/Title"
 import classNames from "classnames"
 
-import { SkeletonTags, TagsAsync } from "@/05_entities/tags/ui"
+import { SkeletonTags } from "@/05_entities/tags/ui/tags-skeleton"
+import { TagsAsync } from "@/05_entities/tags/ui/tags-async"
 import { getTags } from "@/05_entities/tags/api"
 
 import styles from "./popular-tags.module.scss"

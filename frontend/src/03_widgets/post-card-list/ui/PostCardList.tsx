@@ -1,5 +1,5 @@
-import { TPost } from "@/05_entities/post-card/model"
 import { PostCard } from "@/05_entities/post-card/ui"
+import { TPost } from "@/05_entities/post/model"
 import { FC } from "react"
 
 type TProps = {

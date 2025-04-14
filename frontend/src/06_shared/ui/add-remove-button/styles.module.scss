@@ -1,0 +1,23 @@
+.component {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.left {
+  margin-left: 6px;
+}
+
+.right {
+  margin-right: 6px;
+}
+
+.icon {
+  display: block;
+}
