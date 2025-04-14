@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { TTag } from "@/06_shared/ui/tag/model/types"
 import { useState } from "react"
 
