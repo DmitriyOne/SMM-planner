@@ -2,7 +2,6 @@ import { TPost } from "@/05_entities/post/model"
 import { FC } from "react"
 import { Container } from "@/06_shared/ui/container"
 import { Col, Row } from "antd"
-import { PostGallery } from "@/05_entities/post-gallery/ui"
 import { TImage } from "@/06_shared/model/types"
 
 import { PostDate } from "@/05_entities/post-date/ui"
@@ -13,6 +12,8 @@ import { UpdatePostDescription } from "@/04_features/update-post-description/ui"
 
 import { PostStatusControl } from "@/03_widgets/post-status-control/ui"
 import { TagsPanelEditable } from "@/03_widgets/tags-panel-editable/ui"
+
+import { PostGalleryEditable } from "@/03_widgets/post-gallery-editable/ui"
 
 import styles from "./post-edit.module.scss"
 
@@ -40,7 +41,7 @@ export const PostEditPage: FC<TProps> = ({ post }) => {
           flex='400px'
           className={styles.colLeft}
         >
-          <PostGallery gallery={gallery} />
+          <PostGalleryEditable gallery={gallery} />
         </Col>
         <Col flex='auto'>
           <TagsPanelEditable tags={post.tags} />
