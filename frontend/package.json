@@ -6,20 +6,33 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "stylelint": "stylelint '**/*.{css,scss}' --fix"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.0.2",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "antd": "^5.24.5",
+    "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.7"
+    "react-loading-skeleton": "^3.5.0",
+    "stylelint-config-prettier-scss": "^1.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
-    "@eslint/eslintrc": "^3"
+    "eslint-config-prettier": "^10.1.1",
+    "prettier": "^3.5.3",
+    "sass": "^1.86.0",
+    "stylelint": "^15.2.0",
+    "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-scss": "^5.0.1",
+    "typescript": "^5"
   }
 }
