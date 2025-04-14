@@ -32,10 +32,18 @@ export async function fetcher<T>(
     })
 
     if (!response.ok) {
-      const data = await response.json()
-      throw new Error(
-        data.error || `Ошибка ${response.status}: ${response.statusText}`,
-      )
+      const contentType = response.headers.get("Content-Type") || ""
+      let errorMessage = `Ошибка ${response.status}: ${response.statusText}`
+
+      if (contentType.includes("application/json")) {
+        const data = await response.json()
+        errorMessage = data.error || errorMessage
+      } else {
+        const text = await response.text()
+        errorMessage = text || errorMessage
+      }
+
+      throw new Error(errorMessage)
     }
 
     return (await response.json()) as T
