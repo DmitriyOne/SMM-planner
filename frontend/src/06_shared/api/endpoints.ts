@@ -50,4 +50,6 @@ export const ENDPOINTS = {
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/${commentId}`,
   COMMENT_DELETE: (postId: string, commentId: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/${commentId}`,
+
+  UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
 }
