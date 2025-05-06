@@ -4,16 +4,29 @@ import { Button, Form, Input, Switch } from "antd"
 
 import FormItem from "antd/es/form/FormItem"
 import TextArea from "antd/es/input/TextArea"
-import Dragger from "antd/es/upload/Dragger"
-import { InboxOutlined } from "@ant-design/icons"
+
+import { usePostCreateForm, usePostTags, usePostUpload } from "../model"
+import { FORM_ITEM_LAYOUT, INPUT_IDS, VALIDATE_MESSAGES } from "../config"
+import { PostTagsField } from "./PostTagsField"
+import { PostUploadField } from "./PostUploadField"
 
 import styles from "./post-create-form.module.scss"
-import { usePostCreateForm } from "../model"
-import { FORM_ITEM_LAYOUT, INPUT_IDS, VALIDATE_MESSAGES } from "../config"
 
 export const PostCreateForm = () => {
-  const { form, isLoading, uploadKey, onSubmit, onUpload, onRemoveFile } =
-    usePostCreateForm()
+  const {
+    tags,
+    selectedTags,
+    isTagsLoading,
+    onToggleTag,
+    onRemoveSelectedTags,
+  } = usePostTags()
+  const { file, uploadKey, onUpload, onRemoveFile } = usePostUpload()
+  const { form, isLoading, onSubmit } = usePostCreateForm(
+    file,
+    selectedTags,
+    onRemoveFile,
+    onRemoveSelectedTags,
+  )
 
   return (
     <Form
@@ -24,7 +37,7 @@ export const PostCreateForm = () => {
       onFinish={onSubmit}
       initialValues={{
         [INPUT_IDS.APPROVED]: false,
-        [INPUT_IDS.PUBLISH]: true,
+        [INPUT_IDS.PUBLISH]: false,
       }}
       {...FORM_ITEM_LAYOUT}
     >
@@ -45,6 +58,12 @@ export const PostCreateForm = () => {
           rows={4}
         />
       </FormItem>
+      <PostTagsField
+        isLoading={isTagsLoading}
+        tags={tags}
+        selectedTags={selectedTags}
+        onToggleTag={onToggleTag}
+      />
       <FormItem
         name={INPUT_IDS.APPROVED}
         label='Approved'
@@ -60,27 +79,13 @@ export const PostCreateForm = () => {
         <Switch disabled={isLoading} />
       </FormItem>
       <FormItem>
-        <Dragger
-          key={uploadKey}
-          name={INPUT_IDS.IMAGE}
-          customRequest={onUpload}
-          listType='picture'
-          onRemove={onRemoveFile}
-          maxCount={1}
-          disabled={isLoading}
-        >
-          <p className='ant-upload-drag-icon'>
-            <InboxOutlined />
-          </p>
-          <p className='ant-upload-text'>
-            Click or drag file to this area to upload
-          </p>
-          <p className='ant-upload-hint'>
-            Support for a single or bulk upload.
-          </p>
-        </Dragger>
+        <PostUploadField
+          isLoading={isLoading}
+          uploadKey={uploadKey}
+          onUpload={onUpload}
+          onRemoveFile={onRemoveFile}
+        />
       </FormItem>
-
       <FormItem>
         <Button
           type='primary'

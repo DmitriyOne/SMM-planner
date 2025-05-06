@@ -1,3 +1,16 @@
 .component {
   margin-top: 40px !important;
 }
+
+.tagsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagsLabel {
+  padding-bottom: 8px;
+}
+
+.tags {
+  margin-bottom: 24px;
+}
