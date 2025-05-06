@@ -12,7 +12,7 @@ export type TPost = {
   isApproved: boolean
   authorId: string
   author: TUser
-  tags: TTag[]
+  tags: Pick<TTag, "title">[]
 } & TDateFields
 
 export type TPostCreateBody = Omit<
