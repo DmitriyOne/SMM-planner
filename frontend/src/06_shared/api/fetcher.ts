@@ -32,7 +32,7 @@ export async function fetcher<T>(
     return (await response.json()) as T
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error("Error :", error)
+    console.error("CatchError: ", error)
     throw error
   }
 }

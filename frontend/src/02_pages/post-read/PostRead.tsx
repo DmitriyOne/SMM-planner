@@ -29,7 +29,7 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
 
   const gallery: TImage[] = [
     {
-      src: post.image,
+      src: post.image ?? "",
       alt: post.title,
     },
   ]

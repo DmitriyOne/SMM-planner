@@ -30,7 +30,7 @@ export const PostEditPage: FC<TProps> = ({ post }) => {
   // TODO: create utils
   const gallery: TImage[] = [
     {
-      src: post.image,
+      src: post.image ?? "",
       alt: post.title,
     },
   ]
