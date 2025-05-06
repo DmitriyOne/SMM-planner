@@ -7,5 +7,5 @@ export type TTag = {
   authorId: string
   // TODO: do you need need author and posts?
   author: any
-  posts: TPost[]
+  posts: Omit<TPost[], "tags">
 } & TDateFields
