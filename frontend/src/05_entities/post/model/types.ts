@@ -7,10 +7,15 @@ export type TPost = {
   id: number
   title: string
   description: string
-  image: string
+  image: string | null
   isPublish: boolean
   isApproved: boolean
   authorId: string
   author: TUser
   tags: TTag[]
 } & TDateFields
+
+export type TPostCreateBody = Omit<
+  TPost,
+  "id" | "createdAt" | "updatedAt" | "author" | "authorId"
+>
