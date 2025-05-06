@@ -5,9 +5,10 @@ export const createErrorMessage = async (
 
   if (contentType.includes("application/json")) {
     const data = await response.json()
+
     return (
+      (data && `${data.statusCode}: ${data.message}`) ||
       data.error ||
-      `${response.status}: ${data.message}` ||
       response.statusText ||
       "Unknown error"
     )
