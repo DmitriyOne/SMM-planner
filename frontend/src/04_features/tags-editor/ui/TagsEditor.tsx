@@ -3,13 +3,19 @@ import { SaveCancelForm } from "@/06_shared/ui/save-cancel-form"
 import { TagCreate } from "@/06_shared/ui/tag-create"
 import { SkeletonTags } from "@/05_entities/tags/ui/tags-skeleton"
 import { TTag } from "@/06_shared/ui/tag/model/types"
-import { getTags } from "@/05_entities/tags/api"
+import { createTag, getTags } from "@/05_entities/tags/api"
 import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
 import { useLoading } from "@/06_shared/model/hooks"
 import { isValidArray } from "@/06_shared/model/utils"
 import { InputSubmitForm } from "@/06_shared/ui"
 import { toggleTag, getTagIconType } from "@/05_entities/tags/lib"
-import { createNewTag } from "../lib"
+
+import {
+  INPUT_IDS,
+  SOMETHING_WENT_WRONG,
+  TAG_CREATED_SUCCESS_MSG,
+} from "../config"
+import { message } from "antd"
 
 import styles from "./tags-editor.module.scss"
 
@@ -44,11 +50,19 @@ export const TagsEditor: FC<TProps> = ({
     setIsCreatingNewTag(false)
   }
 
-  const handleSubmit = (formData: FormData) => {
-    const newTag = createNewTag(formData)
-    setTags((prev) => [...prev, newTag])
-    setSelectedTags((prev) => [...prev, newTag])
-    setIsCreatingNewTag(false)
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const title = formData.get(INPUT_IDS.NEW_TAG) as string
+      const newTag = await createTag(title)
+      message.success(TAG_CREATED_SUCCESS_MSG)
+      setTags((prev) => [...prev, newTag])
+      setSelectedTags((prev) => [...prev, newTag])
+      setIsCreatingNewTag(false)
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : SOMETHING_WENT_WRONG
+      message.error(errorMessage)
+    }
   }
 
   return (
@@ -64,7 +78,7 @@ export const TagsEditor: FC<TProps> = ({
           >
             {isCreatingNewTag ? (
               <InputSubmitForm
-                inputId='new-tag'
+                inputId={INPUT_IDS.NEW_TAG}
                 onSubmit={handleSubmit}
               />
             ) : (

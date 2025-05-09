@@ -6,6 +6,7 @@ import { TagsList } from "../tags-list"
 import { EIconType } from "@/06_shared/config/enums"
 
 type TProps = {
+  isLoading?: boolean
   tags: TTag[]
   className?: string
   tagClassName?: string
@@ -17,6 +18,7 @@ type TProps = {
 } & PropsWithChildren
 
 export const TagsStatic: FC<TProps> = ({
+  isLoading,
   tags,
   className,
   tagClassName,
@@ -31,6 +33,7 @@ export const TagsStatic: FC<TProps> = ({
     <TagsList
       tags={tags}
       className={className}
+      isLoading={isLoading}
       tagComponentClassName={tagClassName}
       getIconType={getIconType}
       onTagClick={onTagClick}

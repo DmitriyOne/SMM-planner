@@ -15,6 +15,16 @@ export const customLinks = (
     href: paths.login,
     condition: !authenticated,
   },
+    {
+    title: "Create post",
+    href: paths.post_create,
+    condition: authenticated,
+  },
+  {
+    title: "Create tag",
+    href: paths.tag_create,
+    condition: authenticated,
+  },
   {
     title: username ?? "Profile",
     href: paths.profile,

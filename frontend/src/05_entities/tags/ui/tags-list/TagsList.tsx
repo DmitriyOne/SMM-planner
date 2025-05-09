@@ -6,11 +6,14 @@ import { FC, PropsWithChildren } from "react"
 
 import classNames from "classnames"
 
-import styles from "./tags-list.module.scss"
 import { AddRemoveButton } from "@/06_shared/ui/add-remove-button/ui"
 import { EIconType } from "@/06_shared/config/enums"
+import Text from "antd/es/typography/Text"
+
+import styles from "./tags-list.module.scss"
 
 type TProps = {
+  isLoading?: boolean
   tags: TTag[]
   className?: string
   tagComponentClassName?: string
@@ -22,12 +25,22 @@ export const TagsList: FC<TProps> = ({
   tags,
   className,
   tagComponentClassName,
-  children,
+  isLoading,
   getIconType,
   onTagClick,
+  children,
 }) => {
+  if (isLoading) {
+    return <Text className={className}>Loading...</Text>
+  }
+
   if (!isValidArray(tags)) {
-    return <DataNoFound title='Tags' />
+    return (
+      <DataNoFound
+        className={className}
+        title='Tags'
+      />
+    )
   }
 
   const componentClass = classNames(styles.component, className)
@@ -37,6 +50,7 @@ export const TagsList: FC<TProps> = ({
       {tags.map((tag) => (
         <Tag
           key={tag.id}
+          id={tag.id}
           componentClassName={tagComponentClassName}
         >
           {tag.title}

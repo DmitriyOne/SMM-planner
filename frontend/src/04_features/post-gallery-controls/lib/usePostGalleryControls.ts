@@ -1,7 +1,6 @@
 import { useModal, useLoading } from "@/06_shared/model/hooks"
 import { Dispatch, SetStateAction } from "react"
 import { message } from "antd"
-import { delay } from "@/06_shared/model/utils"
 import { TImage } from "@/06_shared/model/types"
 import { UploadRequestOption } from "rc-upload/lib/interface"
 import { uploadImageToCloudinary } from "../api"
@@ -10,8 +9,10 @@ import {
   POST_GALLERY_UPDATED_SUCCESS_MSG,
   POST_GALLERY_UPLOADED_ERROR_MSG,
 } from "../config"
+import { updatePost } from "@/05_entities/post/api"
 
 export const usePostGalleryControls = (
+  postId: number,
   setNewGallery: Dispatch<SetStateAction<TImage[]>>,
 ) => {
   const { isShowModal, handleModalOpen, handleModalClose } = useModal()
@@ -23,6 +24,7 @@ export const usePostGalleryControls = (
     try {
       startLoading()
       const response = await uploadImageToCloudinary(file)
+      await updatePost(postId, { image: response.secure_url })
       message.success(POST_GALLERY_UPDATED_SUCCESS_MSG)
       onSuccess?.(response, file)
       setNewGallery([{ src: response.secure_url, alt: "" }])
@@ -37,7 +39,7 @@ export const usePostGalleryControls = (
   const handleDelete = async () => {
     startLoading()
     try {
-      await delay(2000)
+      await updatePost(postId, { image: null })
       setNewGallery([])
       handleModalClose()
       message.success(POST_GALLERY_UPDATED_SUCCESS_MSG)

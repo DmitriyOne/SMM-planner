@@ -43,6 +43,7 @@ export const AddRemoveButton: FC<TProps> = ({
     <button
       className={componentClass}
       onClick={onClick}
+      type='button'
     >
       {icon}
     </button>

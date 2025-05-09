@@ -18,7 +18,7 @@ export const ENDPOINTS = {
   POSTS_CREATE: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/create`,
   POST_BY_ID: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
-  POST_UPDATE: (id: string) =>
+  POST_UPDATE: (id: number) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
   POST_DELETE: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
