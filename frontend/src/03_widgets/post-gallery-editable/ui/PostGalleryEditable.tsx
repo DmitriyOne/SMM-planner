@@ -11,12 +11,14 @@ import { PostGalleryControls } from "@/04_features/post-gallery-controls/ui"
 import styles from "./post-gallery-editable.module.scss"
 
 type TProps = {
+  postId: number
   gallery: TImage[]
   galleryClassName?: string
   controlsClassName?: string
 }
 
 export const PostGalleryEditable: FC<TProps> = ({
+  postId,
   gallery,
   galleryClassName,
   controlsClassName,
@@ -32,6 +34,7 @@ export const PostGalleryEditable: FC<TProps> = ({
         className={galleryClassName}
       />
       <PostGalleryControls
+        postId={postId}
         gallery={newGallery}
         className={controlsClass}
         setNewGallery={setNewGallery}

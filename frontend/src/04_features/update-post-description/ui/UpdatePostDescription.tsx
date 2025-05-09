@@ -3,19 +3,20 @@
 import { FC, useState } from "react"
 
 import { TPost } from "@/05_entities/post/model"
-import { deletePost } from "@/04_features/delete-post/api"
 import { useUpdateData } from "@/06_shared/model/hooks"
 import { PostDescription } from "@/05_entities/post-description/ui"
 import { LoadingOverlay } from "@/06_shared/ui/loading-overlay"
 import classNames from "classnames"
 
 import styles from "./update-post-description.module.scss"
+import { updatePost } from "@/05_entities/post/api"
 
-type TProps = Pick<TPost, "description"> & {
+type TProps = Pick<TPost, "id" | "description"> & {
   className?: string
 }
 
 export const UpdatePostDescription: FC<TProps> = ({
+  id,
   description,
   className,
 }) => {
@@ -24,7 +25,7 @@ export const UpdatePostDescription: FC<TProps> = ({
 
   const handleSuccess = async () => {
     await handleApiCall({
-      apiFunction: () => deletePost("7"),
+      apiFunction: () => updatePost(id, { description: editableText }),
       onErrorCallback: () => setEditableText(description),
     })
   }

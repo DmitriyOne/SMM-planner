@@ -1,22 +1,27 @@
 "use client"
 
-import { deletePost } from "@/04_features/delete-post/api"
+import { updatePost } from "@/05_entities/post/api"
 import { useUpdateData } from "@/06_shared/model/hooks"
 import { Switcher } from "@/06_shared/ui/switcher"
 import { FC, useState } from "react"
 
 type TProps = {
+  postId: number
   defaultValue: boolean
   className?: string
 }
 
-export const SwitchPostPublish: FC<TProps> = ({ defaultValue, className }) => {
+export const SwitchPostPublish: FC<TProps> = ({
+  postId,
+  defaultValue,
+  className,
+}) => {
   const [status, setStatus] = useState(defaultValue)
   const { isLoading, handleApiCall } = useUpdateData()
 
   const onChange = async (checked: boolean) => {
     await handleApiCall({
-      apiFunction: () => deletePost("9"),
+      apiFunction: () => updatePost(postId, { isPublish: checked }),
       onSuccessCallback: () => setStatus(checked),
     })
   }

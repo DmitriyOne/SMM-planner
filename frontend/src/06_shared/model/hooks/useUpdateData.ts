@@ -4,7 +4,6 @@ import { useLoading } from "./useLoading"
 
 import { TResponseMessage } from "@/06_shared/api/types"
 import { SOMETHING_WENT_WRONG } from "@/06_shared/config"
-import { delay } from "../utils"
 
 type TApiFunction<T> = () => Promise<T>
 type THandleApiCallOptions = {
@@ -25,7 +24,6 @@ export const useUpdateData = () => {
   }: THandleApiCallOptions) => {
     startLoading()
     try {
-      await delay(2000)
       const { message } = await apiFunction()
       onSuccessCallback?.()
       antMessage.success(successMessage || message)
