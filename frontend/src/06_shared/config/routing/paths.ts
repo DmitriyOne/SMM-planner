@@ -4,6 +4,7 @@ export const paths = {
   register: "/register",
   profile: "/profile",
   settings: "/settings",
+  tags: "/tags",
 
   // Get the URL for the post read page
   post_read: (id: string) => `/post/${id}`,
@@ -16,7 +17,7 @@ export const paths = {
   post_edit: (id: string) => `/post/${id}/edit`,
 
   // Available for admin, editor
-  tag_create: "/tag/create",
+  tag_create: "/tags/create",
 
   // Available for admin
   update_role: "/update/role",
