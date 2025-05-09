@@ -11,11 +11,13 @@ import styles from "./popular-tags.module.scss"
 type TProps = {
   title?: string
   componentClassName?: string
+  isAllTagsLink?: boolean
 }
 
 export const PopularTags: FC<TProps> = ({
   title = "Popular Tags",
   componentClassName,
+  isAllTagsLink,
 }) => {
   const componentClass = classNames(styles.component, componentClassName)
 
@@ -29,7 +31,10 @@ export const PopularTags: FC<TProps> = ({
       </Title>
 
       <Suspense fallback={<SkeletonTags />}>
-        <TagsAsync getTags={getTags()} />
+        <TagsAsync
+          getTags={getTags()}
+          isAllTagsLink={isAllTagsLink}
+        />
       </Suspense>
     </div>
   )

@@ -4,6 +4,7 @@ export const LogoSVG = ({ isCurrentPath }: { isCurrentPath: boolean }) => {
       width='70'
       height='40'
       xmlns='http://www.w3.org/2000/svg'
+      style={{ cursor: isCurrentPath ? "default" : "pointer" }}
     >
       <rect
         x='0'
@@ -23,7 +24,6 @@ export const LogoSVG = ({ isCurrentPath }: { isCurrentPath: boolean }) => {
         fill='#fff'
         textAnchor='middle'
         dominantBaseline='central'
-        cursor={isCurrentPath ? "pointer" : "default"}
       >
         SMM
       </text>

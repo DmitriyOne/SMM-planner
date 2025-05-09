@@ -6,6 +6,7 @@ import { isValidArray } from "@/06_shared/model/utils"
 export type TBreadcrumbParams = {
   postId?: string
   userId?: string
+  allTags?: boolean
 }
 
 export const getBreadcrumbSegments = (

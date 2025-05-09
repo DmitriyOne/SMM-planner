@@ -23,5 +23,9 @@ export const breadcrumbConfig: Record<
     HOME_BREADCRUMB,
     { label: `Post #${postId}`, href: paths.post_read(postId || "") },
   ],
+  [BreadcrumbsTypes.TAGS]: () => [
+    HOME_BREADCRUMB,
+    { label: "All tags", href: paths.tags },
+  ],
   [BreadcrumbsTypes.EMPTY]: () => [HOME_BREADCRUMB],
 }
