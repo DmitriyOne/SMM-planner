@@ -26,6 +26,11 @@ export const customLinks = (
     condition: authenticated,
   },
   {
+    title: "Create tag",
+    href: paths.tag_create,
+    condition: authenticated,
+  },
+  {
     title: "Logout",
     href: `/logout`,
     condition: authenticated,

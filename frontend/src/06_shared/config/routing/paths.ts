@@ -15,6 +15,9 @@ export const paths = {
   // Get the URL for the post edit page
   post_edit: (id: string) => `/post/${id}/edit`,
 
+  // Available for admin, editor
+  tag_create: "/tag/create",
+
   // Available for admin
   update_role: "/update/role",
 }
