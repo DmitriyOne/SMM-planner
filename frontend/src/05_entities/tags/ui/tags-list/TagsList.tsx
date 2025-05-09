@@ -50,6 +50,7 @@ export const TagsList: FC<TProps> = ({
       {tags.map((tag) => (
         <Tag
           key={tag.id}
+          id={tag.id}
           componentClassName={tagComponentClassName}
         >
           {tag.title}
