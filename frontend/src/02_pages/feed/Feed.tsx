@@ -26,7 +26,10 @@ export const Feed: FC<TProps> = ({ posts }) => {
           </Title>
           <PostCardList posts={posts} />
         </div>
-        <PopularTags componentClassName={styles.tags} />
+        <PopularTags
+          componentClassName={styles.tags}
+          isAllTagsLink
+        />
       </Container>
     </>
   )
