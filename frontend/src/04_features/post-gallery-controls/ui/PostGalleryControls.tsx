@@ -13,12 +13,14 @@ import { usePostGalleryControls } from "../lib"
 import styles from "./post-gallery-controls.module.scss"
 
 type TProps = {
+  postId: number
   gallery: TImage[]
   className?: string
   setNewGallery: Dispatch<SetStateAction<TImage[]>>
 }
 
 export const PostGalleryControls: FC<TProps> = ({
+  postId,
   gallery,
   className,
   setNewGallery,
@@ -30,7 +32,7 @@ export const PostGalleryControls: FC<TProps> = ({
     handleUpload,
     handleDelete,
     handleCancel,
-  } = usePostGalleryControls(setNewGallery)
+  } = usePostGalleryControls(postId, setNewGallery)
 
   const addButtonTitle = isValidArray(gallery) ? "Upload more" : "Upload"
 

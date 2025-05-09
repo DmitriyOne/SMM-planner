@@ -3,21 +3,22 @@
 import { FC } from "react"
 import { useRouter } from "next/navigation"
 
-import styles from "./delete-post.module.scss"
 import classNames from "classnames"
 import { message } from "antd"
-import { delay } from "@/06_shared/model/utils"
 import { useLoading, useModal } from "@/06_shared/model/hooks"
 import { ConfirmModal } from "@/05_entities/confirm-modal/ui"
 import { POST_DELETED_ERROR_MSG, POST_DELETED_SUCCESS_MSG } from "../config"
 import { paths } from "@/06_shared/config/routing"
+import { deletePost } from "../api"
+
+import styles from "./delete-post.module.scss"
 
 type TProps = {
   postId: string
   className?: string
 }
 
-export const DeletePost: FC<TProps> = ({ className }) => {
+export const DeletePost: FC<TProps> = ({ postId, className }) => {
   const router = useRouter()
   const { isShowModal, handleModalOpen, handleModalClose } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()
@@ -26,8 +27,7 @@ export const DeletePost: FC<TProps> = ({ className }) => {
     startLoading()
     try {
       // TODO: check user authorization and is he the owner
-      // await deletePost(postId)
-      await delay(2000)
+      await deletePost(postId)
       message.success(POST_DELETED_SUCCESS_MSG)
       router.push(paths.home)
     } catch (error) {

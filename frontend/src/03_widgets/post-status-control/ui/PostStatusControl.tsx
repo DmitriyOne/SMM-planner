@@ -19,6 +19,7 @@ export const PostStatusControl: FC<TProps> = ({ post }) => {
           status={post.isPublish}
         />
         <SwitchPostPublish
+          postId={post.id}
           className={styles.switcher}
           defaultValue={post.isPublish}
         />
@@ -31,6 +32,7 @@ export const PostStatusControl: FC<TProps> = ({ post }) => {
           status={post.isApproved}
         />
         <SwitchPostApprove
+          postId={post.id}
           className={styles.switcher}
           defaultValue={post.isApproved}
         />

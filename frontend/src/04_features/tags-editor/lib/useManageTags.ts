@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+import { updatePost } from "@/05_entities/post/api"
 import { TTag } from "@/06_shared/ui/tag/model/types"
 import { useState } from "react"
 
-export const useManageTags = () => {
+export const useManageTags = (postId: number) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const handleEdit = () => {
@@ -15,10 +16,8 @@ export const useManageTags = () => {
     setIsEditing(false)
   }
 
-  const handleSave = (tags: TTag[]) => {
-    // TODO: call API
-    console.log("Save")
-    console.log("tags: ", tags)
+  const handleSave = async (tags: TTag[]) => {
+    await updatePost(postId, { tags: tags })
     setIsEditing(false)
   }
 
