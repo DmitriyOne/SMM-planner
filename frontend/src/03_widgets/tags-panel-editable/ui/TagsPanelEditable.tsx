@@ -7,12 +7,14 @@ import { TTag } from "@/06_shared/ui/tag/model/types"
 import { FC, useState } from "react"
 
 type TProps = {
+  postId: number
   tags: TTag[]
 }
 
-export const TagsPanelEditable: FC<TProps> = ({ tags }) => {
+export const TagsPanelEditable: FC<TProps> = ({ postId, tags }) => {
   const [selectedTags, setSelectedTags] = useState<TTag[]>(tags)
-  const { isEditing, handleEdit, handleCancel, handleSave } = useManageTags()
+  const { isEditing, handleEdit, handleCancel, handleSave } =
+    useManageTags(postId)
 
   return (
     <div>

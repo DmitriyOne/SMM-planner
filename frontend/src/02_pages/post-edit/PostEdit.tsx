@@ -46,12 +46,22 @@ export const PostEditPage: FC<TProps> = ({ post }) => {
           flex='400px'
           className={styles.colLeft}
         >
-          <PostGalleryEditable gallery={gallery} />
+          <PostGalleryEditable
+            postId={post.id}
+            gallery={gallery}
+          />
         </Col>
         <Col flex='auto'>
-          <TagsPanelEditable tags={post.tags} />
-          <UpdatePostTitle title={post.title} />
+          <TagsPanelEditable
+            postId={post.id}
+            tags={post.tags}
+          />
+          <UpdatePostTitle
+            id={post.id}
+            title={post.title}
+          />
           <UpdatePostDescription
+            id={post.id}
             className={styles.description}
             description={post.description}
           />

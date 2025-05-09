@@ -6,7 +6,7 @@ import { TSubmitValues } from "./types"
 import { TPostCreateBody } from "@/05_entities/post/model"
 import { createPost } from "@/05_entities/post/api"
 import { TTag } from "@/06_shared/ui/tag/model/types"
-import { delay, isValidArray } from "@/06_shared/model/utils"
+import { isValidArray } from "@/06_shared/model/utils"
 
 export const usePostCreateForm = (
   file: string | null,
@@ -35,7 +35,6 @@ export const usePostCreateForm = (
 
     try {
       await createPost(body)
-      await delay(2000)
       message.success(POST_UPLOAD_SUCCESS_MSG)
       form.resetFields()
       onRemoveFile()

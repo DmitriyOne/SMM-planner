@@ -3,8 +3,7 @@ import { useForm } from "antd/es/form/Form"
 import { SOMETHING_WENT_WRONG, TAG_CREATED_SUCCESS_MSG } from "../config"
 import { message } from "antd"
 import { TSubmitValues } from "./types"
-import { delay } from "@/06_shared/model/utils"
-import { createTags } from "@/05_entities/tags/api/create-tag"
+import { createTag } from "@/05_entities/tags/api/create-tag"
 
 export const useTagCreateForm = () => {
   const [form] = useForm()
@@ -16,8 +15,7 @@ export const useTagCreateForm = () => {
     startLoading()
 
     try {
-      await delay(2000)
-      await createTags(title)
+      await createTag(title)
       message.success(TAG_CREATED_SUCCESS_MSG)
       form.resetFields()
     } catch (error) {
