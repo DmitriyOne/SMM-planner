@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Headers, HeadersValue } from "./src/06_shared/api/headers"
 import { HttpMessage, HttpStatusCode } from "./src/06_shared/api/http"
-import { AUTH_BASE_INVALID_DATA } from "./src/06_shared/api/auth"
+import { AUTH_MESSAGE } from "@/06_shared/config"
 
 export function middleware(req: NextRequest) {
   const authHeader = req.headers.get(Headers.AUTHORIZATION)
@@ -23,7 +23,8 @@ export function middleware(req: NextRequest) {
   const validPassword = process.env.BASIC_AUTH_PASSWORD
 
   if (username !== validUsername || password !== validPassword) {
-    console.warn(AUTH_BASE_INVALID_DATA(username, password))
+    // eslint-disable-next-line no-console
+    console.warn(AUTH_MESSAGE.INVALID_DATA(username, password))
 
     return new NextResponse(HttpMessage.UNAUTHORIZED, {
       status: HttpStatusCode.UNAUTHORIZED,
