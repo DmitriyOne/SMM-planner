@@ -6,16 +6,16 @@ export const customLinks = (
   username: string | null,
 ): THeaderItem[] => [
   {
-    title: "Sing up",
+    title: "Login",
+    href: paths.login,
+    condition: !authenticated,
+  },
+  {
+    title: "Register",
     href: paths.register,
     condition: !authenticated,
   },
   {
-    title: "Sing in",
-    href: paths.login,
-    condition: !authenticated,
-  },
-    {
     title: "Create post",
     href: paths.post_create,
     condition: authenticated,
