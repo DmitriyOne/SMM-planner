@@ -1,0 +1,5 @@
+export const AUTH_REGEX = {
+  PASSWORD_LATIN_ALPHABET_REGEX: /^[A-Za-z0-9]+$/,
+  PASSWORD_TWO_UPPERCASE_LETTERS_REGEX: /^(?=(.*[A-Z]){2,})/,
+  PASSWORD_TWO_DIGITS_REGEX: /^(?=(.*[0-9]){2,})/,
+}
