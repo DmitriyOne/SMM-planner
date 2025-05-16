@@ -10,7 +10,11 @@ export const useLogin = () => {
   useEffect(() => {
     if (state?.success) {
       message.success(AUTH_MESSAGE.success.login)
-    } else if (state?.success === false && !isPending) {
+    } else if (
+      state?.success === false &&
+      !isPending &&
+      state?.errors?.apiError
+    ) {
       message.error(state.errors?.apiError)
     }
   }, [state, isPending])
