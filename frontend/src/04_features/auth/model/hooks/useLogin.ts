@@ -13,7 +13,10 @@ export const useLogin = () => {
 
   useEffect(() => {
     if (state?.success) {
-      message.success(AUTH_MESSAGE.success.login, 4)
+      message.success(AUTH_MESSAGE.success.login, 2)
+      delay(800).then(() => {
+        message.info(AUTH_MESSAGE.success.redirectToProfile, 3)
+      })
       delay(3000).then(() => {
         router.push(paths.profile)
       })
