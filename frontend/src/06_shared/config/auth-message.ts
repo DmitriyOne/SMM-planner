@@ -4,6 +4,9 @@ export const AUTH_MESSAGE = {
 }
 
 export const AUTH_VALIDATE_MSG = {
+  name: {
+    min: "Username must be at least 3 characters long",
+  },
   email: {
     invalid: "Invalid email",
   },
@@ -12,5 +15,6 @@ export const AUTH_VALIDATE_MSG = {
     latin: "Password must contain only Latin alphabet",
     uppercase: "Password must contain at least two uppercase letters",
     digits: "Password must contain at least two digits",
+    notMatch: "Passwords do not match",
   },
 }
