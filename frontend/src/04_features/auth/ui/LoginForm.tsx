@@ -8,9 +8,10 @@ import InputPassword from "antd/es/input/Password"
 import { useLogin } from "../model/hooks"
 import { FormFieldError } from "@/06_shared/ui"
 
-import styles from "./styles.module.scss"
 import Link from "next/link"
 import { paths } from "@/06_shared/config/routing"
+
+import styles from "./styles.module.scss"
 
 export const LoginForm = () => {
   const { formRef, state, isPending, formAction } = useLogin()
@@ -75,7 +76,7 @@ export const LoginForm = () => {
 
       <div className={styles.field}>
         <Link href={paths.register}>
-          Don&apos;t have an account? Register now.
+          Don&apos;t have an account? Register here.
         </Link>
       </div>
 
