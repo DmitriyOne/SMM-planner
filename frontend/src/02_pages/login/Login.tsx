@@ -1,4 +1,4 @@
-import { LoginForm } from "@/04_features/auth/ui"
+import { LoginForm, SocialLogin } from "@/04_features/auth/ui"
 import Title from "antd/es/typography/Title"
 
 import { FullHeight } from "@/06_shared/ui"
@@ -13,6 +13,9 @@ export const LoginPage = () => {
     >
       <Title>Login</Title>
       <LoginForm />
+      <div className={styles.socialLoginContainer}>
+        <SocialLogin />
+      </div>
     </FullHeight>
   )
 }
