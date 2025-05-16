@@ -9,6 +9,8 @@ import { useLogin } from "../model/hooks"
 import { FormFieldError } from "@/06_shared/ui"
 
 import styles from "./styles.module.scss"
+import Link from "next/link"
+import { paths } from "@/06_shared/config/routing"
 
 export const LoginForm = () => {
   const { formRef, state, isPending, formAction } = useLogin()
@@ -59,6 +61,22 @@ export const LoginForm = () => {
         >
           Remember me
         </Checkbox>
+      </div>
+
+      <div className={styles.field}>
+        <Link
+          href='#'
+          className={styles.forgotLink}
+          onClick={(e) => e.preventDefault()}
+        >
+          Forgot password?
+        </Link>
+      </div>
+
+      <div className={styles.field}>
+        <Link href={paths.register}>
+          Don&apos;t have an account? Register now.
+        </Link>
       </div>
 
       <Button

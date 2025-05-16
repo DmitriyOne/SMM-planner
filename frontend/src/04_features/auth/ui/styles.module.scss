@@ -11,4 +11,12 @@
 
 .field {
   margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.forgotLink {
+  display: inline-block;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
