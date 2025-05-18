@@ -28,6 +28,7 @@ export class AuthService {
     const payload: IJwtPayload = { sub: newUser.id, email: newUser.email }
 
     return {
+      id: newUser.id,
       accessToken: await this.jwtService.signAsync(payload),
     }
   }
@@ -50,6 +51,7 @@ export class AuthService {
     const payload: IJwtPayload = { sub: user.id, email: user.email }
 
     return {
+      id: user.id,
       accessToken: await this.jwtService.signAsync(payload),
     }
   }
