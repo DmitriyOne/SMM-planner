@@ -15,7 +15,6 @@ export const useLogin = () => {
     if (state?.success) {
       handleAuthSuccess({
         accessToken: state.accessToken as string,
-        userId: state.userId as string,
         onTokenSet: setToken,
         onUserLoad: setUser,
         redirect: router.push,

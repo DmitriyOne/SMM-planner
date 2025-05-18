@@ -7,7 +7,6 @@ import { AUTH_MESSAGE } from "../config"
 
 type Params = {
   accessToken: string
-  userId: string
   onTokenSet: (token: string) => void
   onUserLoad: (user: TUser) => void
   redirect: (path: string) => void
@@ -15,17 +14,22 @@ type Params = {
 
 export const handleAuthSuccess = async ({
   accessToken,
-  userId,
   onUserLoad,
   onTokenSet,
   redirect,
 }: Params) => {
   onTokenSet(accessToken)
-  const user = await getUser(userId, accessToken)
-  onUserLoad(user)
-  message.success(AUTH_MESSAGE.success, 2)
-  await delay(500)
-  message.info(AUTH_MESSAGE.redirectToProfile, 3)
-  await delay(3000)
-  redirect(paths.profile)
+  try {
+    const user = await getUser(accessToken)
+    onUserLoad(user)
+    message.success(AUTH_MESSAGE.success, 2)
+    await delay(500)
+    message.info(AUTH_MESSAGE.redirectToProfile, 3)
+    await delay(3000)
+    redirect(paths.profile)
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : AUTH_MESSAGE.error
+    message.error(errorMessage)
+  }
 }

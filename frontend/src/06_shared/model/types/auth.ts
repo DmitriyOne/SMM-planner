@@ -1,6 +1,5 @@
 export type AuthFormActionState = {
   success?: boolean
-  userId?: string
   accessToken?: string
   errors?: {
     name?: string[]
