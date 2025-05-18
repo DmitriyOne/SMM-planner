@@ -4,22 +4,15 @@ import { MenuItem } from "./MenuItem"
 import styles from "./menu.module.scss"
 
 export const Menu = () => {
-  const currentUser: any = {
-    id: 1,
-    name: "John Doe",
-    username: "john",
-  }
-
-  const authorized = !!currentUser
-
-  const menuLinks = customLinks(authorized, currentUser?.username)
+  // TODO: add user info
+  const menuLinks = customLinks(false, null)
 
   return (
     <ul className={styles.component}>
       {menuLinks.map((link) => (
         <MenuItem
           key={link.href}
-          username={currentUser?.username}
+          username={null}
           {...link}
         />
       ))}

@@ -1,4 +1,4 @@
-import { TUser } from "@/05_entities/user/model"
+import { TUser } from "@/05_entities/user/model/types"
 
 import { TDateFields } from "@/06_shared/api/types"
 import { TTag } from "@/06_shared/ui/tag/model/types"

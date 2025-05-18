@@ -1,4 +1,4 @@
-import { TUser } from "@/05_entities/user/model"
+import { TUser } from "@/05_entities/user/model/types"
 import Text from "antd/es/typography/Text"
 import { FC } from "react"
 import classNames from "classnames"

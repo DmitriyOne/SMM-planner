@@ -9,7 +9,7 @@ import { ActiveLink } from "@/06_shared/ui/active-link"
 import styles from "./menu-item.module.scss"
 
 type TProps = THeaderItem & {
-  username: string
+  username: string | null
 }
 
 export const MenuItem: FC<TProps> = ({ username, ...item }) => {
@@ -36,7 +36,7 @@ export const MenuItem: FC<TProps> = ({ username, ...item }) => {
         className={styles.item}
       >
         {item.title}
-        {item.href.includes("profile") && (
+        {item.href.includes("profile") && username && (
           <Avatar
             className={styles.avatar}
             style={{ backgroundColor: avatarBgColor }}
