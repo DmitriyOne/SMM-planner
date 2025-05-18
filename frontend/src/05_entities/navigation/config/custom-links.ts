@@ -3,7 +3,7 @@ import { THeaderItem } from "../model"
 
 export const customLinks = (
   authenticated: boolean,
-  username: string | null,
+  username: string | undefined | null,
 ): THeaderItem[] => [
   {
     title: "Login",
