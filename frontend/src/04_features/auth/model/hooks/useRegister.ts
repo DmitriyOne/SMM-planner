@@ -9,7 +9,8 @@ export const useRegister = () => {
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   const [state, formAction, isPending] = useActionState(registerAction, null)
-  const { setToken, setUser } = useContext(UserContext)
+  const { setToken, setUser, startLoading, stopLoading } =
+    useContext(UserContext)
 
   useEffect(() => {
     if (state?.success) {
@@ -18,6 +19,8 @@ export const useRegister = () => {
         onTokenSet: setToken,
         onUserLoad: setUser,
         redirect: router.push,
+        startLoading,
+        stopLoading,
       })
     } else if (state?.errors?.api) {
       message.error(state.errors?.api)

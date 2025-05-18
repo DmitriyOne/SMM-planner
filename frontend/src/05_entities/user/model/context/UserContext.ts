@@ -4,6 +4,9 @@ import { createContext, useContext } from "react"
 import { TUser } from "../types"
 
 export type TUserContext = {
+  isLoading: boolean
+  startLoading: () => void
+  stopLoading: () => void
   user: TUser | null
   token: string | null
   setUser: (user: TUser | null) => void
@@ -12,6 +15,9 @@ export type TUserContext = {
 }
 
 const initialState: TUserContext = {
+  isLoading: true,
+  startLoading: () => null,
+  stopLoading: () => null,
   user: null,
   token: null,
   setUser: () => null,

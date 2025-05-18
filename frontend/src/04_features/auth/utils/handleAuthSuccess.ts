@@ -10,6 +10,8 @@ type Params = {
   onTokenSet: (token: string) => void
   onUserLoad: (user: TUser) => void
   redirect: (path: string) => void
+  startLoading: () => void
+  stopLoading: () => void
 }
 
 export const handleAuthSuccess = async ({
@@ -17,7 +19,10 @@ export const handleAuthSuccess = async ({
   onUserLoad,
   onTokenSet,
   redirect,
+  startLoading,
+  stopLoading,
 }: Params) => {
+  startLoading()
   onTokenSet(accessToken)
   try {
     const user = await getUser(accessToken)
@@ -31,5 +36,7 @@ export const handleAuthSuccess = async ({
     const errorMessage =
       error instanceof Error ? error.message : AUTH_MESSAGE.error
     message.error(errorMessage)
+  } finally {
+    stopLoading()
   }
 }
