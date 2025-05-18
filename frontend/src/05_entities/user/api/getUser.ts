@@ -3,7 +3,7 @@ import { TUser } from "../model/types"
 
 export const getUser = async (token: string): Promise<TUser> => {
   return fetcher<TUser>(ENDPOINTS.USER_ME, "GET", {
-    cache: "force-cache",
+    cache: "no-store",
     token,
   })
 }
