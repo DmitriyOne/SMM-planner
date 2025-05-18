@@ -49,6 +49,14 @@ export class UsersController {
   }
 
   @HttpCode(200)
+  @Get(PREFIX.ME)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: UserEntity })
+  async findOne(@CurrentUser() currentUser: UserEntity) {
+    return new UserEntity(currentUser)
+  }
+
+  @HttpCode(200)
   @Get(PREFIX.ID)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })

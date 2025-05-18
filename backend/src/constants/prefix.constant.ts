@@ -14,6 +14,7 @@ export const PREFIX = {
   COMMENTS: 'comments',
   TAGS: 'tags',
   POST_ID: ':postId',
+  ME: 'me',
   getGlobal() {
     return `${this.BASE_GLOBAL}/${this.VERSION}`
   },
