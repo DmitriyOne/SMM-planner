@@ -2,8 +2,8 @@ export const paths = {
   home: "/",
   login: "/auth/login",
   register: "/auth/register",
-  profile: "/profile",
-  settings: "/settings",
+  profile: "/dashboard/profile",
+  settings: "/dashboard/settings",
   tags: "/tags",
 
   // Get the URL for the post read page
