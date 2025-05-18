@@ -26,15 +26,18 @@ export const loginAction = async (
   }
 
   try {
-    const { accessToken } = await login(result.data)
+    const data = await login(result.data)
     if (rememberMe) {
-      setAccessTokenCookie(accessToken)
+      await setAccessTokenCookie(data.accessToken)
     }
-    return { success: true }
+    return { success: true, accessToken: data.accessToken, userId: data.id }
   } catch (error) {
     deleteAccessTokenFromCookie()
     const errorMessage =
-      error instanceof Error ? error.message : AUTH_MESSAGE.error.login
-    return { success: false, errors: { apiError: [errorMessage] } }
+      error instanceof Error ? error.message : AUTH_MESSAGE.error
+    return {
+      success: false,
+      errors: { api: [errorMessage] },
+    }
   }
 }

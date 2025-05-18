@@ -35,15 +35,18 @@ export const registerAction = async (
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...newUser } = result.data
-    const { accessToken } = await register(newUser)
+    const data = await register(newUser)
     if (rememberMe) {
-      setAccessTokenCookie(accessToken)
+      await setAccessTokenCookie(data.accessToken)
     }
-    return { success: true }
+    return { success: true, accessToken: data.accessToken, userId: data.id }
   } catch (error) {
     deleteAccessTokenFromCookie()
     const errorMessage =
-      error instanceof Error ? error.message : AUTH_MESSAGE.error.login
-    return { success: false, errors: { apiError: [errorMessage] } }
+      error instanceof Error ? error.message : AUTH_MESSAGE.error
+    return {
+      success: false,
+      errors: { api: [errorMessage] },
+    }
   }
 }
