@@ -1,0 +1,40 @@
+"use client"
+
+import { Geist, Geist_Mono } from "next/font/google"
+import { JSX, ReactNode } from "react"
+
+import { AntdRegistry } from "@ant-design/nextjs-registry"
+import "@ant-design/v5-patch-for-react-19"
+
+import { MainLayout } from "@/01_app/layout"
+
+import "../(public)/globals.css"
+import "react-loading-skeleton/dist/skeleton.css"
+
+export type TMainLayoutProps = Readonly<{
+  children: ReactNode
+}>
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
+
+export default function RootLayout({
+  children,
+}: TMainLayoutProps): JSX.Element {
+  return (
+    <html lang='en'>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AntdRegistry>
+          <MainLayout>{children}</MainLayout>
+        </AntdRegistry>
+      </body>
+    </html>
+  )
+}
