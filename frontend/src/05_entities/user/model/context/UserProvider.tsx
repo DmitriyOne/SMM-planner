@@ -14,7 +14,7 @@ export const UserProvider = ({ children }: Props) => {
   const router = useRouter()
   const [user, setUser] = useState<TUser | null>(null)
   const [token, setToken] = useState<string | null>(null)
-  const { isLoading, startLoading, stopLoading } = useLoading()
+  const { isLoading, startLoading, stopLoading } = useLoading(true)
 
   const handlerLogout = async () => {
     setUser(null)
