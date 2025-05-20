@@ -10,7 +10,7 @@ type Params = {
 export const handleAuthSuccess = async ({ redirect }: Params) => {
   message.success(AUTH_MESSAGE.success, 2)
   await delay(500)
-  message.info(AUTH_MESSAGE.redirectToProfile, 3)
+  message.success(AUTH_MESSAGE.redirectToProfile, 3)
   await delay(3000)
   redirect(paths.profile)
 }
