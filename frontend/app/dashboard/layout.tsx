@@ -1,40 +1,19 @@
-"use client"
+import { ReactNode } from "react"
 
-import { Geist, Geist_Mono } from "next/font/google"
-import { JSX, ReactNode } from "react"
+import { DashboardMainLayout } from "@/01_app/dashboard-layout"
+import { UserProvider } from "@/05_entities/user/model/context"
 
-import { AntdRegistry } from "@ant-design/nextjs-registry"
-import "@ant-design/v5-patch-for-react-19"
-
-import { MainLayout } from "@/01_app/layout"
-
-import "../(public)/globals.css"
-import "react-loading-skeleton/dist/skeleton.css"
-
-export type TMainLayoutProps = Readonly<{
+export type TDashboardLayoutProps = Readonly<{
   children: ReactNode
 }>
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
-export default function RootLayout({
+export default function DashboardLayout({
   children,
-}: TMainLayoutProps): JSX.Element {
+}: TDashboardLayoutProps) {
+
   return (
-    <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AntdRegistry>
-          <MainLayout>{children}</MainLayout>
-        </AntdRegistry>
-      </body>
-    </html>
+    <UserProvider>
+      <DashboardMainLayout>{children}</DashboardMainLayout>
+    </UserProvider>
   )
 }
