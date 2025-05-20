@@ -10,7 +10,8 @@
     "autoincrement",
     "healthcheck",
     "isready",
-    "pgdata"
+    "pgdata",
+    "Sider"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "always",
