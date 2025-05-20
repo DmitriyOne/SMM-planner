@@ -1,4 +1,5 @@
 import { FC } from "react"
+import { Avatar } from "antd"
 
 import { ActiveLink } from "@/06_shared/ui/active-link"
 
@@ -31,7 +32,16 @@ export const MenuItem: FC<TProps> = ({ className, item }) => {
         href={item.href}
         className={styles.item}
       >
-        {item.title}
+        {item.avatar ? (
+          <Avatar
+            className={styles.avatar}
+            shape='square'
+          >
+            {item.title.charAt(0).toUpperCase()}
+          </Avatar>
+        ) : (
+          item.title
+        )}
       </ActiveLink>
     </li>
   )

@@ -7,4 +7,5 @@ export type IMenuItem = {
   show: boolean
   role?: ERole
   icon?: ComponentType<any>
+  avatar?: boolean
 }
