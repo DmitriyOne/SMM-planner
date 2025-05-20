@@ -4,8 +4,8 @@ import { paths } from "../routing"
 import { canCreateContent } from "@/06_shared/model/utils"
 
 export const getHeaderMenuForUser = (
-  username: string,
-  role: ERole,
+  username: string | undefined | null,
+  role: ERole = ERole.reader,
 ): IMenuItem[] => [
   {
     title: "New post",
@@ -21,10 +21,6 @@ export const getHeaderMenuForUser = (
     title: username?.trim() || "Profile",
     href: paths.profile,
     show: true,
-  },
-  {
-    title: "Logout",
-    href: `/logout`,
-    show: true,
+    avatar: true,
   },
 ]
