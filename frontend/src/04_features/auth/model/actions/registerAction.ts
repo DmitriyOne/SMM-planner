@@ -39,7 +39,7 @@ export const registerAction = async (
     if (rememberMe) {
       await setAccessTokenCookie(accessToken)
     }
-    return { success: true, accessToken }
+    return { success: true, errors: {} }
   } catch (error) {
     deleteAccessTokenFromCookie()
     const errorMessage =
