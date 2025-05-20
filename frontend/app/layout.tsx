@@ -31,6 +31,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: HEAD_TITLE.DEFAULT,
   description: HEAD_DESCRIPTION.DEFAULT,
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/site.webmanifest",
 }
 
 export default async function RootLayout({ children }: TRootLayoutProps) {
