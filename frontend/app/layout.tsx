@@ -1,10 +1,13 @@
+import "@ant-design/v5-patch-for-react-19"
+
 import { Geist, Geist_Mono } from "next/font/google"
 import { ReactNode } from "react"
 
 import { AntdRegistry } from "@ant-design/nextjs-registry"
-import "@ant-design/v5-patch-for-react-19"
 import { getAccessTokenFromCookies } from "@/06_shared/lib/auth"
 import { getUser } from "@/05_entities/user/api"
+import { Metadata } from "next"
+import { HEAD_DESCRIPTION, HEAD_TITLE } from "@/06_shared/config/head"
 
 import { MainLayout } from "@/01_app/main-layout"
 
@@ -24,6 +27,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 })
+
+export const metadata: Metadata = {
+  title: HEAD_TITLE.DEFAULT,
+  description: HEAD_DESCRIPTION.DEFAULT,
+}
 
 export default async function RootLayout({ children }: TRootLayoutProps) {
   const token = (await getAccessTokenFromCookies()) as string
