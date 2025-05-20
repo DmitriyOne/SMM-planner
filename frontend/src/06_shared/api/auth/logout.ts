@@ -5,7 +5,7 @@ export const logout = async () => {
     ENDPOINTS.LOGOUT,
     "POST",
     {
-      cache: "force-cache",
+      cache: "no-store",
     },
     true,
   )

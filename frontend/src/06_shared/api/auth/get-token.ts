@@ -4,7 +4,7 @@ export const getToken = async (): Promise<string> => {
   const response = await fetcher<{ token: string }>(
     ENDPOINTS.GET_TOKEN,
     "GET",
-    { cache: "force-cache" },
+    { cache: "no-store" },
     true,
   )
 
