@@ -31,7 +31,7 @@ export const UpdatePostDescription: FC<TProps> = ({
       className={componentClassName}
       description={description}
       isEditable
-      editableText={newValue}
+      editableText={newValue as string}
       handleEditable={setNewValue}
       handleEditableSuccess={handleSuccess}
     >

@@ -28,7 +28,7 @@ export const UpdatePostTitle: FC<TProps> = ({ id, title, className }) => {
       className={componentClassName}
       title={title}
       isEditable
-      editableText={newValue}
+      editableText={newValue as string}
       handleEditable={setNewValue}
       handleEditableSuccess={handleSuccess}
     >
