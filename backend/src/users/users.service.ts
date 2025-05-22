@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
+import { UpdateUserDto, UpdateUserPasswordDto, UpdateUserRoleDto } from './dto/update-user.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 import { ConfigService } from '@nestjs/config'
@@ -37,14 +37,19 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    if (updateUserDto.password) {
-      const hashedPassword = await this.hashPassword(updateUserDto.password)
-      updateUserDto.password = hashedPassword
-    }
-
     return this.prismaService.user.update({
       where: { id },
       data: updateUserDto,
+    })
+  }
+
+  async changePassword(id: string, updateUserDto: UpdateUserPasswordDto) {
+    const hashedPassword = await this.hashPassword(updateUserDto.newPassword)
+    return this.prismaService.user.update({
+      where: { id },
+      data: {
+        password: hashedPassword,
+      },
     })
   }
 
