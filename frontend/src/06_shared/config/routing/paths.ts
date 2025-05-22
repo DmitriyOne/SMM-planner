@@ -21,5 +21,5 @@ export const paths = {
   tag_create: "/tags/create",
 
   // Available for admin
-  update_role: "/update/role",
+  update_role: "/dashboard/update/role",
 }
