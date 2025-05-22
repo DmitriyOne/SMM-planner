@@ -4,8 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { ReactNode } from "react"
 
 import { AntdRegistry } from "@ant-design/nextjs-registry"
-import { getAccessTokenFromCookies } from "@/06_shared/lib/auth"
-import { getUser } from "@/05_entities/user/api"
 import { Metadata } from "next"
 import { HEAD_DESCRIPTION, HEAD_TITLE } from "@/06_shared/config/head"
 
@@ -40,14 +38,11 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: TRootLayoutProps) {
-  const token = (await getAccessTokenFromCookies()) as string
-  const user = token ? await getUser(token) : null
-
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AntdRegistry>
-          <MainLayout user={user}>{children}</MainLayout>
+          <MainLayout>{children}</MainLayout>
         </AntdRegistry>
       </body>
     </html>
