@@ -1,9 +1,8 @@
 "use client"
 
-import { updatePost } from "@/05_entities/post/api"
-import { useUpdateData } from "@/06_shared/model/hooks"
+import { FC } from "react"
 import { Switcher } from "@/06_shared/ui/switcher"
-import { FC, useState } from "react"
+import { useUpdatePostField } from "@/05_entities/post/model/hooks"
 
 type TProps = {
   postId: number
@@ -16,19 +15,17 @@ export const SwitchPostApprove: FC<TProps> = ({
   defaultValue,
   className,
 }) => {
-  const [status, setStatus] = useState(defaultValue)
-  const { isLoading, handleApiCall } = useUpdateData()
+  const { isLoading, newValue, setNewValue, handleSuccess } =
+    useUpdatePostField(postId, defaultValue, "isPublish")
 
-  const onChange = async (checked: boolean) => {
-    await handleApiCall({
-      apiFunction: () => updatePost(postId, { isPublish: checked }),
-      onSuccessCallback: () => setStatus(checked),
-    })
+  const onChange = (checked: boolean) => {
+    setNewValue(checked)
+    handleSuccess()
   }
 
   return (
     <Switcher
-      checked={status}
+      checked={newValue as boolean}
       onChange={onChange}
       loading={isLoading}
       className={className}

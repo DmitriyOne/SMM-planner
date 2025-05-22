@@ -1,6 +1,6 @@
 import { deleteAccessTokenFromCookie } from "@/06_shared/lib/auth"
 
-export async function POST() {
+export async function GET() {
   await deleteAccessTokenFromCookie()
-  return new Response(null, { status: 204 })
+  return Response.json({ success: true })
 }

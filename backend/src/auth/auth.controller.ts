@@ -21,13 +21,13 @@ export class AuthController {
   @IsPublic()
   @ApiOkResponse({ type: AuthEntity })
   async register(@Body() authRegisterDto: AuthRegisterDto): Promise<AuthEntity> {
-    const authData = await this.authService.register(authRegisterDto)
+    const token = await this.authService.register(authRegisterDto)
 
-    if (!authData.accessToken) {
+    if (!token.accessToken) {
       throw new UnauthorizedException(AUTH_FAILED_MSG)
     }
 
-    return authData
+    return token
   }
 
   @HttpCode(HttpStatus.OK)
@@ -36,12 +36,12 @@ export class AuthController {
   @IsPublic()
   @ApiOkResponse({ type: AuthEntity })
   async login(@Body() authLoginDto: AuthLoginDto): Promise<AuthEntity> {
-    const authData = await this.authService.login(authLoginDto)
+    const token = await this.authService.login(authLoginDto)
 
-    if (!authData.accessToken) {
+    if (!token.accessToken) {
       throw new UnauthorizedException(AUTH_FAILED_MSG)
     }
 
-    return authData
+    return token
   }
 }

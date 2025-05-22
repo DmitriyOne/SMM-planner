@@ -1,22 +1,26 @@
 "use client"
 
-import { createContext, useContext } from "react"
+import { createContext, Dispatch, SetStateAction, useContext } from "react"
 import { TUser } from "../types"
 
 export type TUserContext = {
+  isLoading: boolean
+  startLoading: () => void
+  stopLoading: () => void
   user: TUser | null
   token: string | null
-  setUser: (user: TUser | null) => void
+  setUser: Dispatch<SetStateAction<TUser | null>>
   setToken: (token: string | null) => void
-  logout: () => void
 }
 
 const initialState: TUserContext = {
+  isLoading: true,
+  startLoading: () => null,
+  stopLoading: () => null,
   user: null,
   token: null,
   setUser: () => null,
   setToken: () => null,
-  logout: () => null,
 }
 
 export const UserContext = createContext<TUserContext>(initialState)

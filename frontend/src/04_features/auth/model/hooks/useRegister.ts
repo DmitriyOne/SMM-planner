@@ -1,30 +1,24 @@
-import { useActionState, useContext, useEffect, useRef } from "react"
+import { useActionState, useEffect, useRef } from "react"
 import { registerAction } from "../actions"
 import { message } from "antd"
 import { useRouter } from "next/navigation"
-import { UserContext } from "@/05_entities/user/model/context"
 import { handleAuthSuccess } from "../../utils"
 
 export const useRegister = () => {
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   const [state, formAction, isPending] = useActionState(registerAction, null)
-  const { setToken, setUser } = useContext(UserContext)
 
   useEffect(() => {
     if (state?.success) {
       handleAuthSuccess({
-        accessToken: state.accessToken as string,
-        userId: state.userId as string,
-        onTokenSet: setToken,
-        onUserLoad: setUser,
         redirect: router.push,
+        form: formRef.current,
       })
     } else if (state?.errors?.api) {
       message.error(state.errors?.api)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, isPending])
+  }, [state, router])
 
   return {
     formRef,

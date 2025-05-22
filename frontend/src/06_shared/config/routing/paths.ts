@@ -2,8 +2,9 @@ export const paths = {
   home: "/",
   login: "/auth/login",
   register: "/auth/register",
-  profile: "/profile",
-  settings: "/settings",
+  logout: "/dashboard/logout",
+  profile: "/dashboard/profile",
+  settings: "/dashboard/settings",
   tags: "/tags",
 
   // Get the URL for the post read page
@@ -20,5 +21,5 @@ export const paths = {
   tag_create: "/tags/create",
 
   // Available for admin
-  update_role: "/update/role",
+  update_role: "/dashboard/update/role",
 }

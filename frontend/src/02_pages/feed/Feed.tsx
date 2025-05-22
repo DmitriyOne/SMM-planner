@@ -6,7 +6,7 @@ import { Container } from "@/06_shared/ui/container"
 import styles from "./feed.module.scss"
 import Title from "antd/es/typography/Title"
 import { FC } from "react"
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 
 type TProps = {
   posts: TPost[]

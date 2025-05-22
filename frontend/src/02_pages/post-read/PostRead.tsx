@@ -1,4 +1,4 @@
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import { FC } from "react"
 import { Container } from "@/06_shared/ui/container"
 import { Col, Row } from "antd"

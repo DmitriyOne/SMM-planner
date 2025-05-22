@@ -8,6 +8,5 @@ export type TRegisterBody = TLoginBody & {
 }
 
 export type TAuthResponse = {
-  id: string
   accessToken: string
 }
