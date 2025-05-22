@@ -32,7 +32,7 @@ export const getSidebarMenu = (role: ERole = ERole.reader): IMenuItem[] => [
   },
   {
     title: "Logout",
-    href: `/logout`,
+    href: paths.logout,
     show: true,
     icon: LogoutOutlined,
   },

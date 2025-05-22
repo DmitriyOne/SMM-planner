@@ -11,7 +11,6 @@ export type TUserContext = {
   token: string | null
   setUser: (user: TUser | null) => void
   setToken: (token: string | null) => void
-  logout: () => void
 }
 
 const initialState: TUserContext = {
@@ -22,7 +21,6 @@ const initialState: TUserContext = {
   token: null,
   setUser: () => null,
   setToken: () => null,
-  logout: () => null,
 }
 
 export const UserContext = createContext<TUserContext>(initialState)
