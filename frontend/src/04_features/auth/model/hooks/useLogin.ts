@@ -13,11 +13,12 @@ export const useLogin = () => {
     if (state?.success) {
       handleAuthSuccess({
         redirect: router.push,
+        form: formRef.current,
       })
     } else if (state?.errors?.api) {
       message.error(state.errors?.api)
     }
-  }, [state, isPending, router])
+  }, [state, router])
 
   return {
     formRef,
