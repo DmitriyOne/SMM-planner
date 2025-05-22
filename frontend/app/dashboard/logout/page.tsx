@@ -3,10 +3,10 @@ import { HEAD_TITLE } from "@/06_shared/config/head"
 
 export async function generateMetadata() {
   return {
-    title: `${HEAD_TITLE.DEFAULT} | ${HEAD_TITLE.LOGIN}`,
+    title: `${HEAD_TITLE.DEFAULT} | ${HEAD_TITLE.LOGOUT}`,
   }
 }
 
-export default async function Profile() {
+export default async function Logout() {
   return <LogoutPage />
 }
