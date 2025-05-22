@@ -8,7 +8,7 @@ import { ReadMore } from "@/06_shared/ui/read-more"
 import { CARD_STYLES } from "../config"
 
 import { paths } from "@/06_shared/config/routing"
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import { PostDate } from "@/05_entities/post-date/ui"
 import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
 

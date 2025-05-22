@@ -1,4 +1,4 @@
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import { TDateFields } from "@/06_shared/api/types/date-fields"
 
 export type TTag = {

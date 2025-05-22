@@ -1,4 +1,4 @@
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import { ENDPOINTS, fetcher } from "@/06_shared/api"
 
 type TPostDTO = Partial<Pick<TPost, "isPublish" | "isApproved">>

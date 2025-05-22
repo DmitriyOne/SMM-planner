@@ -21,3 +21,13 @@ export type TPostCreateBody = Omit<
 > & {
   tags: { title: string }[]
 }
+
+export type TEditablePostField = keyof Omit<
+  TPost,
+  "id" | "createdAt" | "updatedAt"
+>
+
+export type TUpdatablePostData = Partial<
+  Omit<TUser, "id" | "createdAt" | "updatedAt">
+>
+

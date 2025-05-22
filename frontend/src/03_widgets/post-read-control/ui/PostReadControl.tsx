@@ -7,7 +7,7 @@ import classNames from "classnames"
 import { isPostAuthor } from "@/05_entities/post/lib"
 
 import styles from "./post-read-control.module.scss"
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 
 type TProps = {
   post: TPost
