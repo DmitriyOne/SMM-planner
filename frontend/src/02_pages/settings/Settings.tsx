@@ -14,8 +14,9 @@ export const SettingsPage = () => {
         size='middle'
         className={styles.container}
       >
-      <UpdateUserName />
-      <ChangeUserPassword />
+        <UpdateUserName />
+        <ChangeUserPassword />
+        {/* TODO: delete account */}
       </Space>
     </div>
   )
