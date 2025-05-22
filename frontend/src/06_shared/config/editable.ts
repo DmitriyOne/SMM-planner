@@ -1,12 +1,12 @@
 import { TitleProps } from "antd/es/typography/Title"
 
 export const editableConfig = (
-  editableText?: string,
-  handleEditable?: (title: string) => void,
+  editableValue?: string,
+  handleEditable?: (value: string) => void,
   handleEditableSuccess?: () => void,
 ): TitleProps["editable"] => ({
-  tooltip: "click to edit text",
-  text: editableText,
+  tooltip: "click to edit",
+  text: editableValue,
   onChange: handleEditable,
   onEnd: handleEditableSuccess,
 })
