@@ -38,6 +38,7 @@ export const ENDPOINTS = {
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
   USER_UPDATE: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_CHANGE_PASSWORD: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/change-password`,
   USER_DELETE: (id: string) =>
     `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
   USER_UPDATE_ROLE: (id: string) =>

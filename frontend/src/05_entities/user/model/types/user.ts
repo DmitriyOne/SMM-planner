@@ -14,9 +14,14 @@ export type TUser = {
 
 export type TEditableUserField = keyof Omit<
   TUser,
-  "id" | "createdAt" | "updatedAt" | "posts" | "tags"
+  "id" | "password" | "createdAt" | "updatedAt" | "posts" | "tags"
 >
 
 export type TUpdatableUserData = Partial<
   Omit<TUser, "id" | "createdAt" | "updatedAt">
 >
+
+export type TChangePasswordDTO = {
+  oldPassword: string
+  newPassword: string
+}
