@@ -28,6 +28,6 @@ export type TEditablePostField = keyof Omit<
 >
 
 export type TUpdatablePostData = Partial<
-  Omit<TUser, "id" | "createdAt" | "updatedAt">
+  Omit<TPost, "id" | "createdAt" | "updatedAt">
 >
 
