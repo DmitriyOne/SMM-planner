@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext } from "react"
+import { createContext, Dispatch, SetStateAction, useContext } from "react"
 import { TUser } from "../types"
 
 export type TUserContext = {
@@ -9,7 +9,7 @@ export type TUserContext = {
   stopLoading: () => void
   user: TUser | null
   token: string | null
-  setUser: (user: TUser | null) => void
+  setUser: Dispatch<SetStateAction<TUser | null>>
   setToken: (token: string | null) => void
 }
 

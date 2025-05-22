@@ -11,3 +11,12 @@ export type TUser = {
   posts: TPost[]
   tags: TTag[]
 } & TDateFields
+
+export type TEditableUserField = keyof Omit<
+  TUser,
+  "id" | "createdAt" | "updatedAt" | "posts" | "tags"
+>
+
+export type TUpdatableUserData = Partial<
+  Omit<TUser, "id" | "createdAt" | "updatedAt">
+>
