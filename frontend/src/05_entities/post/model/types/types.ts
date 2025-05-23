@@ -19,7 +19,7 @@ export type TPostCreateBody = Omit<
   TPost,
   "id" | "createdAt" | "updatedAt" | "author" | "authorId" | "tags"
 > & {
-  tags: { title: string }[]
+  tags?: { title: string }[]
 }
 
 export type TEditablePostField = keyof Omit<
@@ -28,6 +28,8 @@ export type TEditablePostField = keyof Omit<
 >
 
 export type TUpdatablePostData = Partial<
-  Omit<TPost, "id" | "createdAt" | "updatedAt">
->
+  Omit<TPost, "id" | "tags" | "createdAt" | "updatedAt">
+> & {
+  tags?: { title: string }[]
+}
 
