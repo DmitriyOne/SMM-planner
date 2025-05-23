@@ -7,6 +7,7 @@ import { TPostCreateBody } from "@/05_entities/post/model/types"
 import { createPost } from "@/05_entities/post/api"
 import { TTag } from "@/06_shared/ui/tag/model/types"
 import { isValidArray } from "@/06_shared/model/utils"
+import { getToken } from "@/06_shared/api/auth"
 
 export const usePostCreateForm = (
   file: string | null,
@@ -34,7 +35,8 @@ export const usePostCreateForm = (
     }
 
     try {
-      await createPost(body)
+      const token = await getToken()
+      await createPost(token, body)
       message.success(POST_UPLOAD_SUCCESS_MSG)
       form.resetFields()
       onRemoveFile()

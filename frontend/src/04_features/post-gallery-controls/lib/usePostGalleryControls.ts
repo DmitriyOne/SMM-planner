@@ -10,6 +10,7 @@ import {
   POST_GALLERY_UPLOADED_ERROR_MSG,
 } from "../config"
 import { updatePost } from "@/05_entities/post/api"
+import { getToken } from "@/06_shared/api/auth"
 
 export const usePostGalleryControls = (
   postId: number,
@@ -23,8 +24,9 @@ export const usePostGalleryControls = (
 
     try {
       startLoading()
+      const token = await getToken()
       const response = await uploadImageToCloudinary(file)
-      await updatePost(postId, { image: response.secure_url })
+      await updatePost(token, postId, { image: response.secure_url })
       message.success(POST_GALLERY_UPDATED_SUCCESS_MSG)
       onSuccess?.(response, file)
       setNewGallery([{ src: response.secure_url, alt: "" }])
@@ -39,7 +41,8 @@ export const usePostGalleryControls = (
   const handleDelete = async () => {
     startLoading()
     try {
-      await updatePost(postId, { image: null })
+      const token = await getToken()
+      await updatePost(token, postId, { image: null })
       setNewGallery([])
       handleModalClose()
       message.success(POST_GALLERY_UPDATED_SUCCESS_MSG)

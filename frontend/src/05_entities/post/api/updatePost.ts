@@ -3,10 +3,12 @@ import { TUpdatablePostData } from "../model/types"
 import { TResponseMessage } from "@/06_shared/api/types"
 
 export const updatePost = async (
+  token: string,
   id: number,
   post: TUpdatablePostData,
 ): Promise<TResponseMessage> => {
   return fetcher<TResponseMessage>(ENDPOINTS.POST_UPDATE(id), "PATCH", {
     body: { ...post },
+    token,
   })
 }

@@ -5,6 +5,7 @@ import { useLoading } from "@/06_shared/model/hooks"
 import { updatePost } from "../../api"
 import { MESSAGE } from "../../config"
 import { TEditablePostField } from "../types"
+import { getToken } from "@/06_shared/api/auth"
 
 export const useUpdatePostField = (
   id: number,
@@ -26,7 +27,8 @@ export const useUpdatePostField = (
   const handleApiCall = async () => {
     startLoading()
     try {
-      await updatePost(id, {
+      const token = await getToken()
+      await updatePost(token, id, {
         [field]: newValue,
       })
 
