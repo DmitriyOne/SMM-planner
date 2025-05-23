@@ -76,12 +76,17 @@ export class PostsService {
         ...updatePost,
         ...(isValidArray(tags) && {
           tags: {
+            set: [],
             connectOrCreate: tags.map((tag) => ({
               where: { title: tag.title },
               create: { title: tag.title },
             })),
           },
         }),
+        ...(Array.isArray(tags) &&
+          tags.length === 0 && {
+            tags: { set: [] },
+          }),
       },
     })
   }
