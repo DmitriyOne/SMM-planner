@@ -3,6 +3,6 @@ import { TPost } from "../model/types"
 
 export const getPost = async (id: string): Promise<TPost> => {
   return fetcher<TPost>(ENDPOINTS.POST_BY_ID(id), "GET", {
-    cache: "force-cache",
+    next: { revalidate: 60 },
   })
 }
