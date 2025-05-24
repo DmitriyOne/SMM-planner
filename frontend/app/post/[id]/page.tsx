@@ -1,6 +1,5 @@
 import { PostReadPage } from "@/02_pages/post-read"
-import { getPosts } from "@/03_widgets/post-card-list/api"
-import { getPost } from "@/05_entities/post/api"
+import { getPost, getPosts } from "@/05_entities/post/api"
 import { HEAD_TITLE } from "@/06_shared/config/head"
 import { isNumeric } from "@/06_shared/lib/other"
 import { notFound } from "next/navigation"
