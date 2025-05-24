@@ -1,3 +1,5 @@
+import { POST_QUERY_PARAMS } from "../query-params"
+
 export const paths = {
   home: "/",
   login: "/auth/login",
@@ -16,6 +18,8 @@ export const paths = {
   // Available for admin, editor
   // Get the URL for the post edit page
   post_edit: (id: string) => `/post/${id}/edit`,
+  post_edit_not_allow: (id: string) =>
+    `/post/${id}?${POST_QUERY_PARAMS.not_allow_to_edit}=true`,
 
   // Available for admin, editor
   tag_create: "/tags/create",

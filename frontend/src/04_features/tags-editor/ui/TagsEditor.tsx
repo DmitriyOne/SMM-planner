@@ -18,6 +18,7 @@ import {
 import { message } from "antd"
 
 import styles from "./tags-editor.module.scss"
+import { getToken } from "@/06_shared/api/auth"
 
 type TProps = {
   selectedTags: TTag[]
@@ -53,8 +54,11 @@ export const TagsEditor: FC<TProps> = ({
   const handleSubmit = async (formData: FormData) => {
     try {
       const title = formData.get(INPUT_IDS.NEW_TAG) as string
-      const newTag = await createTag(title)
+
+      const token = await getToken()
+      const newTag = await createTag(token, title)
       message.success(TAG_CREATED_SUCCESS_MSG)
+
       setTags((prev) => [...prev, newTag])
       setSelectedTags((prev) => [...prev, newTag])
       setIsCreatingNewTag(false)

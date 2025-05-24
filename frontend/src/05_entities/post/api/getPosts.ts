@@ -9,6 +9,6 @@ export const getPosts = async ({
 }: TPostDTO): Promise<TPost[]> => {
   return fetcher<TPost[]>(ENDPOINTS.POSTS_ALL, "POST", {
     body: { isPublish, isApproved },
-    cache: "force-cache",
+    next: { revalidate: 60 },
   })
 }

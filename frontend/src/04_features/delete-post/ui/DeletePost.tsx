@@ -12,6 +12,7 @@ import { paths } from "@/06_shared/config/routing"
 import { deletePost } from "../api"
 
 import styles from "./delete-post.module.scss"
+import { getToken } from "@/06_shared/api/auth"
 
 type TProps = {
   postId: string
@@ -26,8 +27,8 @@ export const DeletePost: FC<TProps> = ({ postId, className }) => {
   const handleDelete = async () => {
     startLoading()
     try {
-      // TODO: check user authorization and is he the owner
-      await deletePost(postId)
+      const token = await getToken()
+      await deletePost(token, postId)
       message.success(POST_DELETED_SUCCESS_MSG)
       router.push(paths.home)
     } catch (error) {

@@ -1,0 +1,34 @@
+.component {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.textarea {
+  background: transparent;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 32px;
+  line-height: 1.5;
+  vertical-align: bottom;
+  transition: all 0.3s;
+  resize: vertical;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 4px 11px;
+  color: rgb(0 0 0 / 88%);
+  font-size: 14px;
+  border-radius: 6px;
+  outline: none;
+
+
+  &::placeholder {
+    color: #bfbfbf;
+  }
+}
+
+.button {
+  margin-top: 10px;
+}
