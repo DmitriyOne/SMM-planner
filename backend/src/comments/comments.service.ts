@@ -17,6 +17,10 @@ export class CommentsService {
     })
   }
 
+  findCommentById(commentId: number) {
+    return this.prismaService.comment.findUnique({ where: { id: commentId }, include: { author: true } })
+  }
+
   create(createCommentDto: CreateCommentDto, postId: number, authorId: string) {
     return this.prismaService.comment.create({
       data: {
@@ -24,6 +28,7 @@ export class CommentsService {
         post: { connect: { id: postId } },
         author: { connect: { id: authorId } },
       },
+      include: { author: true },
     })
   }
 

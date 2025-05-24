@@ -67,8 +67,9 @@ export class CommentsController {
     @Param('id', ParseIntPipe) id: number,
     @CurrentUser() currentUser: UserEntity,
   ): Promise<DeleteCommentResponseDto> {
-    const tag = await this.postsService.validatePostExists(postId)
-    checkOwnership(tag.authorId, currentUser.id, 'comment')
+    await this.postsService.validatePostExists(postId)
+    const comment = await this.commentsService.findCommentById(id)
+    checkOwnership(comment.authorId, currentUser.id, 'comment')
     await this.commentsService.remove(id)
     return { message: COMMENT_REMOVED_SUCCESS_MSG(id) }
   }
