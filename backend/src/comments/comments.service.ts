@@ -10,7 +10,11 @@ export class CommentsService {
   constructor(private prismaService: PrismaService) {}
 
   findCommentsByPostId(postId: number) {
-    return this.prismaService.comment.findMany({ where: { postId }, orderBy: { createdAt: 'asc' } })
+    return this.prismaService.comment.findMany({
+      where: { postId },
+      orderBy: { createdAt: 'asc' },
+      include: { author: true },
+    })
   }
 
   create(createCommentDto: CreateCommentDto, postId: number, authorId: string) {
