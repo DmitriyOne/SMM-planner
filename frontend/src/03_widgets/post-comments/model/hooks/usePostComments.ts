@@ -7,7 +7,6 @@ import { useLoading } from "@/06_shared/model/hooks"
 import { message } from "antd"
 import { useEffect, useState } from "react"
 import { MESSAGE } from "../../config"
-import { isValidArray } from "@/06_shared/model/utils"
 
 export const usePostComments = (postId: string) => {
   const { isLoading, startLoading, stopLoading } = useLoading(true)
@@ -16,7 +15,7 @@ export const usePostComments = (postId: string) => {
   const [user, setUser] = useState<TUser | null>(null)
 
   useEffect(() => {
-    if (isValidArray(comments) && user) return
+    if (user) return
 
     load()
 
