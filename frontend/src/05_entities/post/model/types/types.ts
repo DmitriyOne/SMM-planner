@@ -32,4 +32,3 @@ export type TUpdatablePostData = Partial<
 > & {
   tags?: { title: string }[]
 }
-
