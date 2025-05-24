@@ -9,7 +9,7 @@ type TProps = {
 }
 
 export const CommentItemSkeleton: FC<TProps> = ({ isAuthor }) => {
-  const componentClassName = classNames(styles.component, {
+  const componentClassName = classNames(styles.component, styles.skeleton, {
     [styles.author]: isAuthor,
     [styles.other]: !isAuthor,
   })

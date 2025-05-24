@@ -12,6 +12,7 @@ import { UserMetaItem } from "@/05_entities/user/ui/meta-item"
 
 import { CopyTextButton } from "@/04_features/сopy-text-button/ui"
 import classNames from "classnames"
+import { DeleteUser } from "@/04_features/delete-user/ui"
 
 import styles from "./profile.module.scss"
 
@@ -79,6 +80,7 @@ export const ProfilePage = () => {
         />
         <CopyTextButton text={user?.id} />
       </div>
+      <DeleteUser isPositionAbsolute />
     </div>
   )
 }

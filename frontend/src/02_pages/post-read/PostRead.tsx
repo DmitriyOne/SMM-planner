@@ -3,7 +3,6 @@ import { FC } from "react"
 import { Container } from "@/06_shared/ui/container"
 import { Col, Row } from "antd"
 import { PostGallery } from "@/05_entities/post-gallery/ui"
-import { TImage } from "@/06_shared/model/types"
 
 import { PostTitle } from "@/05_entities/post-title/ui"
 import { PostDescription } from "@/05_entities/post-description/ui"
@@ -19,6 +18,7 @@ import { PostNotAllowToEditAlert } from "@/04_features/post-not-allow-to-edit-al
 import { PostComments } from "@/03_widgets/post-comments/ui"
 
 import styles from "./post-read.module.scss"
+import { mapPostToGallery } from "@/06_shared/lib/other"
 
 type TProps = {
   post: TPost
@@ -29,12 +29,7 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
     return <></>
   }
 
-  const gallery: TImage[] = [
-    {
-      src: post.image ?? "",
-      alt: post.title,
-    },
-  ]
+  const gallery = mapPostToGallery(post)
 
   return (
     <Container className={styles.component}>

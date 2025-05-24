@@ -1,5 +1,3 @@
-"use client"
-
 import { Modal } from "antd"
 import { FC, PropsWithChildren } from "react"
 
@@ -9,7 +7,7 @@ type TConfirmModalProps = {
   isOpen: boolean
   okText?: string
   cancelText?: string
-  handleOk: () => Promise<void>
+  handleOk: () => Promise<void> | void
   handleCancel: () => void
 } & PropsWithChildren
 
