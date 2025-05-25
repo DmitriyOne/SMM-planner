@@ -25,8 +25,8 @@ export class UsersController {
 
   @HttpCode(200)
   @Get(PREFIX.ALL)
-  @Roles('admin')
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin') })
+  @Roles('super_admin')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async findAll() {
@@ -90,9 +90,9 @@ export class UsersController {
   }
 
   @Patch(PREFIX.UPDATE_ROLE)
-  @Roles(ERole.admin)
+  @Roles(ERole.super_admin)
   @ApiBearerAuth()
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin') })
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT("super_admin") })
   @ApiOkResponse({ type: UpdateUserRoleResponseDto })
   async updateUserRole(
     @Param('id') id: string,

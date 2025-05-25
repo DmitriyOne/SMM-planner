@@ -13,4 +13,10 @@ export const usersMock: Partial<User>[] = [
     name: 'User 2',
     role: 'reader',
   },
+  {
+    email: 'admin@gmail.com',
+    password: 'WEl548',
+    name: 'User 3',
+    role: "super_admin",
+  }
 ]
