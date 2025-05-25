@@ -5,5 +5,5 @@ export const isUserAllowToEditPost = (
   userId: string | null | undefined,
   postAuthorId: string | null | undefined,
 ) => {
-  return userRole === "admin" || userId === postAuthorId
+  return userRole === "super_admin" || userRole === "admin" || userId === postAuthorId
 }

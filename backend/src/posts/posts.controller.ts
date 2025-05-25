@@ -1,15 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  HttpCode,
-  ParseIntPipe,
-  Get,
-  HttpStatus,
-} from '@nestjs/common'
+import { Controller, Post, Body, Patch, Param, Delete, HttpCode, ParseIntPipe, Get, HttpStatus } from '@nestjs/common'
 import { PostsService } from './posts.service'
 import { CreatePostDto } from './dto/create-post.dto'
 import { UpdatePostDto } from './dto/update-post.dto'
@@ -43,9 +32,9 @@ export class PostsController {
   }
 
   @Post(PREFIX.CREATE)
-  @Roles('admin', 'editor')
+  @Roles('super_admin', 'admin', 'editor')
   @ApiBearerAuth()
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin', 'admin', 'editor') })
   @ApiOkResponse({ type: PostEntity })
   async create(@Body() createPostDto: CreatePostDto, @CurrentUser() currentUser: UserEntity) {
     await this.postsService.validateUniqueTitle(createPostDto.title)
@@ -63,8 +52,8 @@ export class PostsController {
   }
 
   @Patch(PREFIX.ID)
-  @Roles('admin', 'editor')
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
+  @Roles('super_admin', 'admin', 'editor')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin', 'admin', 'editor') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: UpdatePostResponseDto })
   async update(
@@ -73,7 +62,7 @@ export class PostsController {
     @CurrentUser() currentUser: UserEntity,
   ): Promise<UpdatePostResponseDto> {
     const post = await this.postsService.validatePostExists(id)
-    checkOwnership(post.authorId, currentUser.id, 'post')
+    checkOwnership(post.authorId, currentUser.id, 'post', currentUser.role)
     await this.postsService.validateUniqueTitle(updatePostDto.title)
     await this.postsService.update(id, updatePostDto)
 
@@ -81,8 +70,8 @@ export class PostsController {
   }
 
   @Delete(PREFIX.ID)
-  @Roles('admin', 'editor')
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
+  @Roles('super_admin', 'admin', 'editor')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin', 'admin', 'editor') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: DeletePostResponseDto })
   async remove(
@@ -90,7 +79,7 @@ export class PostsController {
     @CurrentUser() currentUser: UserEntity,
   ): Promise<DeletePostResponseDto> {
     const post = await this.postsService.validatePostExists(id)
-    checkOwnership(post.authorId, currentUser.id, 'post')
+    checkOwnership(post.authorId, currentUser.id, 'post', currentUser.role)
     await this.postsService.remove(id)
     return { message: POST_DELETED_SUCCESS_MSG(id) }
   }

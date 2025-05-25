@@ -34,7 +34,7 @@ export const Role: FC<TProps> = ({ role, isLoading }) => {
           </Tag>
         )}
       </div>
-      {!isLoading && role !== "admin" && (
+      {!isLoading && role !== "admin" && role !== "super_admin" && (
         <Paragraph
           className={styles.info}
           type='secondary'

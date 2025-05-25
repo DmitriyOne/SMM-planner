@@ -1,4 +1,5 @@
 export const ERole = {
+  super_admin: "super_admin",
   admin: "admin",
   reader: "reader",
   editor: "editor",
