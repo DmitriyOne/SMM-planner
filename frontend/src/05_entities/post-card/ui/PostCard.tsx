@@ -13,21 +13,25 @@ import { PostDate } from "@/05_entities/post-date/ui"
 import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
 
 import styles from "./post-card.module.scss"
+import classNames from "classnames"
 
 type TProps = {
+  className?: string
   post: TPost
 }
 
-export const PostCard: FC<TProps> = ({ post }) => {
+export const PostCard: FC<TProps> = ({ className, post }) => {
   if (!post) {
     return <></>
   }
 
   const postHref = paths.post_read(post.id.toString())
 
+  const componentClassName = classNames(styles.component, className)
+
   return (
     <Card
-      className={styles.component}
+      className={componentClassName}
       title={post.title}
       extra={<ReadMore href={postHref} />}
       styles={CARD_STYLES}
