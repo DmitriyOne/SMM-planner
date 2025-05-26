@@ -1,4 +1,4 @@
-import { POST_QUERY_PARAMS } from "../query-params"
+import { POST_QUERY_PARAMS, TAG_QUERY_PARAMS } from "../query-params"
 
 export const paths = {
   home: "/",
@@ -8,6 +8,14 @@ export const paths = {
   profile: "/dashboard/profile",
   settings: "/dashboard/settings",
   tags: "/tags",
+
+  // Get the URL for the tag read page
+  tag_read: (id: string) => `/tags/${id}`,
+
+  // Get the URL for the tag edit page
+  tag_edit: (id: string) => `/tags/${id}/edit`,
+  tag_edit_not_allow: (id: string) =>
+    `/tags/${id}?${TAG_QUERY_PARAMS.not_allow_to_edit}=true`,
 
   // Get the URL for the post read page
   post_read: (id: string) => `/post/${id}`,
