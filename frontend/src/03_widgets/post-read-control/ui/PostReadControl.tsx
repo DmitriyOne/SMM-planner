@@ -3,12 +3,12 @@ import { DeletePost } from "@/04_features/delete-post/ui"
 import { LinkEdit } from "@/06_shared/ui/link-edit/ui"
 import { paths } from "@/06_shared/config/routing"
 import classNames from "classnames"
-
-import { isPostAuthor } from "@/05_entities/post/lib"
-
-import styles from "./post-read-control.module.scss"
 import { TPost } from "@/05_entities/post/model/types"
 import { getAuthorizedUserByToken } from "@/05_entities/user/lib"
+
+import { isAuthor } from "@/05_entities/post/lib"
+
+import styles from "./post-read-control.module.scss"
 
 type TProps = {
   post: TPost
@@ -17,9 +17,12 @@ type TProps = {
 
 export const PostReadControl: FC<TProps> = async ({ post, className }) => {
   const user = await getAuthorizedUserByToken()
-  const isAuthor = isPostAuthor(post.authorId, user?.id)
+  const author = isAuthor(post.authorId, user?.id)
 
-  if (!isAuthor) {
+  const canSeeControls =
+    author || user?.role === "admin" || user?.role === "super_admin"
+
+  if (!canSeeControls) {
     return <></>
   }
 
