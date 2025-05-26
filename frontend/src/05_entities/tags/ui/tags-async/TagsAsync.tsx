@@ -12,6 +12,7 @@ type TProps = {
   className?: string
   tagClassName?: string
   isAllTagsLink?: boolean
+  isLink?: boolean
 } & PropsWithChildren
 
 export const TagsAsync: FC<TProps> = ({
@@ -19,6 +20,7 @@ export const TagsAsync: FC<TProps> = ({
   className,
   tagClassName,
   isAllTagsLink,
+  isLink,
   children,
 }) => {
   const allTags = use(getTags)
@@ -30,6 +32,7 @@ export const TagsAsync: FC<TProps> = ({
       tags={visibleTags}
       className={className}
       tagComponentClassName={tagClassName}
+      isLink={isLink}
     >
       {children}
 
