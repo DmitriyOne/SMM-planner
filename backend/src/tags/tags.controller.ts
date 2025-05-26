@@ -29,11 +29,11 @@ export class TagsController {
   }
 
   @Get(PREFIX.ID)
-  @ApiBearerAuth()
+  @IsPublic()
   @ApiOkResponse({ type: TagEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const tag = await this.tagsService.validateTagExists(id)
-    return tag
+    return new TagEntity(tag)
   }
 
   @Post(PREFIX.CREATE)
