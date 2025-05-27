@@ -1,0 +1,11 @@
+.component {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.item {
+  width: 100%;
+  max-width: 385px;
+}

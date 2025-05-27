@@ -1,0 +1,14 @@
+.component {
+  display: flex;
+  align-items: center;
+}
+
+.skeletonContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.skeleton {
+  display: block;
+}

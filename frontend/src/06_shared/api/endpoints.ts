@@ -1,0 +1,68 @@
+const GLOBAL_PREFIXES = {
+  BASE: "/api",
+  VERSION: "/v1",
+  AUTH: "/auth",
+  USERS: "/users",
+  POSTS: "/posts",
+  TAGS: "/tags",
+  COMMENTS: "/comments",
+}
+
+const GLOBAL_NEXTJS_PREFIX = {
+  BASE: "/api",
+  AUTH: "/auth",
+  LOGOUT: "/logout",
+  GET_TOKEN: "/get-token",
+}
+
+const BASE_GLOBAL_PREFIX = GLOBAL_PREFIXES.BASE + GLOBAL_PREFIXES.VERSION
+
+export const ENDPOINTS = {
+  LOGIN: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.AUTH}/login`,
+  REGISTER: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.AUTH}/register`,
+  LOGOUT: `${GLOBAL_NEXTJS_PREFIX.BASE + GLOBAL_NEXTJS_PREFIX.AUTH + GLOBAL_NEXTJS_PREFIX.LOGOUT}`,
+  GET_TOKEN: `${GLOBAL_NEXTJS_PREFIX.BASE + GLOBAL_NEXTJS_PREFIX.AUTH + GLOBAL_NEXTJS_PREFIX.GET_TOKEN}`,
+
+  POSTS_ALL: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/all`,
+  POSTS_CREATE: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/create`,
+  POST_BY_ID: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
+  POST_UPDATE: (id: number) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
+  POST_DELETE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/${id}`,
+  POSTS_BY_TAG_ID: (tagId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.POSTS}/by-tag-id/${tagId}`,
+
+  USER_ALL: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/all`,
+  USER_ME: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/me`,
+  USER_BY_ID: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_UPDATE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_CHANGE_PASSWORD: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/change-password`,
+  USER_DELETE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}`,
+  USER_UPDATE_ROLE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.USERS}/${id}/role`,
+
+  TAGS_ALL: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/all`,
+  TAG_CREATE: `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/create`,
+  TAG_BY_ID: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
+  TAG_UPDATE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
+  TAG_DELETE: (id: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.TAGS}/${id}`,
+
+  COMMENTS_ALL: (postId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/all`,
+  COMMENT_CREATE: (postId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/create`,
+  COMMENT_UPDATE: (postId: string, commentId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/${commentId}`,
+  COMMENT_DELETE: (postId: string, commentId: string) =>
+    `${BASE_GLOBAL_PREFIX + GLOBAL_PREFIXES.COMMENTS}/${postId}/${commentId}`,
+
+  UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+}

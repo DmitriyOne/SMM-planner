@@ -1,0 +1,22 @@
+.component {
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.button {
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

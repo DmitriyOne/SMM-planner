@@ -1,0 +1,8 @@
+node_modules/
+.next/
+logs/
+*.log
+coverage/
+*.tmp
+*.temp
+out/

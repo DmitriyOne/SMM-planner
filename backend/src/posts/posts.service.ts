@@ -14,7 +14,7 @@ export class PostsService {
   findAll(findPostsDto: FindPostsDto) {
     if (!findPostsDto || Object.keys(findPostsDto).length === 0) {
       return this.prismaService.post.findMany({
-        include: { tags: true },
+        include: { tags: true, author: true },
       })
     }
 
@@ -29,7 +29,14 @@ export class PostsService {
             : {},
         ],
       },
-      include: { tags: true },
+      include: { tags: true, author: true },
+    })
+  }
+
+  findByTagId(tagId: number) {
+    return this.prismaService.post.findMany({
+      where: { tags: { some: { id: tagId } } },
+      include: { tags: true, author: true },
     })
   }
 
@@ -59,7 +66,7 @@ export class PostsService {
   findOne(id: number) {
     return this.prismaService.post.findUnique({
       where: { id },
-      include: { tags: true },
+      include: { tags: true, author: true },
     })
   }
 
@@ -76,12 +83,17 @@ export class PostsService {
         ...updatePost,
         ...(isValidArray(tags) && {
           tags: {
+            set: [],
             connectOrCreate: tags.map((tag) => ({
               where: { title: tag.title },
               create: { title: tag.title },
             })),
           },
         }),
+        ...(Array.isArray(tags) &&
+          tags.length === 0 && {
+            tags: { set: [] },
+          }),
       },
     })
   }

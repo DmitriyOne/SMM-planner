@@ -14,6 +14,7 @@ import { UserEntity } from '../users/entities/user.entity'
 import { Roles } from '../common/decorators/roles.decorator'
 import { checkOwnership } from '../utils/authorization.utils'
 import { WHO_CAN_ACCESS_THIS_ENDPOINT } from '../constants/endpoint.constant'
+import { IsPublic } from 'src/common/decorators/is-public.decorator'
 
 @Controller(PREFIX.TAGS)
 @ApiTags(capitalizeFirstLetter(PREFIX.TAGS))
@@ -21,23 +22,23 @@ export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
 
   @Get(PREFIX.ALL)
-  @ApiBearerAuth()
+  @IsPublic()
   @ApiOkResponse({ type: TagEntity, isArray: true })
   findAll() {
     return this.tagsService.findAll()
   }
 
   @Get(PREFIX.ID)
-  @ApiBearerAuth()
+  @IsPublic()
   @ApiOkResponse({ type: TagEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const tag = await this.tagsService.validateTagExists(id)
-    return tag
+    return new TagEntity(tag)
   }
 
   @Post(PREFIX.CREATE)
-  @Roles('admin', 'editor')
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
+  @Roles('super_admin', 'admin', 'editor')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin', 'admin', 'editor') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: CreateTagDto })
   async create(@Body() createTagDto: CreateTagDto, @CurrentUser() currentUser: UserEntity) {
@@ -46,9 +47,9 @@ export class TagsController {
   }
 
   @Patch(PREFIX.ID)
-  @Roles('admin', 'editor')
+  @Roles('super_admin', 'admin', 'editor')
   @ApiBearerAuth()
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin', 'admin', 'editor') })
   @ApiOkResponse({ type: UpdateTagResponseDto })
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -56,7 +57,7 @@ export class TagsController {
     @CurrentUser() currentUser: UserEntity,
   ): Promise<UpdateTagResponseDto> {
     const tag = await this.tagsService.validateTagExists(id)
-    checkOwnership(tag.authorId, currentUser.id, 'tag')
+    checkOwnership(tag.authorId, currentUser.id, 'tag', currentUser.role)
     await this.tagsService.validateUniqueTitle(updateTagDto.title)
     await this.tagsService.update(id, updateTagDto)
 
@@ -64,16 +65,16 @@ export class TagsController {
   }
 
   @Delete(PREFIX.ID)
-  @Roles('admin', 'editor')
+  @Roles('super_admin', 'admin', 'editor')
   @ApiBearerAuth()
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin', 'editor') })
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin', 'admin', 'editor') })
   @ApiOkResponse({ type: DeleteTagResponseDto })
   async remove(
     @Param('id', ParseIntPipe) id: number,
     @CurrentUser() currentUser: UserEntity,
   ): Promise<DeleteTagResponseDto> {
     const tag = await this.tagsService.validateTagExists(id)
-    checkOwnership(tag.authorId, currentUser.id, 'tag')
+    checkOwnership(tag.authorId, currentUser.id, 'tag', currentUser.role)
     await this.tagsService.remove(id)
     return { message: TAG_REMOVED_SUCCESS_MSG(id) }
   }
