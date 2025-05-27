@@ -11,6 +11,7 @@ import { TagReadControl } from "@/03_widgets/tag-read-control/ui"
 import { TagPostList } from "@/04_features/tag-post-list/ui"
 import { getPostsByTagId } from "@/05_entities/post/api"
 import { PostCardListSkeleton } from "@/03_widgets/post-card-list/ui"
+import { NotAllowToEditAlert } from "@/04_features/not-allow-to-edit-alert/ui"
 
 import styles from "./tag-read.module.scss"
 
@@ -21,6 +22,7 @@ type TProps = {
 export const TagReadPage: FC<TProps> = ({ tag }) => {
   return (
     <Container className={styles.component}>
+      <NotAllowToEditAlert />
       <Breadcrumbs
         type='tag_read'
         params={{ tagId: tag.id.toString() }}
