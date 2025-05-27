@@ -32,6 +32,7 @@ export const PopularTags: FC<TProps> = ({
 
       <Suspense fallback={<SkeletonTags />}>
         <TagsAsync
+          isLink
           getTags={getTags()}
           isAllTagsLink={isAllTagsLink}
         />

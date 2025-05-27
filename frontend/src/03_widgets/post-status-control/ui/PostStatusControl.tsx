@@ -1,7 +1,7 @@
 import { PostStatus } from "@/05_entities/post-status/ui"
 import { SwitchPostPublish } from "@/04_features/switch-post-publish/ui"
 import { FC } from "react"
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import { SwitchPostApprove } from "@/04_features/switch-post-approve/ui"
 
 import styles from "./post-status-control.module.scss"

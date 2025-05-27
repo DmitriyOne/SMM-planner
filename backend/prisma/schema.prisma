@@ -37,6 +37,7 @@ model User {
 }
 
 enum ERole {
+  super_admin
   admin
   editor
   reader

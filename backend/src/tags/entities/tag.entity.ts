@@ -5,6 +5,14 @@ import { PostEntity } from '../../posts/entities/post.entity'
 import { UserEntity } from '../../users/entities/user.entity'
 
 export class TagEntity implements Tag {
+  constructor({ author, ...data }: Partial<PostEntity>) {
+    Object.assign(this, data)
+
+    if (author) {
+      this.author = new UserEntity(author)
+    }
+  }
+
   @ApiProperty({ nullable: false, default: 1 })
   id: number
 

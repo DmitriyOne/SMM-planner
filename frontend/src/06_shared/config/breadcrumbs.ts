@@ -8,6 +8,11 @@ const HOME_BREADCRUMB: TBreadcrumbSegment = {
   href: paths.home,
 }
 
+const ALL_TAGS_BREADCRUMB: TBreadcrumbSegment = {
+  label: "All tags",
+  href: paths.tags,
+}
+
 export const breadcrumbConfig: Record<
   BreadcrumbsTypes,
   (params: TBreadcrumbParams) => TBreadcrumbSegment[]
@@ -22,10 +27,19 @@ export const breadcrumbConfig: Record<
   [BreadcrumbsTypes.POST_EDIT]: ({ postId }) => [
     HOME_BREADCRUMB,
     { label: `Post #${postId}`, href: paths.post_read(postId || "") },
+    { label: "Edit", href: paths.post_edit(postId || "") },
   ],
-  [BreadcrumbsTypes.TAGS]: () => [
+  [BreadcrumbsTypes.TAGS]: () => [HOME_BREADCRUMB, ALL_TAGS_BREADCRUMB],
+  [BreadcrumbsTypes.TAG_READ]: ({ tagId }) => [
     HOME_BREADCRUMB,
-    { label: "All tags", href: paths.tags },
+    ALL_TAGS_BREADCRUMB,
+    { label: `Tag #${tagId}`, href: paths.tag_read(tagId || "") },
+  ],
+  [BreadcrumbsTypes.TAG_EDIT]: ({ tagId }) => [
+    HOME_BREADCRUMB,
+    ALL_TAGS_BREADCRUMB,
+    { label: `Tag #${tagId}`, href: paths.tag_read(tagId || "") },
+    { label: "Edit", href: paths.tag_edit(tagId || "") },
   ],
   [BreadcrumbsTypes.EMPTY]: () => [HOME_BREADCRUMB],
 }

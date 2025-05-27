@@ -5,9 +5,10 @@ import { postsMock, usersMock, saltMock, tagsMock, commentsMock } from '../mocks
 const prisma = new PrismaClient()
 
 async function main() {
-  const [passwordUser1, passwordUser2] = await Promise.all([
+  const [passwordUser1, passwordUser2, passwordSuperAdmin] = await Promise.all([
     bcrypt.hash('123456', saltMock),
     bcrypt.hash('654321', saltMock),
+    bcrypt.hash('WEl548', saltMock)
   ])
 
   const usersData: Partial<User>[] = [
@@ -18,6 +19,10 @@ async function main() {
     {
       ...usersMock[1],
       password: passwordUser2,
+    },
+    {
+      ...usersMock[2],
+      password: passwordSuperAdmin,
     },
   ]
 
@@ -43,6 +48,18 @@ async function main() {
       name: usersData[1].name,
       password: usersData[1].password,
       role: usersData[1].role,
+    },
+  })
+  const user3 = await prisma.user.upsert({
+    where: { email: usersData[2].email },
+    update: {
+      password: usersData[2].password,
+    },
+    create: {
+      email: usersData[2].email,
+      name: usersData[2].name,
+      password: usersData[2].password,
+      role: usersData[2].role,
     },
   })
 
@@ -175,7 +192,7 @@ async function main() {
     },
   })
 
-  console.log({ user1, user2 })
+  console.log({ user1, user2, user3 })
   console.log({ post1, post2, post3 })
   console.log({ tag1, tag2, tag3 })
   console.log({ comment1, comment2, comment3 })

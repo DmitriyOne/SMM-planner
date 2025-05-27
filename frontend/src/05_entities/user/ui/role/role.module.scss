@@ -1,0 +1,23 @@
+.component {
+  display: flex;
+  align-items: center;
+}
+
+.skeletonContainer {
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.skeleton {
+  display: block;
+}
+
+.tag {
+  margin-left: 4px !important;
+}
+
+.info {
+  font-size: 10px !important;
+  margin-bottom: 0 !important;
+}

@@ -33,6 +33,13 @@ export class PostsService {
     })
   }
 
+  findByTagId(tagId: number) {
+    return this.prismaService.post.findMany({
+      where: { tags: { some: { id: tagId } } },
+      include: { tags: true, author: true },
+    })
+  }
+
   create(createPostDto: CreatePostDto, authorId: string) {
     const { tags, ...createPost } = createPostDto
 
@@ -76,12 +83,17 @@ export class PostsService {
         ...updatePost,
         ...(isValidArray(tags) && {
           tags: {
+            set: [],
             connectOrCreate: tags.map((tag) => ({
               where: { title: tag.title },
               create: { title: tag.title },
             })),
           },
         }),
+        ...(Array.isArray(tags) &&
+          tags.length === 0 && {
+            tags: { set: [] },
+          }),
       },
     })
   }

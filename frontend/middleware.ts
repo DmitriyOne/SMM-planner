@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Headers, HeadersValue } from "./src/06_shared/api/headers"
 import { HttpMessage, HttpStatusCode } from "./src/06_shared/api/http"
-import { AUTH_BASE_INVALID_DATA } from "./src/06_shared/api/auth"
+import { AUTH_MESSAGE } from "@/06_shared/config"
+import { getAccessTokenFromCookies } from "@/06_shared/lib/auth"
+import {
+  paths,
+  protectedRoutes,
+  publicRoutes,
+} from "@/06_shared/config/routing"
+import { matchesRoutePattern } from "@/06_shared/model/utils"
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
+  const url = req.nextUrl
+  const path = url.pathname
+  const fullUrl = url.origin + path
+
+  // 1. BASIC AUTH
   const authHeader = req.headers.get(Headers.AUTHORIZATION)
 
   if (!authHeader) {
@@ -23,7 +35,8 @@ export function middleware(req: NextRequest) {
   const validPassword = process.env.BASIC_AUTH_PASSWORD
 
   if (username !== validUsername || password !== validPassword) {
-    console.warn(AUTH_BASE_INVALID_DATA(username, password))
+    // eslint-disable-next-line no-console
+    console.warn(AUTH_MESSAGE.INVALID_DATA(username, password))
 
     return new NextResponse(HttpMessage.UNAUTHORIZED, {
       status: HttpStatusCode.UNAUTHORIZED,
@@ -33,5 +46,27 @@ export function middleware(req: NextRequest) {
     })
   }
 
+  // 2. ACCESS TOKEN AUTH
+  const token = await getAccessTokenFromCookies()
+
+  const isProtected = protectedRoutes.some((route) =>
+    matchesRoutePattern(route, fullUrl),
+  )
+  const isPublic = publicRoutes.some((route) =>
+    matchesRoutePattern(route, fullUrl),
+  )
+
+  if (isProtected && !token) {
+    return NextResponse.redirect(new URL(paths.login, req.url))
+  }
+
+  if (isPublic && token) {
+    return NextResponse.redirect(new URL(paths.profile, req.url))
+  }
+
   return NextResponse.next()
+}
+
+export const config = {
+  matcher: ["/((?!api|_next|.*\\.(?:png|jpg|jpeg|svg|ico|webmanifest|manifest|json)).*)"],
 }

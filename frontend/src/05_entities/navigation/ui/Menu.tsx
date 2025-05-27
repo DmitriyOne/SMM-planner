@@ -1,26 +1,26 @@
-import { customLinks } from "../config"
-import { MenuItem } from "./MenuItem"
+import { FC } from "react"
+
+import { MenuItem } from "@/06_shared/ui"
+import { IMenuItem } from "@/06_shared/model/types/menu"
 
 import styles from "./menu.module.scss"
+import classNames from "classnames"
 
-export const Menu = () => {
-  const currentUser: any = {
-    id: 1,
-    name: "John Doe",
-    username: "john",
-  }
+type TProps = {
+  className?: string
+  itemClassName?: string
+  items: IMenuItem[]
+}
 
-  const authorized = !!currentUser
-
-  const menuLinks = customLinks(authorized, currentUser?.username)
-
+export const Menu: FC<TProps> = ({ className, itemClassName, items }) => {
+  const componentClassName = classNames(styles.component, className)
   return (
-    <ul className={styles.component}>
-      {menuLinks.map((link) => (
+    <ul className={componentClassName}>
+      {items.map((item) => (
         <MenuItem
-          key={link.href}
-          username={currentUser?.username}
-          {...link}
+          key={item.href}
+          item={item}
+          className={itemClassName}
         />
       ))}
     </ul>

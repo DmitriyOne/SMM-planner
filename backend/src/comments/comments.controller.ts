@@ -13,6 +13,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator'
 import { UserEntity } from '../users/entities/user.entity'
 import { PostsService } from '../posts/posts.service'
 import { checkOwnership } from '../utils/authorization.utils'
+import { IsPublic } from '../common/decorators/is-public.decorator'
 
 @Controller(PREFIX.COMMENTS)
 @ApiTags(capitalizeFirstLetter(PREFIX.COMMENTS))
@@ -23,12 +24,12 @@ export class CommentsController {
   ) {}
 
   @Get(`${PREFIX.POST_ID}/${PREFIX.ALL}`)
-  @ApiBearerAuth()
+  @IsPublic()
   @ApiOkResponse({ type: CommentEntity, isArray: true })
   async findAll(@Param('postId', ParseIntPipe) id: number) {
     await this.postsService.validatePostExists(id)
-    const comments = await this.commentsService.findCommentsByPostId(id)
-    return comments
+    const allComments = await this.commentsService.findCommentsByPostId(id)
+    return allComments.map((comment) => new CommentEntity(comment))
   }
 
   @Post(`${PREFIX.POST_ID}/${PREFIX.CREATE}`)
@@ -66,8 +67,9 @@ export class CommentsController {
     @Param('id', ParseIntPipe) id: number,
     @CurrentUser() currentUser: UserEntity,
   ): Promise<DeleteCommentResponseDto> {
-    const tag = await this.postsService.validatePostExists(postId)
-    checkOwnership(tag.authorId, currentUser.id, 'comment')
+    await this.postsService.validatePostExists(postId)
+    const comment = await this.commentsService.findCommentById(id)
+    checkOwnership(comment.authorId, currentUser.id, 'comment')
     await this.commentsService.remove(id)
     return { message: COMMENT_REMOVED_SUCCESS_MSG(id) }
   }

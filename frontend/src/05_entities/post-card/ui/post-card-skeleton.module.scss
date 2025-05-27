@@ -1,0 +1,16 @@
+.tags {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+.author {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.date {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -15,9 +15,10 @@ type TProps = {
 export const PostGallery: FC<TProps> = ({ gallery, className }) => {
   const componentClass = classNames(styles.component, className)
 
-  const imageSrc = isValidArray(gallery)
-    ? gallery[0].src
-    : "/placeholder.jpg"
+  const imageSrc =
+    isValidArray(gallery) && gallery[0].src
+      ? gallery[0].src
+      : "/placeholder.jpg"
 
   return (
     <Image
