@@ -14,7 +14,7 @@ export class TagsService {
   }
 
   findOneById(id: number) {
-    return this.prismaService.tag.findUnique({ where: { id }, include: { posts: true } })
+    return this.prismaService.tag.findUnique({ where: { id }, include: { posts: true, author: true } })
   }
 
   findOneByTitle(title: string) {

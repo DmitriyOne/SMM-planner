@@ -15,6 +15,7 @@ type TProps = {
   onToggleEdit?: () => void
   getIconType?: (tag: TTag) => EIconType
   onTagClick?: (tag: TTag) => void
+  isLink?: boolean
 } & PropsWithChildren
 
 export const TagsStatic: FC<TProps> = ({
@@ -28,6 +29,7 @@ export const TagsStatic: FC<TProps> = ({
   children,
   getIconType,
   onTagClick,
+  isLink,
 }) => {
   return (
     <TagsList
@@ -37,6 +39,7 @@ export const TagsStatic: FC<TProps> = ({
       tagComponentClassName={tagClassName}
       getIconType={getIconType}
       onTagClick={onTagClick}
+      isLink={isLink}
     >
       {children}
       {isEditable && (

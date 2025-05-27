@@ -83,4 +83,12 @@ export class PostsController {
     await this.postsService.remove(id)
     return { message: POST_DELETED_SUCCESS_MSG(id) }
   }
+
+  @Get(PREFIX.BY_TAG_ID)
+  @IsPublic()
+  @ApiOkResponse({ type: PostEntity })
+  async findByTagId(@Param('tagId', ParseIntPipe) tagId: number) {
+    const posts = await this.postsService.findByTagId(tagId)
+    return posts.map((post) => new PostEntity(post))
+  }
 }

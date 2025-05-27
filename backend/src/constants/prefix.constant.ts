@@ -16,6 +16,7 @@ export const PREFIX = {
   POST_ID: ':postId',
   ME: 'me',
   CHANGE_PASSWORD: 'change-password',
+  BY_TAG_ID: 'by-tag-id/:tagId',
   getGlobal() {
     return `${this.BASE_GLOBAL}/${this.VERSION}`
   },
