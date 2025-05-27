@@ -3,23 +3,26 @@ import { DeletePost } from "@/04_features/delete-post/ui"
 import { LinkEdit } from "@/06_shared/ui/link-edit/ui"
 import { paths } from "@/06_shared/config/routing"
 import classNames from "classnames"
+import { TPost } from "@/05_entities/post/model/types"
+import { getAuthorizedUserByToken } from "@/05_entities/user/lib"
 
-import { isPostAuthor } from "@/05_entities/post/lib"
+import { isAuthor } from "@/05_entities/post/lib"
 
 import styles from "./post-read-control.module.scss"
-import { TPost } from "@/05_entities/post/model"
 
 type TProps = {
   post: TPost
   className?: string
 }
 
-const fake_user_id = "410afe22-e273-4272-8878-d6f7c5fe5a8b"
+export const PostReadControl: FC<TProps> = async ({ post, className }) => {
+  const user = await getAuthorizedUserByToken()
+  const author = isAuthor(post.authorId, user?.id)
 
-export const PostReadControl: FC<TProps> = ({ post, className }) => {
-  const isAuthor = isPostAuthor(post.authorId, fake_user_id)
+  const canSeeControls =
+    author || user?.role === "admin" || user?.role === "super_admin"
 
-  if (!isAuthor) {
+  if (!canSeeControls) {
     return <></>
   }
 

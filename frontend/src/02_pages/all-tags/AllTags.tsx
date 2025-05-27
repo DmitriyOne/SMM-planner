@@ -18,6 +18,7 @@ export const AllTagsPage: FC<TProps> = ({ tags }) => {
         params={{ allTags: true }}
       />
       <TagsStatic
+        isLink
         className={styles.tagsContainer}
         tags={tags}
         tagClassName={styles.tag}

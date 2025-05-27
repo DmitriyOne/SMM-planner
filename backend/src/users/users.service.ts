@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
+import { UpdateUserDto, UpdateUserPasswordDto, UpdateUserRoleDto } from './dto/update-user.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 import { ConfigService } from '@nestjs/config'
@@ -9,7 +9,7 @@ import { AuthRegisterDto } from '../auth/dto/register.dto'
 import { USER_HAS_THIS_ROLE_MSG, USER_NOT_FOUND_BY_ID_MSG } from '../constants/user.constant'
 import { UserEntity } from './entities/user.entity'
 import { toUpperCaseString } from '../utils/string.utils'
-import { AUTH_EMAIL_ALREADY_EXISTS_MSG } from '../constants/auth.constant'
+import { AUTH_EMAIL_ALREADY_EXISTS_MSG, AUTH_INVALID_PASSWORD_MSG } from '../constants/auth.constant'
 
 @Injectable()
 export class UsersService {
@@ -37,14 +37,19 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    if (updateUserDto.password) {
-      const hashedPassword = await this.hashPassword(updateUserDto.password)
-      updateUserDto.password = hashedPassword
-    }
-
     return this.prismaService.user.update({
       where: { id },
       data: updateUserDto,
+    })
+  }
+
+  async changePassword(id: string, updateUserDto: UpdateUserPasswordDto) {
+    const hashedPassword = await this.hashPassword(updateUserDto.newPassword)
+    return this.prismaService.user.update({
+      where: { id },
+      data: {
+        password: hashedPassword,
+      },
     })
   }
 
@@ -66,8 +71,11 @@ export class UsersService {
     return bcrypt.hash(password, salt)
   }
 
-  async comparePassword(plainPassword: string, hashPassword: string): Promise<boolean> {
-    return bcrypt.compare(plainPassword, hashPassword)
+  async comparePassword(plainPassword: string, hashPassword: string) {
+    const isPasswordValid = await bcrypt.compare(plainPassword, hashPassword)
+    if (!isPasswordValid) {
+      throw new UnauthorizedException(AUTH_INVALID_PASSWORD_MSG)
+    }
   }
 
   async validateUserIdExists(id: string) {

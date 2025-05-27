@@ -1,0 +1,55 @@
+.component {
+  background-color: #f7f7f7;
+  min-height: 500px;
+  padding: 20px 30px 10px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.nameSkeleton {
+  display: block;
+  width: 100%;
+  max-width: 100px;
+  margin-left: 4px;
+}
+
+.roleTag {
+  margin-left: 4px !important;
+}
+
+.roleDescription {
+  font-size: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+.idContainer {
+  position: absolute;
+  top: 32px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.id {
+  display: block;
+  width: 100%;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 4px;
+
+  &.loading {
+    display: flex;
+  }
+}

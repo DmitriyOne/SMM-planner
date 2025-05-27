@@ -4,7 +4,7 @@ import { AuthLoginDto } from './dto/login.dto'
 import { AuthEntity } from './entities/auth.entity'
 import { JwtService } from '@nestjs/jwt'
 import { IJwtPayload } from '../common/interfaces/jwt.interface'
-import { AUTH_INVALID_PASSWORD_MSG, AUTH_NOT_FOUND_BY_EMAIL_MSG } from '../constants/auth.constant'
+import { AUTH_NOT_FOUND_BY_EMAIL_MSG } from '../constants/auth.constant'
 import { AuthRegisterDto } from './dto/register.dto'
 
 @Injectable()
@@ -41,11 +41,7 @@ export class AuthService {
       throw new UnauthorizedException(AUTH_NOT_FOUND_BY_EMAIL_MSG(email))
     }
 
-    const isPasswordValid = await this.userService.comparePassword(password, user.password)
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException(AUTH_INVALID_PASSWORD_MSG)
-    }
+    await this.userService.comparePassword(password, user.password)
 
     const payload: IJwtPayload = { sub: user.id, email: user.email }
 

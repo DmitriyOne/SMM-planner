@@ -10,7 +10,9 @@
     "autoincrement",
     "healthcheck",
     "isready",
-    "pgdata"
+    "pgdata",
+    "Sider",
+    "textareas"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "always",

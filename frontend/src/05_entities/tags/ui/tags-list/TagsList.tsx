@@ -11,6 +11,8 @@ import { EIconType } from "@/06_shared/config/enums"
 import Text from "antd/es/typography/Text"
 
 import styles from "./tags-list.module.scss"
+import Link from "next/link"
+import { paths } from "@/06_shared/config/routing"
 
 type TProps = {
   isLoading?: boolean
@@ -19,6 +21,7 @@ type TProps = {
   tagComponentClassName?: string
   getIconType?: (tag: TTag) => EIconType
   onTagClick?: (tag: TTag) => void
+  isLink?: boolean
 } & PropsWithChildren
 
 export const TagsList: FC<TProps> = ({
@@ -28,6 +31,7 @@ export const TagsList: FC<TProps> = ({
   isLoading,
   getIconType,
   onTagClick,
+  isLink,
   children,
 }) => {
   if (isLoading) {
@@ -53,7 +57,12 @@ export const TagsList: FC<TProps> = ({
           id={tag.id}
           componentClassName={tagComponentClassName}
         >
-          {tag.title}
+          {isLink ? (
+            <Link href={paths.tag_read(tag.id?.toString())}>{tag.title}</Link>
+          ) : (
+            tag.title
+          )}
+
           {getIconType && (
             <AddRemoveButton
               type={getIconType(tag)}

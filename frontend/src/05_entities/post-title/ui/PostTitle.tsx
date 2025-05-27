@@ -1,4 +1,4 @@
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import Title from "antd/es/typography/Title"
 import classNames from "classnames"
 import { FC, PropsWithChildren } from "react"

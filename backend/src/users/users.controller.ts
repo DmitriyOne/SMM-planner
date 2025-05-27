@@ -1,6 +1,6 @@
 import { Controller, Body, Patch, Param, Delete, HttpCode, Get } from '@nestjs/common'
 import { UsersService } from './users.service'
-import { UpdateUserDto, UpdateUserRoleDto } from './dto/update-user.dto'
+import { UpdateUserDto, UpdateUserPasswordDto, UpdateUserRoleDto } from './dto/update-user.dto'
 import { PREFIX } from '../constants/prefix.constant'
 import { capitalizeFirstLetter, toUpperCaseString } from '../utils/string.utils'
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
@@ -25,13 +25,25 @@ export class UsersController {
 
   @HttpCode(200)
   @Get(PREFIX.ALL)
-  @Roles('admin')
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin') })
+  @Roles('super_admin')
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('super_admin') })
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
   async findAll() {
     const allUsers = await this.usersService.findAll()
     return allUsers.map((user) => new UserEntity(user))
+  }
+
+  @HttpCode(200)
+  @Patch(PREFIX.CHANGE_PASSWORD)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: UpdateUserResponseDto })
+  async changePassword(@Body() updateUserPasswordDto: UpdateUserPasswordDto, @CurrentUser() currentUser: UserEntity) {
+    const user = await this.usersService.validateUserIdExists(currentUser.id)
+    checkOwnership(user.id, currentUser.id, 'user')
+    await this.usersService.comparePassword(updateUserPasswordDto.oldPassword, user.password)
+    const updatedUser = await this.usersService.changePassword(currentUser.id, updateUserPasswordDto)
+    return { message: USER_UPDATED_SUCCESS_MSG(updatedUser.name) }
   }
 
   @Patch(PREFIX.ID)
@@ -46,6 +58,14 @@ export class UsersController {
     checkOwnership(user.id, currentUser.id, 'user')
     const updatedUser = await this.usersService.update(id, updateUserDto)
     return { message: USER_UPDATED_SUCCESS_MSG(updatedUser.name) }
+  }
+
+  @HttpCode(200)
+  @Get(PREFIX.ME)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: UserEntity })
+  async findOne(@CurrentUser() currentUser: UserEntity) {
+    return new UserEntity(currentUser)
   }
 
   @HttpCode(200)
@@ -70,9 +90,9 @@ export class UsersController {
   }
 
   @Patch(PREFIX.UPDATE_ROLE)
-  @Roles(ERole.admin)
+  @Roles(ERole.super_admin)
   @ApiBearerAuth()
-  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT('admin') })
+  @ApiOperation({ summary: WHO_CAN_ACCESS_THIS_ENDPOINT("super_admin") })
   @ApiOkResponse({ type: UpdateUserRoleResponseDto })
   async updateUserRole(
     @Param('id') id: string,

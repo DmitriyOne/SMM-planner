@@ -1,9 +1,8 @@
-import { TPost } from "@/05_entities/post/model"
+import { TPost } from "@/05_entities/post/model/types"
 import { FC } from "react"
 import { Container } from "@/06_shared/ui/container"
 import { Col, Row } from "antd"
 import { PostGallery } from "@/05_entities/post-gallery/ui"
-import { TImage } from "@/06_shared/model/types"
 
 import { PostTitle } from "@/05_entities/post-title/ui"
 import { PostDescription } from "@/05_entities/post-description/ui"
@@ -15,8 +14,11 @@ import { TagsStatic } from "@/05_entities/tags/ui/tags-static"
 
 import { PostReadControl } from "@/03_widgets/post-read-control/ui"
 import { Breadcrumbs } from "@/03_widgets/breadcrumbs/ui"
+import { NotAllowToEditAlert } from "@/04_features/not-allow-to-edit-alert/ui"
+import { PostComments } from "@/03_widgets/post-comments/ui"
 
 import styles from "./post-read.module.scss"
+import { mapPostToGallery } from "@/06_shared/lib/other"
 
 type TProps = {
   post: TPost
@@ -27,15 +29,11 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
     return <></>
   }
 
-  const gallery: TImage[] = [
-    {
-      src: post.image ?? "",
-      alt: post.title,
-    },
-  ]
+  const gallery = mapPostToGallery(post)
 
   return (
     <Container className={styles.component}>
+      <NotAllowToEditAlert />
       <Breadcrumbs
         type='post_read'
         params={{ postId: post.id.toString() }}
@@ -82,6 +80,11 @@ export const PostReadPage: FC<TProps> = ({ post }) => {
             date={post.updatedAt}
           />
           <PostReadControl post={post} />
+        </Col>
+      </Row>
+      <Row>
+        <Col className={styles.colComments}>
+          <PostComments postId={post.id} />
         </Col>
       </Row>
     </Container>
