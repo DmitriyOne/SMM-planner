@@ -12,6 +12,7 @@ export default isSentryEnabled
       // For all available options, see:
       // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
+      authToken: process.env.SENTRY_AUTH_TOKEN,
       org: "dmitriy-f",
       project: "smm-frontend",
 
