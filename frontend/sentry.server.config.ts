@@ -8,7 +8,7 @@ if (process.env.SENTRY_DISABLED === "true") {
   console.log("Sentry is disabled in development mode")
 } else {
   Sentry.init({
-    dsn: "https://f3737ca8970891b6323c2b1410f64597@o4508913811718144.ingest.us.sentry.io/4509394785468416",
+    dsn: process.env.SENTRY_DNS,
 
     // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
     tracesSampleRate: 1,
