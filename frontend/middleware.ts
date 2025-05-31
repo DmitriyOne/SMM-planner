@@ -68,5 +68,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|.*\\.(?:png|jpg|jpeg|svg|ico|webmanifest|manifest|json)).*)"],
+  matcher: [
+    "/((?!api/|_sentry|sentry|monitoring|envelope|_next|.*\\.(?:png|jpg|jpeg|svg|ico|webmanifest|manifest|json|map)).*)",
+  ],
 }
