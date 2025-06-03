@@ -52,7 +52,7 @@ export default function Page() {
           Click the button below, and view the sample error on the Sentry{" "}
           <a
             target='_blank'
-            href='https://dmitriy-f.sentry.io/issues/?project=4509394785468416'
+            href='https://smm-sentry.sentry.io/issues/?project=4509433863667792'
           >
             Issues Page
           </a>
@@ -120,6 +120,7 @@ export default function Page() {
         {`
         main {
           display: flex;
+          min-height: 100vh;
           flex-direction: column;
           justify-content: center;
           align-items: center;
