@@ -4,7 +4,7 @@ A social media planning tool. A post goes through draft, approval and publish, a
 
 ## What it does
 
-- **Posts** with a title, description, image and tags. A post has two flags, `isApproved` and `isPublish`, so nothing goes live before it is approved.
+- **Posts** with a title, description, image and tags. A post has two flags, `isApproved` and `isPublish`, so it can be approved before it is published.
 - **Comments** on every post, so the author and an admin can discuss it before it is published.
 - **Roles:** `super_admin`, `admin`, `editor` and `reader`. New users start as `reader`; only a `super_admin` can change a role.
 - **Auth** with a bearer token. The API is documented in Swagger.
