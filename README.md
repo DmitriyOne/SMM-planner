@@ -1,70 +1,60 @@
-# Проект: SMM Planner
+# SMM Planner
 
-## Запуск контейнеров
+A social media planning tool. A post goes through draft, approval and publish, and four roles decide who can do what. The backend is NestJS with Prisma and PostgreSQL, with a Swagger API. The frontend is Next.js. Everything runs in Docker Compose.
 
-Для запуска всех Docker-контейнеров используйте команду:
+## What it does
+
+- **Posts** with a title, description, image and tags. A post has two flags, `isApproved` and `isPublish`, so nothing goes live before it is approved.
+- **Comments** on every post, so the author and an admin can discuss it before it is published.
+- **Roles:** `super_admin`, `admin`, `editor` and `reader`. New users start as `reader`; only a `super_admin` can change a role.
+- **Auth** with a bearer token. The API is documented in Swagger.
+
+## Run it
+
+Start all containers:
 
 ```bash
 docker-compose -f docker-compose.dev.yml up --build -d
 ```
 
-## Проверка запущенных контейнеров
-
-Убедитесь, что все контейнеры работают:
+Check that both containers are running:
 
 ```bash
 docker ps
 ```
 
-Вы должны увидеть 2 запущенных контейнера:
-- `next_frontend` (Next.js)
-- `nest_backend` (NestJS)
+You should see `next_frontend` (Next.js) and `nest_backend` (NestJS).
 
-## Порты сервисов
+| Service            | Port   |
+|--------------------|--------|
+| Backend (NestJS)   | `4000` |
+| Frontend (Next.js) | `3000` |
+| Prisma Studio      | `5555` |
 
-| Сервис                  | Порт  |
-|-------------------------|-------|
-| Backend (NestJS)        | `4000` |
-| Frontend (Next.js)      | `3000` |
+## Database
 
-## Запуск миграций Prisma
+Open a shell in the backend container:
 
-Чтобы применить миграции базы данных, выполните эти команды:
+```bash
+docker exec -it nest_backend sh
+```
 
-1. Зайдите в контейнер с бэкендом:
+Apply the migrations:
 
-   ```bash
-   docker exec -it nest_backend sh
-   ```
+```bash
+npx prisma migrate dev --name "init"
+```
 
-2. Примените миграции:
+Fill the database with example data:
 
-   ```bash
-   npx prisma migrate dev --name "init"
-   ```
+```bash
+npx prisma db seed
+```
 
-## Заполнение базы данных примерами
+The seed creates demo users with simple passwords. Use it for local development only, never on a real database.
 
-Чтобы заполнить базу данных тестовыми данными, выполните эти шаги:
-
-1. Зайдите в контейнер с бэкендом:
-
-   ```bash
-   docker exec -it nest_backend sh
-   ```
-
-2. Запустите скрипт заполнения базы данных:
-
-   ```bash
-   npx prisma db seed
-   ```
-   
-## Подключение к Prisma Studio
-
-Чтобы подключиться к Prisma Studio, выполните следующую команду:
+Open Prisma Studio at [http://localhost:5555](http://localhost:5555):
 
 ```bash
 npx prisma studio
 ```
-
-Это откроет Prisma Studio в браузере по адресу [http://localhost:5555](http://localhost:5555).
